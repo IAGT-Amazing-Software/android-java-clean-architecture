@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.innopro.android.sample.presentation">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.innopro.android.sample.presentation.AndroidApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".view.activity.SplashActivity"
+            android:noHistory="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.innopro.android.sample.presentation.view.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppThemeNoActionBar"/>
+
+        <activity
+            android:name="com.innopro.android.sample.presentation.view.activity.UserDetailsActivity"
+            android:label="@string/activity_title_user_details"
+            android:theme="@style/AppThemeNoActionBar"
+            android:parentActivityName="com.innopro.android.sample.presentation.view.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.innopro.android.sample.presentation.view.activity.MainActivity" />
+        </activity>
+
+
+        <activity
+            android:name="com.innopro.android.sample.presentation.view.activity.MessageListActivity"
+            android:label="@string/activity_title_message_list"
+            android:theme="@style/AppThemeNoActionBar"
+            android:parentActivityName="com.innopro.android.sample.presentation.view.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.innopro.android.sample.presentation.view.activity.MainActivity" />
+        </activity>
+
+        <activity
+            android:name="com.innopro.android.sample.presentation.view.activity.MessageDetailsActivity"
+            android:label="@string/activity_title_message_details"
+            android:theme="@style/AppThemeNoActionBar"
+            android:parentActivityName="com.innopro.android.sample.presentation.view.activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.innopro.android.sample.presentation.view.activity.MainActivity" />
+        </activity>
+
+    </application>
+
+</manifest>

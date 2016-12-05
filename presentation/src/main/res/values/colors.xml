@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="very_light_grey">#f2f2f2</color>
+    <color name="light_grey">#cccccc</color>
+    <color name="medium_grey">#808080</color>
+    <color name="dark_grey">#4d4d4d</color>
+    <color name="very_dark_grey">#1a1a1a</color>
+    <color name="black">#000000</color>
+
+    <color name="accept">#45D97B</color>
+    <color name="cancel">#DB2932</color>
+
+    <color name="app_color">#0A0A0A</color>
+    <color name="ripple_color">#4d4d4d</color>
+    <color name="toolbar_color">#262626</color>
+
+</resources>
