@@ -19,4 +19,4 @@ Libraries
 - AssertJVersion https://github.com/joel-costigliola/assertj-core
 - Mockito https://github.com/mockito/mockito
 - Espresso https://google.github.io/android-testing-support-library/docs/espresso/setup/
- 
+- RetroLambda https://github.com/orfjackal/retrolambda
