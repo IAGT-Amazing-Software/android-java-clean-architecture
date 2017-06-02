@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.hannesdorfmann.fragmentargs.FragmentArgs;
+import com.hannesdorfmann.fragmentargs.annotation.Arg;
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
@@ -30,7 +33,11 @@ import butterknife.OnClick;
 /**
  * Fragment that shows a list of Message.
  */
+@FragmentWithArgs
 public class MessageListFragment extends BaseFragment implements MessageListView {
+
+  @Arg
+  private int categoryId;
 
   /**
    * Interface for listening message list events.
@@ -67,6 +74,7 @@ public class MessageListFragment extends BaseFragment implements MessageListView
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     attachListener();
+    FragmentArgs.inject(this);
     this.getComponent(MessageComponent.class).inject(this);
   }
 
@@ -171,4 +179,12 @@ public class MessageListFragment extends BaseFragment implements MessageListView
               MessageListFragment.this.messageListPresenter.onMessageClicked(messageModel);
             }
           };
+
+
+  /**
+   * Variable sets
+   */
+  public void setCategoryId(int categoryId) {
+    this.categoryId = categoryId;
+  }
 }

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 android {
   defaultPublishConfig "debug"
@@ -42,18 +43,14 @@ dependencies {
   def testDependencies = rootProject.ext.dataTestDependencies
 
   compile project(':domain')
-  annotationProcessor dataDependencies.daggerCompiler
-  compile dataDependencies.dagger
-  compile dataDependencies.gson
   compile dataDependencies.rxJava
-  compile dataDependencies.rxAndroid
   compile dataDependencies.androidAnnotations
   compile dataDependencies.retrofit
   compile dataDependencies.rxRetrofit
   compile dataDependencies.retrofitGson
-
+/*
   testCompile testDependencies.junit
   testCompile testDependencies.assertj
   testCompile testDependencies.mockito
-  testCompile testDependencies.robolectric
+  testCompile testDependencies.robolectric*/
 }

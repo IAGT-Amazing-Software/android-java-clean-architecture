@@ -9,7 +9,7 @@ import com.innopro.android.sample.domain.repository.UserRepository;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * {@link UserRepository} for retrieving user data.

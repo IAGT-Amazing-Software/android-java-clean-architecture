@@ -38,7 +38,7 @@ public class CategoryDataStoreFactory {
   public CategoryDataStore create(int categoryId) {
     CategoryDataStore categoryDataStore;
 
-    if (!this.categoryCache.isExpired() && this.categoryCache.isCached(categoryId)) {
+    if (!this.categoryCache.isExpired(categoryId) && this.categoryCache.isCached(categoryId)) {
       categoryDataStore = new DiskCategoryDataStore(this.categoryCache);
     } else {
       categoryDataStore = createCloudDataStore();

@@ -9,8 +9,7 @@ import com.innopro.android.sample.data.repository.datasource.source.MessageDataS
 
 import java.util.List;
 
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
 
 /**
  * {@link MessageDataStore} implementation based on connections to the api (Cloud).
@@ -19,12 +18,6 @@ public class CloudCategoryDataStore implements CategoryDataStore {
 
   private final RestApi restApi;
   private final CategoryCache categoryCache;
-
-  private final Action1<CategoryEntity> saveToCacheAction = categoryEntity -> {
-    if (categoryEntity != null) {
-      CloudCategoryDataStore.this.categoryCache.put(categoryEntity);
-    }
-  };
 
   /**
    * Construct a {@link MessageDataStore} based on connections to the api (Cloud).
@@ -43,6 +36,6 @@ public class CloudCategoryDataStore implements CategoryDataStore {
 
 
   @Override public Observable<CategoryEntity> categoryEntityDetails(final int categoryId) {
-    return this.restApi.categoryEntityById(categoryId).doOnNext(saveToCacheAction);
+    return this.restApi.categoryEntityById(categoryId).doOnNext(categoryCache::put);
   }
 }

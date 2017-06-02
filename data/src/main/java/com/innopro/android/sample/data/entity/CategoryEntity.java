@@ -2,11 +2,15 @@ package com.innopro.android.sample.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
 /**
  * Category Entity used in the data layer.
  */
-public class CategoryEntity {
-
+public class CategoryEntity extends RealmObject{
+  @PrimaryKey
   @SerializedName("id")
   private int categoryId;
 

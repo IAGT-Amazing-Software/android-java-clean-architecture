@@ -7,7 +7,7 @@ import com.innopro.android.sample.data.repository.datasource.source.UserDataStor
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * {@link CategoryDataStore} implementation based on file system data store.

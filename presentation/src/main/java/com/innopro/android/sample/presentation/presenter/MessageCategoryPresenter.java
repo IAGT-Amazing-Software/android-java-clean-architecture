@@ -8,7 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.mapper.CategoryModelDataMapper;
 import com.innopro.android.sample.presentation.model.CategoryModel;
 import com.innopro.android.sample.presentation.view.MessageCategoryView;
@@ -23,7 +22,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class MessageCategoryPresenter implements Presenter {
 
   private MessageCategoryView viewListView;
@@ -47,7 +45,7 @@ public class MessageCategoryPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getMessageCategoryUseCase.unsubscribe();
+    this.getMessageCategoryUseCase.dispose();
     this.viewListView = null;
   }
 
@@ -100,12 +98,12 @@ public class MessageCategoryPresenter implements Presenter {
   }
 
   private void getMessageCategories() {
-    this.getMessageCategoryUseCase.execute(new CategoryListSubscriber());
+    this.getMessageCategoryUseCase.execute(new CategoryListSubscriber(),null);
   }
 
   private final class CategoryListSubscriber extends DefaultSubscriber<List<Category>> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       MessageCategoryPresenter.this.hideViewLoading();
     }
 

@@ -8,7 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.mapper.UserLoggedModelDataMapper;
 import com.innopro.android.sample.presentation.model.UserLoggedModel;
 import com.innopro.android.sample.presentation.view.UserLoggedView;
@@ -20,7 +19,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class UserLoggedPresenter implements Presenter {
 
   private UserLoggedView viewDetailsView;
@@ -44,7 +42,7 @@ public class UserLoggedPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getUserLoggedUseCase.unsubscribe();
+    this.getUserLoggedUseCase.dispose();
     this.viewDetailsView = null;
   }
 
@@ -92,12 +90,12 @@ public class UserLoggedPresenter implements Presenter {
   }
 
   private void getUserLogged() {
-    this.getUserLoggedUseCase.execute(new UserLoggedSubscriber());
+    this.getUserLoggedUseCase.execute(new UserLoggedSubscriber(),null);
   }
 
   private final class UserLoggedSubscriber extends DefaultSubscriber<UserLogged> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       UserLoggedPresenter.this.hideViewLoading();
     }
 

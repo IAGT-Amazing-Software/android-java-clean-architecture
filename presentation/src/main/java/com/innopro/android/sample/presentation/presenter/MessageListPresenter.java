@@ -8,7 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.mapper.MessageModelDataMapper;
 import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.MessageListView;
@@ -23,7 +22,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class MessageListPresenter implements Presenter {
 
   private MessageListView viewListView;
@@ -47,7 +45,7 @@ public class MessageListPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getMessageListUseCase.unsubscribe();
+    this.getMessageListUseCase.dispose();
     this.viewListView = null;
   }
 
@@ -100,12 +98,12 @@ public class MessageListPresenter implements Presenter {
   }
 
   private void getMessageList() {
-    this.getMessageListUseCase.execute(new MessageListSubscriber());
+    this.getMessageListUseCase.execute(new MessageListSubscriber(),null);
   }
 
   private final class MessageListSubscriber extends DefaultSubscriber<List<Message>> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       MessageListPresenter.this.hideViewLoading();
     }
 

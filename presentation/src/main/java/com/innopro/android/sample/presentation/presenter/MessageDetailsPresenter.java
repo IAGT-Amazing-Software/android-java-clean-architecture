@@ -6,9 +6,9 @@ import com.innopro.android.sample.domain.Message;
 import com.innopro.android.sample.domain.exception.DefaultErrorBundle;
 import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
+import com.innopro.android.sample.domain.interactor.GetMessageDetails;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.mapper.MessageModelDataMapper;
 import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.MessageDetailsView;
@@ -20,7 +20,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class MessageDetailsPresenter implements Presenter {
 
   private MessageDetailsView viewDetailsView;
@@ -44,24 +43,24 @@ public class MessageDetailsPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getMessageDetailsUseCase.unsubscribe();
+    this.getMessageDetailsUseCase.dispose();
     this.viewDetailsView = null;
   }
 
   /**
    * Initializes the presenter by start retrieving message details.
    */
-  public void initialize() {
-    this.loadMessageDetails();
+  public void initialize(int messageId) {
+    this.loadMessageDetails(messageId);
   }
 
   /**
    * Loads user details.
    */
-  private void loadMessageDetails() {
+  private void loadMessageDetails(int messageId) {
     this.hideViewRetry();
     this.showViewLoading();
-    this.getMessageDetails();
+    this.getMessageDetails(messageId);
   }
 
   private void showViewLoading() {
@@ -91,13 +90,13 @@ public class MessageDetailsPresenter implements Presenter {
     this.viewDetailsView.renderMessage(messageModel);
   }
 
-  private void getMessageDetails() {
-    this.getMessageDetailsUseCase.execute(new MessageDetailsSubscriber());
+  private void getMessageDetails(int messageId) {
+    this.getMessageDetailsUseCase.execute(new MessageDetailsSubscriber(), GetMessageDetails.Params.forGetUserFiles(messageId));
   }
 
   private final class MessageDetailsSubscriber extends DefaultSubscriber<Message> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       MessageDetailsPresenter.this.hideViewLoading();
     }
 

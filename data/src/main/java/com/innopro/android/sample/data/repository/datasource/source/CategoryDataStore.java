@@ -5,7 +5,7 @@ import com.innopro.android.sample.data.entity.MessageEntity;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Interface that represents a data store from where data is retrieved.

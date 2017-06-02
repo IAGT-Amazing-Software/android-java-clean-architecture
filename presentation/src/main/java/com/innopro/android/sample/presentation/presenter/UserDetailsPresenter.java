@@ -2,14 +2,14 @@ package com.innopro.android.sample.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.innopro.android.sample.domain.exception.DefaultErrorBundle;
-import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
-import com.innopro.android.sample.presentation.mapper.UserModelDataMapper;
 import com.innopro.android.sample.domain.User;
+import com.innopro.android.sample.domain.exception.DefaultErrorBundle;
 import com.innopro.android.sample.domain.exception.ErrorBundle;
+import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
+import com.innopro.android.sample.domain.interactor.GetUserDetails;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
+import com.innopro.android.sample.presentation.mapper.UserModelDataMapper;
 import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.view.UserDetailsView;
 
@@ -20,7 +20,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class UserDetailsPresenter implements Presenter {
 
   private UserDetailsView viewDetailsView;
@@ -44,24 +43,24 @@ public class UserDetailsPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getUserDetailsUseCase.unsubscribe();
+    this.getUserDetailsUseCase.dispose();
     this.viewDetailsView = null;
   }
 
   /**
    * Initializes the presenter by start retrieving user details.
    */
-  public void initialize() {
-    this.loadUserDetails();
+  public void initialize(int userId) {
+    this.loadUserDetails(userId);
   }
 
   /**
    * Loads user details.
    */
-  private void loadUserDetails() {
+  private void loadUserDetails(int userId) {
     this.hideViewRetry();
     this.showViewLoading();
-    this.getUserDetails();
+    this.getUserDetails(userId);
   }
 
   private void showViewLoading() {
@@ -91,13 +90,13 @@ public class UserDetailsPresenter implements Presenter {
     this.viewDetailsView.renderUser(userModel);
   }
 
-  private void getUserDetails() {
-    this.getUserDetailsUseCase.execute(new UserDetailsSubscriber());
+  private void getUserDetails(int userId) {
+    this.getUserDetailsUseCase.execute(new UserDetailsSubscriber(), GetUserDetails.Params.forGetUserFiles(userId));
   }
 
   private final class UserDetailsSubscriber extends DefaultSubscriber<User> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       UserDetailsPresenter.this.hideViewLoading();
     }
 

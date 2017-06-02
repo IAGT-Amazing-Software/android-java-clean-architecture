@@ -5,7 +5,7 @@ import com.innopro.android.sample.data.entity.UserLoggedEntity;
 import com.innopro.android.sample.data.repository.datasource.source.UserDataStore;
 import com.innopro.android.sample.data.repository.datasource.source.UserLoggedDataStore;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * {@link UserLoggedDataStore} implementation based on file system data store.

@@ -10,6 +10,12 @@
     <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
   </style>
 
+  <!-- Splash. -->
+  <style name="SplashStyle" parent="AppThemeNoActionBar">
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowBackground">@drawable/launch_screen</item>
+  </style>
+
   <!-- Base application theme no titlebar. -->
   <style name="AppThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="colorPrimary">@color/toolbar_color</item>

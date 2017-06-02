@@ -23,7 +23,7 @@ dependencies {
 
   compile domainDependencies.dagger
   compile domainDependencies.rxJava
-
+/*
   testCompile domainTestDependencies.junit
-  testCompile domainTestDependencies.mockito
+  testCompile domainTestDependencies.mockito*/
 }

@@ -2,7 +2,7 @@ package com.innopro.android.sample.data.cache;
 
 import com.innopro.android.sample.data.entity.MessageEntity;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * An interface representing a message Cache.
@@ -35,10 +35,10 @@ public interface MessageCache {
    *
    * @return true, the cache is expired, otherwise false.
    */
-  boolean isExpired();
+  boolean isExpired(int messageId);
 
   /**
    * Evict all elements of the cache.
    */
-  void evictAll();
+  void evictAll(int messageId);
 }

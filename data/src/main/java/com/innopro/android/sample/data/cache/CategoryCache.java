@@ -3,7 +3,7 @@ package com.innopro.android.sample.data.cache;
 import com.innopro.android.sample.data.entity.CategoryEntity;
 import com.innopro.android.sample.data.entity.MessageEntity;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * An interface representing a message Cache.
@@ -36,10 +36,10 @@ public interface CategoryCache {
    *
    * @return true, the cache is expired, otherwise false.
    */
-  boolean isExpired();
+  boolean isExpired(int categoryId);
 
   /**
    * Evict all elements of the cache.
    */
-  void evictAll();
+  void evictAll(int categoryId);
 }

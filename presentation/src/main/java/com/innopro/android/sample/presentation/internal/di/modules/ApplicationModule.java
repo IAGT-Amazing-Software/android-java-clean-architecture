@@ -3,20 +3,18 @@ package com.innopro.android.sample.presentation.internal.di.modules;
 import android.content.Context;
 
 import com.innopro.android.sample.data.cache.CategoryCache;
-import com.innopro.android.sample.data.cache.CategoryCacheImpl;
+import com.innopro.android.sample.data.cache.impl.CategoryCacheImpl;
 import com.innopro.android.sample.data.cache.MessageCache;
-import com.innopro.android.sample.data.cache.MessageCacheImpl;
+import com.innopro.android.sample.data.cache.impl.MessageCacheImpl;
 import com.innopro.android.sample.data.cache.UserCache;
-import com.innopro.android.sample.data.cache.UserCacheImpl;
+import com.innopro.android.sample.data.cache.impl.UserCacheImpl;
 import com.innopro.android.sample.data.cache.UserLoggedCache;
-import com.innopro.android.sample.data.cache.UserLoggedCacheImpl;
-import com.innopro.android.sample.data.executor.JobExecutor;
+import com.innopro.android.sample.data.cache.impl.UserLoggedCacheImpl;
 import com.innopro.android.sample.data.repository.CategoryDataRepository;
 import com.innopro.android.sample.data.repository.MessageDataRepository;
 import com.innopro.android.sample.data.repository.UserDataRepository;
 import com.innopro.android.sample.data.repository.UserLoggedDataRepository;
 import com.innopro.android.sample.domain.executor.PostExecutionThread;
-import com.innopro.android.sample.domain.executor.ThreadExecutor;
 import com.innopro.android.sample.domain.repository.CategoryRepository;
 import com.innopro.android.sample.domain.repository.MessageRepository;
 import com.innopro.android.sample.domain.repository.UserLoggedRepository;
@@ -28,6 +26,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Dagger module that provides objects which will live during the application lifecycle.
@@ -41,12 +41,12 @@ public class ApplicationModule {
   }
 
   @Provides @Singleton Context provideApplicationContext() {
+    Realm.init(this.application);
+    RealmConfiguration config = new RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .build();
+    Realm.setDefaultConfiguration(config);
     return this.application;
-  }
-
-  @Provides @Singleton
-  ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
-    return jobExecutor;
   }
 
   @Provides @Singleton

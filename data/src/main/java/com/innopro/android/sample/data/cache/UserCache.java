@@ -1,15 +1,14 @@
 package com.innopro.android.sample.data.cache;
 
 import com.innopro.android.sample.data.entity.UserEntity;
-
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * An interface representing a user Cache.
  */
 public interface UserCache {
   /**
-   * Gets an {@link rx.Observable} which will emit a {@link UserEntity}.
+   * Gets an {@link Observable} which will emit a {@link UserEntity}.
    *
    * @param userId The user id to retrieve data.
    */
@@ -35,10 +34,10 @@ public interface UserCache {
    *
    * @return true, the cache is expired, otherwise false.
    */
-  boolean isExpired();
+  boolean isExpired(int userId);
 
   /**
    * Evict all elements of the cache.
    */
-  void evictAll();
+  void evictAll(int userId);
 }

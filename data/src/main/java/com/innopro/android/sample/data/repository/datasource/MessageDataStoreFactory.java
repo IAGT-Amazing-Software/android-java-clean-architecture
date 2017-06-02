@@ -37,7 +37,7 @@ public class MessageDataStoreFactory {
   public MessageDataStore create(int messageId) {
     MessageDataStore messageDataStore;
 
-    if (!this.messageCache.isExpired() && this.messageCache.isCached(messageId)) {
+    if (!this.messageCache.isExpired(messageId) && this.messageCache.isCached(messageId)) {
       messageDataStore = new DiskMessageDataStore(this.messageCache);
     } else {
       messageDataStore = createCloudDataStore();
