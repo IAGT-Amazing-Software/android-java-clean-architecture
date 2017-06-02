@@ -80,6 +80,9 @@ dependencies {
   compile presentationDependencies.transformations
   compile presentationDependencies.androidAnnotations
   compile presentationDependencies.fragmentArgs
+  compile presentationDependencies.hideKeyboard
+
+
 /*
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.espresso

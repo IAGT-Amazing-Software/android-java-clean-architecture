@@ -22,6 +22,7 @@ ext {
   transformationsVersion = '2.1.0'
   retrofit = '2.2.0'
   fragmentArgs = '3.0.2'
+  hideKeyboard = '1.0.0'
 
 
   //Testing
@@ -45,7 +46,8 @@ ext {
       transformations:    "jp.wasabeef:picasso-transformations:${transformationsVersion}",
       androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
       fragmentArgs:       "com.hannesdorfmann.fragmentargs:annotation:${fragmentArgs}",
-      fragmentArgsPro:    "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}"
+      fragmentArgsPro:    "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}",
+      hideKeyboard:       "com.irozon.keyhide:keyhide:${hideKeyboard}"
   ]
 
   presentationTestDependencies = [

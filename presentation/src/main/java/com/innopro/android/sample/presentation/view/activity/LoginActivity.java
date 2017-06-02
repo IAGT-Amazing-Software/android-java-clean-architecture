@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
+import com.irozon.library.HideKey;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +25,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        HideKey.initialize(this);
     }
 
     /**
