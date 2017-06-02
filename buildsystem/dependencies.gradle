@@ -66,9 +66,7 @@ ext {
   ]
 
   dataDependencies = [
-      gson:               "com.google.code.gson:gson:${gsonVersion}",
       rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-      rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
       retrofit:           "com.squareup.retrofit2:retrofit:${retrofit}",
       rxRetrofit:         "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
