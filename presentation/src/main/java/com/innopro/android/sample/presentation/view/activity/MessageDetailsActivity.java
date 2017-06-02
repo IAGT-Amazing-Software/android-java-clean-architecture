@@ -11,8 +11,7 @@ import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
 import com.innopro.android.sample.presentation.internal.di.components.DaggerMessageComponent;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
-import com.innopro.android.sample.presentation.internal.di.modules.MessageModule;
-import com.innopro.android.sample.presentation.view.fragment.MessageDetailsFragment;
+import com.innopro.android.sample.presentation.view.fragment.MessageDetailsFragmentBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +66,7 @@ public class MessageDetailsActivity extends BaseActivity implements HasComponent
 
         if (savedInstanceState == null) {
             this.messageId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_MESSAGE_ID, -1);
-            addFragment(R.id.content_frame, new MessageDetailsFragment());
+            addFragment(R.id.content_frame, new MessageDetailsFragmentBuilder(this.messageId).build());
         } else {
             this.messageId = savedInstanceState.getInt(INSTANCE_STATE_PARAM_MESSAGE_ID);
         }
@@ -77,7 +76,6 @@ public class MessageDetailsActivity extends BaseActivity implements HasComponent
         this.messageComponent = DaggerMessageComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .messageModule(new MessageModule(this.messageId))
                 .build();
     }
 

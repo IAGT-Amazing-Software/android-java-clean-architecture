@@ -6,7 +6,7 @@ allprojects {
 
 ext {
   //Android
-  androidBuildToolsVersion = "24.0.3"
+  androidBuildToolsVersion = "25.0.0"
   androidMinSdkVersion = 15
   androidTargetSdkVersion = 24
   androidCompileSdkVersion = 24
@@ -15,12 +15,13 @@ ext {
   daggerVersion = '2.8'
   butterKnifeVersion = '8.4.0'
   androidSupport = '24.2.1'
-  rxJavaVersion = '1.2.3'
-  rxAndroidVersion = '1.2.1'
+  rxJavaVersion = '2.0.8'
+  rxAndroidVersion = '2.0.1'
   gsonVersion = '2.5'
   picassoVersion = '2.5.2'
   transformationsVersion = '2.1.0'
-  retrofit = '2.1.0'
+  retrofit = '2.2.0'
+  fragmentArgs = '3.0.2'
 
 
   //Testing
@@ -36,13 +37,15 @@ ext {
       butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
       butterKnifeCompiler:"com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
       recyclerView:       "com.android.support:recyclerview-v7:${androidSupport}",
-      rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
-      rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
+      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
       appCompat:          "com.android.support:appcompat-v7:${androidSupport}",
       supportDesign:      "com.android.support:design:${androidSupport}",
       transformations:    "jp.wasabeef:picasso-transformations:${transformationsVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidSupport}"
+      androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
+      fragmentArgs:       "com.hannesdorfmann.fragmentargs:annotation:${fragmentArgs}",
+      fragmentArgsPro:    "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}"
   ]
 
   presentationTestDependencies = [
@@ -54,7 +57,7 @@ ext {
   domainDependencies = [
       daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
       dagger:             "com.google.dagger:dagger:${daggerVersion}",
-      rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
+      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
   ]
 
   domainTestDependencies = [
@@ -63,14 +66,12 @@ ext {
   ]
 
   dataDependencies = [
-      daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
-      dagger:             "com.google.dagger:dagger:${daggerVersion}",
       gson:               "com.google.code.gson:gson:${gsonVersion}",
-      rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
-      rxAndroid:          "io.reactivex:rxandroid:${rxAndroidVersion}",
+      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+      rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
       androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
       retrofit:           "com.squareup.retrofit2:retrofit:${retrofit}",
-      rxRetrofit:         "com.squareup.retrofit2:adapter-rxjava:${retrofit}",
+      rxRetrofit:         "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
       retrofitGson:       "com.squareup.retrofit2:converter-gson:${retrofit}"
   ]
 

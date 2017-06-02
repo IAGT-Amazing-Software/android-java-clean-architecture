@@ -11,8 +11,7 @@ import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
 import com.innopro.android.sample.presentation.internal.di.components.DaggerUserComponent;
 import com.innopro.android.sample.presentation.internal.di.components.UserComponent;
-import com.innopro.android.sample.presentation.internal.di.modules.UserModule;
-import com.innopro.android.sample.presentation.view.fragment.UserDetailsFragment;
+import com.innopro.android.sample.presentation.view.fragment.UserDetailsFragmentBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,7 +66,7 @@ public class UserDetailsActivity extends BaseActivity implements HasComponent<Us
 
         if (savedInstanceState == null) {
             this.userId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_USER_ID, -1);
-            addFragment(R.id.content_frame, new UserDetailsFragment());
+            addFragment(R.id.content_frame, new UserDetailsFragmentBuilder(this.userId).build());
         } else {
             this.userId = savedInstanceState.getInt(INSTANCE_STATE_PARAM_USER_ID);
         }
@@ -77,7 +76,6 @@ public class UserDetailsActivity extends BaseActivity implements HasComponent<Us
         this.userComponent = DaggerUserComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .userModule(new UserModule(this.userId))
                 .build();
     }
 

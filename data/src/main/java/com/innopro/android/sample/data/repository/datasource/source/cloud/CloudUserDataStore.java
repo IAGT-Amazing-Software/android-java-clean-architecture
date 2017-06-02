@@ -6,8 +6,7 @@ import com.innopro.android.sample.data.cache.UserCache;
 import com.innopro.android.sample.data.repository.datasource.source.UserDataStore;
 
 import java.util.List;
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
 
 /**
  * {@link UserDataStore} implementation based on connections to the api (Cloud).
@@ -16,12 +15,6 @@ public class CloudUserDataStore implements UserDataStore {
 
   private final RestApi restApi;
   private final UserCache userCache;
-
-  private final Action1<UserEntity> saveToCacheAction = userEntity -> {
-    if (userEntity != null) {
-      CloudUserDataStore.this.userCache.put(userEntity);
-    }
-  };
 
   /**
    * Construct a {@link UserDataStore} based on connections to the api (Cloud).
@@ -39,6 +32,6 @@ public class CloudUserDataStore implements UserDataStore {
   }
 
   @Override public Observable<UserEntity> userEntityDetails(final int userId) {
-    return this.restApi.userEntityById(userId).doOnNext(saveToCacheAction);
+    return this.restApi.userEntityById(userId).doOnNext(userCache::put);
   }
 }

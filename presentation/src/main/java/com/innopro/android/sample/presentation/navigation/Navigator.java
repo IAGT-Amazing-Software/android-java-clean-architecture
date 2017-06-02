@@ -1,9 +1,11 @@
 package com.innopro.android.sample.presentation.navigation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.innopro.android.sample.presentation.R;
+import com.innopro.android.sample.presentation.view.activity.LoginActivity;
 import com.innopro.android.sample.presentation.view.activity.MainActivity;
 import com.innopro.android.sample.presentation.view.activity.MessageDetailsActivity;
 import com.innopro.android.sample.presentation.view.activity.MessageListActivity;
@@ -92,6 +94,19 @@ public class Navigator {
     if (context != null) {
       Intent intentToLaunch = MessageDetailsActivity.getCallingIntent(context, messageId);
       context.startActivity(intentToLaunch);
+    }
+  }
+
+  /**
+   * Goes to the login screen.
+   *
+   * @param context A Context needed to open the destiny activity.
+   */
+  public void navigateToLogin(Activity context) {
+    if (context != null) {
+      Intent intentToLaunch = LoginActivity.getCallingIntent(context);
+      context.startActivity(intentToLaunch);
+      context.finish();
     }
   }
 }

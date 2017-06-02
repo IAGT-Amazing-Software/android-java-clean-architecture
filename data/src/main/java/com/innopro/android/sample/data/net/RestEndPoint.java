@@ -6,36 +6,45 @@ import com.innopro.android.sample.data.entity.UserEntity;
 import com.innopro.android.sample.data.entity.UserLoggedEntity;
 
 import java.util.List;
+
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 import io.reactivex.Observable;
 
 /**
  * RestApi for retrieving data from the network.
  */
-public interface RestApi {
+public interface RestEndPoint {
+    String API_BASE_URL = "http://iagtprod.trevenque.es/mobile_clean/api/";
+
     /**
      * Retrieves an {@link Observable} which will emit a {@link UserEntity}.
      * Api url for getting a user profile: Remember to concatenate id + 'json'
      *
      * @param userId The user id used to get user data.
      */
-    Observable<UserEntity> userEntityById(int userId);
+    @GET("user_{userId}.json")
+    Observable<UserEntity> userEntityById(@Path("userId") int userId);
 
     /**
      * Retrieves an {@link Observable} which will emit a List of {@link UserEntity}.
      * Api url for getting all users
      */
+    @GET("users.json")
     Observable<List<UserEntity>> userEntityList();
 
     /**
      * Retrieves an {@link Observable} which will emit a {@link UserLoggedEntity}.
      * Api url for getting a user profile: Remember to concatenate id + 'json'
      */
+    @GET("user_logged.json")
     Observable<UserLoggedEntity> userLoggedEntity();
 
     /**
      * Retrieves an {@link Observable} which will emit a List of {@link MessageEntity}.
      * Api url for getting all messages
      */
+    @GET("messages.json")
     Observable<List<MessageEntity>> messageEntityList();
 
     /**
@@ -44,13 +53,15 @@ public interface RestApi {
      *
      * @param messageId The user id used to get user data.
      */
-    Observable<MessageEntity> messageEntityById( int messageId);
+    @GET("message_{messageId}.json")
+    Observable<MessageEntity> messageEntityById(@Path("messageId") int messageId);
 
 
     /**
      * Retrieves an {@link Observable} which will emit a List of {@link MessageEntity}.
      * Api url for getting all messages
      */
+    @GET("categories.json")
     Observable<List<CategoryEntity>> categoryEntityList();
 
     /**
@@ -59,5 +70,6 @@ public interface RestApi {
      *
      * @param categoryId The user id used to get user data.
      */
-    Observable<CategoryEntity> categoryEntityById(int categoryId);
+    @GET("category_{categoryId}.json")
+    Observable<CategoryEntity> categoryEntityById(@Path("categoryId") int categoryId);
 }

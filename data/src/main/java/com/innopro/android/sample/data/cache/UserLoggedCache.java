@@ -2,7 +2,7 @@ package com.innopro.android.sample.data.cache;
 
 import com.innopro.android.sample.data.entity.UserLoggedEntity;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * An interface representing a user logged Cache.

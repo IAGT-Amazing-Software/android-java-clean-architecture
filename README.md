@@ -20,3 +20,11 @@ Libraries
 - Mockito https://github.com/mockito/mockito
 - Espresso https://google.github.io/android-testing-support-library/docs/espresso/setup/
 - RetroLambda https://github.com/orfjackal/retrolambda
+- Realm https://realm.io/
+- JodaTime http://www.joda.org/joda-time/
+
+Proximos cambios: 
+*********************************
+* Cambiar mappeadores por una libreria que soporte realm
+* Cacheo de listas
+* Hacer que la capa de data sea totalmente cerrada y no necesite conocer a el domain (Ahora mismo el Data pilla el repository y los POJO del Domain)

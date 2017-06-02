@@ -4,7 +4,8 @@ import com.innopro.android.sample.domain.Message;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Interface that represents a Repository for getting {@link Message} related data.

@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hannesdorfmann.fragmentargs.FragmentArgs;
+import com.hannesdorfmann.fragmentargs.annotation.Arg;
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.UserComponent;
@@ -27,7 +30,11 @@ import butterknife.OnClick;
 /**
  * Fragment that shows details of a certain user.
  */
+@FragmentWithArgs
 public class UserDetailsFragment extends BaseFragment implements UserDetailsView {
+
+  @Arg
+  private int userId;
 
   @Inject
   UserDetailsPresenter userDetailsPresenter;
@@ -48,6 +55,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    FragmentArgs.inject(this);
     this.getComponent(UserComponent.class).inject(this);
   }
 
@@ -124,12 +132,19 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
    */
   private void loadUserDetails() {
     if (this.userDetailsPresenter != null) {
-      this.userDetailsPresenter.initialize();
+      this.userDetailsPresenter.initialize(userId);
     }
   }
 
   @OnClick(R2.id.bt_retry)
   void onButtonRetryClick() {
     UserDetailsFragment.this.loadUserDetails();
+  }
+
+  /**
+   * Variable Setters
+   */
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 }

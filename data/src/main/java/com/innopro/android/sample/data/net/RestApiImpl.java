@@ -3,6 +3,7 @@ package com.innopro.android.sample.data.net;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.innopro.android.sample.data.entity.CategoryEntity;
 import com.innopro.android.sample.data.entity.MessageEntity;
@@ -12,9 +13,11 @@ import com.innopro.android.sample.data.entity.UserLoggedEntity;
 import java.util.List;
 
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
+import io.reactivex.Observable;
+
+import static com.innopro.android.sample.data.net.RestEndPoint.API_BASE_URL;
 
 /**
  * {@link RestApi} implementation for retrieving data from the network.
@@ -22,7 +25,7 @@ import rx.Observable;
 public class RestApiImpl implements RestApi {
 
     private final Context context;
-    private RestApi retrofitAPI;
+    private RestEndPoint retrofitAPI;
 
     /**
      * Constructor of the class
@@ -37,16 +40,17 @@ public class RestApiImpl implements RestApi {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        retrofitAPI = retrofit.create(RestApi.class);
+        retrofitAPI = retrofit.create(RestEndPoint.class);
     }
 
 
     /*USERS*/
     @Override
     public Observable<List<UserEntity>> userEntityList() {
+        retrofitAPI.userEntityList().map(userEntities -> Log.i("Users", userEntities.toString()));
         return retrofitAPI.userEntityList();
     }
 

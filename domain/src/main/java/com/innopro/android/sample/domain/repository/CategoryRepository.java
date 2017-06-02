@@ -4,7 +4,8 @@ import com.innopro.android.sample.domain.Category;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Interface that represents a Repository for getting {@link Category} related data.

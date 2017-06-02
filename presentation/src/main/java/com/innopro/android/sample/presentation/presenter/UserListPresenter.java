@@ -2,19 +2,19 @@ package com.innopro.android.sample.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.domain.exception.DefaultErrorBundle;
 import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
-import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.mapper.UserModelDataMapper;
 import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.view.UserListView;
 
 import java.util.Collection;
 import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -22,7 +22,6 @@ import javax.inject.Named;
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@PerActivity
 public class UserListPresenter implements Presenter {
 
   private UserListView viewListView;
@@ -46,7 +45,7 @@ public class UserListPresenter implements Presenter {
   @Override public void pause() {}
 
   @Override public void destroy() {
-    this.getUserListUseCase.unsubscribe();
+    this.getUserListUseCase.dispose();
     this.viewListView = null;
   }
 
@@ -99,12 +98,12 @@ public class UserListPresenter implements Presenter {
   }
 
   private void getUserList() {
-    this.getUserListUseCase.execute(new UserListSubscriber());
+    this.getUserListUseCase.execute(new UserListSubscriber(),null);
   }
 
   private final class UserListSubscriber extends DefaultSubscriber<List<User>> {
 
-    @Override public void onCompleted() {
+    @Override public void onComplete() {
       UserListPresenter.this.hideViewLoading();
     }
 

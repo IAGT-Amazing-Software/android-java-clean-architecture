@@ -5,7 +5,7 @@ import com.innopro.android.sample.data.cache.UserCache;
 import com.innopro.android.sample.data.repository.datasource.source.UserDataStore;
 
 import java.util.List;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * {@link UserDataStore} implementation based on file system data store.

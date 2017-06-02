@@ -3,7 +3,6 @@ package com.innopro.android.sample.presentation.internal.di.components;
 import android.content.Context;
 
 import com.innopro.android.sample.domain.executor.PostExecutionThread;
-import com.innopro.android.sample.domain.executor.ThreadExecutor;
 import com.innopro.android.sample.domain.repository.CategoryRepository;
 import com.innopro.android.sample.domain.repository.MessageRepository;
 import com.innopro.android.sample.domain.repository.UserLoggedRepository;
@@ -25,7 +24,6 @@ public interface ApplicationComponent {
 
   //Exposed to sub-graphs.
   Context context();
-  ThreadExecutor threadExecutor();
   PostExecutionThread postExecutionThread();
   UserRepository userRepository();
   MessageRepository messageRepository();

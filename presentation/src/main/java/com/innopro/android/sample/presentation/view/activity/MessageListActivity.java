@@ -13,6 +13,7 @@ import com.innopro.android.sample.presentation.internal.di.components.DaggerMess
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
 import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.fragment.MessageListFragment;
+import com.innopro.android.sample.presentation.view.fragment.MessageListFragmentBuilder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +80,7 @@ public class MessageListActivity extends BaseActivity implements HasComponent<Me
 
         if (savedInstanceState == null) {
             this.categoryId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_CATEGORY_ID, -1);
-            addFragment(R.id.content_frame, new MessageListFragment());
+            addFragment(R.id.content_frame, new MessageListFragmentBuilder(this.categoryId).build());
         } else {
             this.categoryId = savedInstanceState.getInt(INSTANCE_STATE_PARAM_CATEGORY_ID);
         }

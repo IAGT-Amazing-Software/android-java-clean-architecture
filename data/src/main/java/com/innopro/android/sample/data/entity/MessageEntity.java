@@ -2,11 +2,14 @@ package com.innopro.android.sample.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * User Entity used in the data layer.
  */
-public class MessageEntity {
-
+public class MessageEntity extends RealmObject {
+  @PrimaryKey
   @SerializedName("id")
   private int messageId;
 

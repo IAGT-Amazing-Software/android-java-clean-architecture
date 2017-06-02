@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hannesdorfmann.fragmentargs.FragmentArgs;
+import com.hannesdorfmann.fragmentargs.annotation.Arg;
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
@@ -27,7 +30,11 @@ import butterknife.OnClick;
 /**
  * Fragment that shows details of a certain user.
  */
+@FragmentWithArgs
 public class MessageDetailsFragment extends BaseFragment implements MessageDetailsView {
+
+  @Arg
+  private int messageId;
 
   @Inject
   MessageDetailsPresenter messageDetailsPresenter;
@@ -46,6 +53,7 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    FragmentArgs.inject(this);
     this.getComponent(MessageComponent.class).inject(this);
   }
 
@@ -120,12 +128,19 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
    */
   private void loadMessageDetails() {
     if (this.messageDetailsPresenter != null) {
-      this.messageDetailsPresenter.initialize();
+      this.messageDetailsPresenter.initialize(messageId);
     }
   }
 
   @OnClick(R2.id.bt_retry)
   void onButtonRetryClick() {
     MessageDetailsFragment.this.loadMessageDetails();
+  }
+
+  /**
+   * variable sets
+   */
+  public void setMessageId(int messageId) {
+    this.messageId = messageId;
   }
 }

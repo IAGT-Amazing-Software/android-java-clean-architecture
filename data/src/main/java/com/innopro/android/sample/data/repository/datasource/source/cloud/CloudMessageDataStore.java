@@ -8,8 +8,7 @@ import com.innopro.android.sample.data.repository.datasource.source.MessageDataS
 
 import java.util.List;
 
-import rx.Observable;
-import rx.functions.Action1;
+import io.reactivex.Observable;
 
 /**
  * {@link MessageDataStore} implementation based on connections to the api (Cloud).
@@ -18,12 +17,6 @@ public class CloudMessageDataStore implements MessageDataStore {
 
   private final RestApi restApi;
   private final MessageCache messageCache;
-
-  private final Action1<MessageEntity> saveToCacheAction = messageEntity -> {
-    if (messageEntity != null) {
-      CloudMessageDataStore.this.messageCache.put(messageEntity);
-    }
-  };
 
   /**
    * Construct a {@link MessageDataStore} based on connections to the api (Cloud).
@@ -41,6 +34,6 @@ public class CloudMessageDataStore implements MessageDataStore {
   }
 
   @Override public Observable<MessageEntity> messageEntityDetails(final int messageId) {
-    return this.restApi.messageEntityById(messageId).doOnNext(saveToCacheAction);
+    return this.restApi.messageEntityById(messageId).doOnNext(messageCache::put);
   }
 }
