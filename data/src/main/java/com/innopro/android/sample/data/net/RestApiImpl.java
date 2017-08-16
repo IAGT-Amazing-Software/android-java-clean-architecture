@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.innopro.android.sample.data.R;
+import com.innopro.android.sample.data.BuildConfig;
 import com.innopro.android.sample.data.entity.CategoryEntity;
 import com.innopro.android.sample.data.entity.MessageEntity;
 import com.innopro.android.sample.data.entity.TokenEntity;
@@ -38,7 +38,7 @@ public class RestApiImpl implements RestApi {
         }
         this.context = context.getApplicationContext();
 
-        String baseUrl = context.getResources().getString(R.string.domain);
+        String baseUrl = BuildConfig.domain;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

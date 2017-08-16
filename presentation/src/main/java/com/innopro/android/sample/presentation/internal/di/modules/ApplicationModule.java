@@ -2,6 +2,21 @@ package com.innopro.android.sample.presentation.internal.di.modules;
 
 import android.content.Context;
 
+import com.innopro.android.sample.data.cache.CategoryCache;
+import com.innopro.android.sample.data.cache.MessageCache;
+import com.innopro.android.sample.data.cache.TokenCache;
+import com.innopro.android.sample.data.cache.UserCache;
+import com.innopro.android.sample.data.cache.UserLoggedCache;
+import com.innopro.android.sample.data.cache.impl.CategoryCacheImpl;
+import com.innopro.android.sample.data.cache.impl.MessageCacheImpl;
+import com.innopro.android.sample.data.cache.impl.TokenCacheImpl;
+import com.innopro.android.sample.data.cache.impl.UserCacheImpl;
+import com.innopro.android.sample.data.cache.impl.UserLoggedCacheImpl;
+import com.innopro.android.sample.data.repository.CategoryDataRepository;
+import com.innopro.android.sample.data.repository.MessageDataRepository;
+import com.innopro.android.sample.data.repository.TokenDataRepository;
+import com.innopro.android.sample.data.repository.UserDataRepository;
+import com.innopro.android.sample.data.repository.UserLoggedDataRepository;
 import com.innopro.android.sample.domain.executor.PostExecutionThread;
 import com.innopro.android.sample.domain.repository.CategoryRepository;
 import com.innopro.android.sample.domain.repository.MessageRepository;
@@ -94,7 +109,12 @@ public class ApplicationModule {
         return categoryDataRepository;
     }
 
-    @Provides @Singleton
+    @Provides
+    TokenCache provideTokenCache(TokenCacheImpl cache){
+        return cache;
+    }
+
+    @Provides
     TokenRepository provideTokenRepository(TokenDataRepository tokenRepository) {
         return tokenRepository;
     }
