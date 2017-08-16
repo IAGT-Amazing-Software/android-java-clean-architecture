@@ -4,7 +4,6 @@ import com.innopro.android.sample.domain.executor.PostExecutionThread;
 import com.innopro.android.sample.domain.interactor.GetUserLogged;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.domain.repository.UserLoggedRepository;
-import com.innopro.android.sample.presentation.internal.di.PerActivity;
 
 import javax.inject.Named;
 

@@ -61,7 +61,6 @@ android {
 
 dependencies {
   def presentationDependencies = rootProject.ext.presentationDependencies
-  def presentationTestDependencies = rootProject.ext.presentationTestDependencies
 
   compile project(':domain')
   compile project(':data')
@@ -87,5 +86,4 @@ dependencies {
   androidTestCompile presentationTestDependencies.mockito
   androidTestCompile presentationTestDependencies.espresso
   androidTestCompile presentationTestDependencies.androidAnnotations*/
-
 }

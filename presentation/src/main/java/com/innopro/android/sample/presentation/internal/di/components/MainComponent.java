@@ -3,6 +3,7 @@ package com.innopro.android.sample.presentation.internal.di.components;
 import com.innopro.android.sample.presentation.internal.di.PerActivity;
 import com.innopro.android.sample.presentation.internal.di.modules.ActivityModule;
 import com.innopro.android.sample.presentation.internal.di.modules.MessageModule;
+import com.innopro.android.sample.presentation.internal.di.modules.TokenModule;
 import com.innopro.android.sample.presentation.internal.di.modules.UserLoggedModule;
 import com.innopro.android.sample.presentation.internal.di.modules.UserModule;
 import com.innopro.android.sample.presentation.view.fragment.MessageCategoryFragment;
@@ -19,7 +20,7 @@ import dagger.Component;
  * Injects user specific Fragments.
  */
 @PerActivity
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, MessageModule.class, UserModule.class, UserLoggedModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, MessageModule.class, UserModule.class, UserLoggedModule.class, TokenModule.class})
 public interface MainComponent extends ActivityComponent {
   void inject(MessageCategoryFragment messageCategoryFragment);
 

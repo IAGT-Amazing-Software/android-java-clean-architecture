@@ -2,6 +2,7 @@ package com.innopro.android.sample.data.net;
 
 import com.innopro.android.sample.data.entity.CategoryEntity;
 import com.innopro.android.sample.data.entity.MessageEntity;
+import com.innopro.android.sample.data.entity.TokenEntity;
 import com.innopro.android.sample.data.entity.UserEntity;
 import com.innopro.android.sample.data.entity.UserLoggedEntity;
 
@@ -12,6 +13,12 @@ import io.reactivex.Observable;
  * RestApi for retrieving data from the network.
  */
 public interface RestApi {
+    /**
+     * Retrieves an {@link Observable} which will emit a  {@link TokenEntity}.
+     * Api url for getting token
+     */
+    Observable<TokenEntity> tokenEntity();
+
     /**
      * Retrieves an {@link Observable} which will emit a {@link UserEntity}.
      * Api url for getting a user profile: Remember to concatenate id + 'json'

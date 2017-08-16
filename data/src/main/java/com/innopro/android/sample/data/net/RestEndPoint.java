@@ -2,20 +2,26 @@ package com.innopro.android.sample.data.net;
 
 import com.innopro.android.sample.data.entity.CategoryEntity;
 import com.innopro.android.sample.data.entity.MessageEntity;
+import com.innopro.android.sample.data.entity.TokenEntity;
 import com.innopro.android.sample.data.entity.UserEntity;
 import com.innopro.android.sample.data.entity.UserLoggedEntity;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import io.reactivex.Observable;
 
 /**
  * RestApi for retrieving data from the network.
  */
 public interface RestEndPoint {
-    String API_BASE_URL = "http://iagtprod.trevenque.es/mobile_clean/api/";
+    /**
+     * Retrieves an {@link Observable} which will emit a {@link TokenEntity}.
+     * Api url for getting a token
+     */
+    @GET("token")
+    Observable<TokenEntity> tokenEntity();
 
     /**
      * Retrieves an {@link Observable} which will emit a {@link UserEntity}.
