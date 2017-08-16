@@ -36,7 +36,6 @@ public class TokenDataStoreFactory {
      */
     public TokenDataStore create() {
         TokenDataStore tokenDataStore;
-
         if (!this.tokenCache.isExpired()) {
             tokenDataStore = new DiskTokenDataStore(this.tokenCache);
         } else {

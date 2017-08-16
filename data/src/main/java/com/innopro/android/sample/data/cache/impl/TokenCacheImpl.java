@@ -98,7 +98,7 @@ public class TokenCacheImpl implements TokenCache {
         realm= Realm.getDefaultInstance();
         TokenEntity tokenEntity = realm.where(TokenEntity.class).findFirst();
         realm.close();
-        return tokenEntity!=null && tokenEntity.getExpiresIn()*1000+getLastCacheUpdateTimeMillis()>System.currentTimeMillis();
+        return tokenEntity==null || tokenEntity.getExpiresIn()*1000+getLastCacheUpdateTimeMillis()<=System.currentTimeMillis();
     }
 
     @Override

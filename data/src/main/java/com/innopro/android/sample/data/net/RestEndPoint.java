@@ -20,7 +20,7 @@ public interface RestEndPoint {
      * Retrieves an {@link Observable} which will emit a {@link TokenEntity}.
      * Api url for getting a token
      */
-    @GET("token")
+    @GET("token.json")
     Observable<TokenEntity> tokenEntity();
 
     /**

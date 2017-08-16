@@ -6,7 +6,6 @@ import com.innopro.android.sample.presentation.internal.di.components.Applicatio
 import com.innopro.android.sample.presentation.internal.di.components.DaggerApplicationComponent;
 import com.innopro.android.sample.presentation.internal.di.modules.ApplicationModule;
 
-import dagger.Component;
 /**
  * Android Main Application
  */
