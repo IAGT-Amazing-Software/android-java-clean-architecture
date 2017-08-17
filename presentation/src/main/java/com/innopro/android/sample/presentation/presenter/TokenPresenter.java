@@ -17,9 +17,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Created by iagt on 15/08/17.
+ * {@link Presenter} that controls communication between views and models of the presentation
+ * layer.
  */
-
 public class TokenPresenter implements Presenter {
 
     private final UseCase useCase;
@@ -28,8 +28,8 @@ public class TokenPresenter implements Presenter {
 
     //FIXME try to inject TokenModelDataMapper
     @Inject
-    public TokenPresenter(@Named("TokenUseCase") UseCase useCase/*, TokenModelDataMapper tokenModelDataMapper*/) {
-        this.tokenModelDataMapper=new TokenModelDataMapper();
+    public TokenPresenter(@Named("TokenUseCase") UseCase useCase, TokenModelDataMapper tokenModelDataMapper) {
+        this.tokenModelDataMapper=tokenModelDataMapper;
         this.useCase = useCase;
     }
 
