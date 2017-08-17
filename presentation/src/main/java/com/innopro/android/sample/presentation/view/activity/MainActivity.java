@@ -10,17 +10,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
+import com.innopro.android.sample.presentation.internal.di.components.ApplicationComponent;
 import com.innopro.android.sample.presentation.internal.di.components.DaggerMainComponent;
 import com.innopro.android.sample.presentation.internal.di.components.MainComponent;
+import com.innopro.android.sample.presentation.internal.di.modules.ApplicationModule;
 import com.innopro.android.sample.presentation.model.CategoryModel;
+import com.innopro.android.sample.presentation.model.TokenModel;
 import com.innopro.android.sample.presentation.model.UserModel;
+import com.innopro.android.sample.presentation.presenter.TokenPresenter;
+import com.innopro.android.sample.presentation.view.TokenView;
 import com.innopro.android.sample.presentation.view.fragment.MessageCategoryFragment;
 import com.innopro.android.sample.presentation.view.fragment.UserListFragment;
 import com.innopro.android.sample.presentation.view.fragment.UserLoggedFragment;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +37,7 @@ import butterknife.ButterKnife;
  * Activity with navigation drawer
  */
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent>,
-        MessageCategoryFragment.MessageCategoryListener, UserListFragment.UserListListener {
+        MessageCategoryFragment.MessageCategoryListener, UserListFragment.UserListListener,TokenView {
 
 
     public static Intent getCallingIntent(Context context) {
@@ -38,6 +46,9 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 
 
     private MainComponent mainComponent;
+
+    @Inject
+    TokenPresenter tokenPresenter;
 
     @BindView(R2.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -49,19 +60,24 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getApplicationComponent().inject(this);
         //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_layout_main);
 
         ButterKnife.bind(this);
-        this.initializeActivity(savedInstanceState);
         this.initializeInjector();
+        this.initializeActivity(savedInstanceState);
+
+        tokenPresenter.setView(this);
     }
+
 
     private void initializeInjector() {
         this.mainComponent = DaggerMainComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();
+
     }
 
     /**
@@ -77,6 +93,9 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
                                 break;
                             case R.id.action_users:
                                 navigator.navigateToUserList(MainActivity.this);
+                                break;
+                            case R.id.token:
+                                tokenPresenter.initialize();
                                 break;
                         }
                         drawerLayout.closeDrawers();
@@ -151,5 +170,40 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     @Override
     public void onUserClicked(UserModel userModel) {
         this.navigator.navigateToUserDetails(this, userModel.getUserId());
+    }
+
+    @Override
+    public void renderToken(TokenModel token) {
+        Toast.makeText(this,"Token: "+ token.getValue(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showRetry() {
+
+    }
+
+    @Override
+    public void hideRetry() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
+    @Override
+    public Context context() {
+        return null;
     }
 }
