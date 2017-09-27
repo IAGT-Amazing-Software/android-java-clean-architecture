@@ -28,3 +28,5 @@ Proximos cambios:
 * Cambiar mappeadores por una libreria que soporte realm
 * Cacheo de listas
 * Hacer que la capa de data sea totalmente cerrada y no necesite conocer a el domain (Ahora mismo el Data pilla el repository y los POJO del Domain)
+* Añadir plantillas a todas las clases
+* Añadir inyección de dagger a actividades
