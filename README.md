@@ -25,8 +25,9 @@ Libraries
 
 Proximos cambios: 
 *********************************
-* Cambiar mappeadores por una libreria que soporte realm
-* Cacheo de listas
-* Hacer que la capa de data sea totalmente cerrada y no necesite conocer a el domain (Ahora mismo el Data pilla el repository y los POJO del Domain)
-* AÃ±adir plantillas a todas las clases
-* AÃ±adir inyecciÃ³n de dagger a actividades
+* Añadir plantillas a todas las clases
+* Añadir inyección de dagger a actividades
+* Añadir interceptor a Retrofit para mostrar urls
+* Flavors android studio 3.0
+* Migraciones Realm
+* Plantillas tamaños
