@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 
 configurations{
@@ -63,8 +62,17 @@ android {
         }
     }
 
+    flavorDimensions "default"
     productFlavors {
-        iagtprod {}
+        iagtprod {
+            dimension "default"
+        }
+        preprod {
+            dimension "default"
+        }
+        prod {
+            dimension "default"
+        }
     }
 }
 
@@ -86,9 +94,11 @@ dependencies {
     compile presentationDependencies.androidAnnotations
     compile presentationDependencies.fragmentArgs
     compile presentationDependencies.hideKeyboard
+    compile presentationDependencies.joda
+    compile presentationDependencies.calligraphy
 
-    iagtprodCompile project(path:':domain')
-    iagtprodCompile project(path:':data',configuration:'iagtprodDebug')
+    implementation project(path:':domain')
+    implementation project(path:':data')
 
 /*
   androidTestCompile presentationTestDependencies.mockito

@@ -1,28 +1,31 @@
 allprojects {
   repositories {
     jcenter()
+    google()
   }
 }
 
 ext {
   //Android
-  androidBuildToolsVersion = "25.0.0"
+  androidBuildToolsVersion = "26.0.2"
   androidMinSdkVersion = 15
-  androidTargetSdkVersion = 24
-  androidCompileSdkVersion = 24
+  androidTargetSdkVersion = 26
+  androidCompileSdkVersion = 26
 
   //Libraries
-  daggerVersion = '2.8'
-  butterKnifeVersion = '8.4.0'
-  androidSupport = '24.2.1'
-  rxJavaVersion = '2.0.8'
+  daggerVersion = '2.14.1'
+  butterKnifeVersion = '8.8.1'
+  androidSupport = '26.0.1'
+  rxJavaVersion = '2.1.8'
   rxAndroidVersion = '2.0.1'
-  gsonVersion = '2.5'
+  gsonVersion = '2.8.2'
   picassoVersion = '2.5.2'
-  transformationsVersion = '2.1.0'
-  retrofit = '2.2.0'
+  transformationsVersion = '2.1.2'
+  retrofit = '2.3.0'
   fragmentArgs = '3.0.2'
   hideKeyboard = '1.0.0'
+  joda = '2.9.9'
+  calligraphy = '2.3.0'
 
 
   //Testing
@@ -47,7 +50,9 @@ ext {
       androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
       fragmentArgs:       "com.hannesdorfmann.fragmentargs:annotation:${fragmentArgs}",
       fragmentArgsPro:    "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}",
-      hideKeyboard:       "com.irozon.keyhide:keyhide:${hideKeyboard}"
+      hideKeyboard:       "com.irozon.keyhide:keyhide:${hideKeyboard}",
+      joda:               "net.danlew:android.joda:${joda}",
+      calligraphy        : "uk.co.chrisjenx:calligraphy:${calligraphy}"
   ]
 
   presentationTestDependencies = [
