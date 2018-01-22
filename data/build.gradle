@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
 android {
@@ -38,8 +37,18 @@ android {
         disable 'OldTargetApi'
         // Due to Robolectric that modifies the manifest when running tests
     }
+    flavorDimensions "default"
     productFlavors {
         iagtprod {
+            dimension "default"
+            buildConfigField 'String', 'domain', "\"http://iagtprod.trevenque.es/mobile_clean/api/\""
+        }
+        preprod {
+            dimension "default"
+            buildConfigField 'String', 'domain', "\"http://iagtprod.trevenque.es/mobile_clean/api/\""
+        }
+        prod {
+            dimension "default"
             buildConfigField 'String', 'domain', "\"http://iagtprod.trevenque.es/mobile_clean/api/\""
         }
     }
