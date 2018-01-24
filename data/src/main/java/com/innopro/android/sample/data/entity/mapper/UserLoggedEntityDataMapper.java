@@ -13,25 +13,52 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class UserLoggedEntityDataMapper {
+    //region Constants
+    private static final String TAG = UserLoggedEntityDataMapper.class.getSimpleName();
+    //endregion
 
-  @Inject
-  public UserLoggedEntityDataMapper() {}
+    //region Fields
 
-  /**
-   * Transform a {@link UserEntity} into an {@link UserLogged}.
-   *
-   * @param userLoggedEntity Object to be transformed.
-   * @return {@link UserLogged} if valid {@link UserLoggedEntity} otherwise null.
-   */
-  public UserLogged transform(UserLoggedEntity userLoggedEntity) {
-    UserLogged userLogged = null;
-    if (userLoggedEntity != null) {
-      userLogged = new UserLogged(userLoggedEntity.getUserLoggedId());
-      userLogged.setAvatarUrl(userLoggedEntity.getAvatarUrl());
-      userLogged.setFullName(userLoggedEntity.getFullname());
+    //endregion
+
+    //region Constructors & Initialization
+    @Inject
+    public UserLoggedEntityDataMapper() {
     }
 
-    return userLogged;
-  }
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
+
+    /**
+     * Transform a {@link UserEntity} into an {@link UserLogged}.
+     *
+     * @param userLoggedEntity Object to be transformed.
+     * @return {@link UserLogged} if valid {@link UserLoggedEntity} otherwise null.
+     */
+    public UserLogged transform(UserLoggedEntity userLoggedEntity) {
+        UserLogged userLogged = null;
+        if (userLoggedEntity != null) {
+            userLogged = new UserLogged(userLoggedEntity.getUserLoggedId());
+            userLogged.setAvatarUrl(userLoggedEntity.getAvatarUrl());
+            userLogged.setFullName(userLoggedEntity.getFullname());
+        }
+
+        return userLogged;
+    }
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 
 }

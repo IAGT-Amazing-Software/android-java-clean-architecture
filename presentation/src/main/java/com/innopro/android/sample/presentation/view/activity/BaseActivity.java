@@ -21,16 +21,47 @@ import javax.inject.Inject;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    //region Constants
     private static final String TAG = BaseActivity.class.getSimpleName();
+    //endregion
+
+    //region Fields
     @Inject
     Navigator navigator;
+    //endregion
 
+    //region Constructors & Initialization
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getApplicationComponent().inject(this);
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
+
+    @Override
+    public void onBackPressed() {
+
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+
+        boolean handled = false;
+
+        for (int i = 0; i < fragmentList.size() && !handled; i++) {
+            Fragment f = fragmentList.get(i);
+            if (f instanceof BaseFragment) {
+                handled = ((BaseFragment) f).onBackPressed();
+            } else {
+                Log.w(TAG, "onBackPressed: All fragment should extend from BaseFragment");
+            }
+        }
+        if (!handled) {
+            super.onBackPressed();
+        }
+    }
+    //endregion
+
+    //region Methods
     /**
      * Adds a {@link Fragment} to this activity's layout.
      *
@@ -72,25 +103,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
+    //endregion
 
-    @Override
-    public void onBackPressed() {
+    //region Inner and Anonymous Classes
 
-        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+    //endregion
 
-        boolean handled = false;
+    //region Getter & Setter
 
-        for (int i = 0; i < fragmentList.size() && !handled; i++) {
-            Fragment f = fragmentList.get(i);
-            if (f instanceof BaseFragment) {
-                handled = ((BaseFragment) f).onBackPressed();
-            } else {
-                Log.w(TAG, "onBackPressed: All fragment should extend from BaseFragment");
-            }
-        }
-        if (!handled) {
-            super.onBackPressed();
-        }
-    }
+    //endregion
+
 
 }

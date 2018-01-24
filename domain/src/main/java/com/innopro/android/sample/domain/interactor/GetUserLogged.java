@@ -13,17 +13,45 @@ import io.reactivex.Observable;
  * This class is an implementation of {@link UseCase} that represents a use case for
  * retrieving data related to an specific {@link UserLogged}.
  */
-public class GetUserLogged extends UseCase<UserLogged,Void> {
-  private final UserLoggedRepository userLoggedRepository;
+public class GetUserLogged extends UseCase<UserLogged, Void> {
+    //region Constants
+    private static final String TAG = GetUserLogged.class.getSimpleName();
+    //endregion
 
-  @Inject
-  public GetUserLogged(UserLoggedRepository userLoggedRepository,
-                        PostExecutionThread postExecutionThread) {
-    super( postExecutionThread);
-    this.userLoggedRepository = userLoggedRepository;
-  }
+    //region Fields
 
-  @Override protected Observable buildUseCaseObservable(Void nothing) {
-    return this.userLoggedRepository.userLogged();
-  }
+    private final UserLoggedRepository userLoggedRepository;
+    //endregion
+
+    //region Constructors & Initialization
+
+    @Inject
+    public GetUserLogged(UserLoggedRepository userLoggedRepository,
+                         PostExecutionThread postExecutionThread) {
+        super(postExecutionThread);
+        this.userLoggedRepository = userLoggedRepository;
+    }
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    @Override
+    protected Observable buildUseCaseObservable(Void nothing) {
+        return this.userLoggedRepository.userLogged();
+    }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
 }

@@ -18,10 +18,16 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TokenDataStoreFactory {
+    //region Constants
+    private static final String TAG = TokenDataStoreFactory.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final Context context;
     private final TokenCache tokenCache;
+    //endregion
 
+    //region Constructors & Initialization
     @Inject
     public TokenDataStoreFactory(Context context, TokenCache TokenCache) {
         if (context == null || TokenCache == null) {
@@ -30,7 +36,13 @@ public class TokenDataStoreFactory {
         this.context = context.getApplicationContext();
         this.tokenCache = TokenCache;
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
     /**
      * Create {@link TokenDataStore} from a Token id.
      */
@@ -53,4 +65,16 @@ public class TokenDataStoreFactory {
 
         return new CloudTokenDataStore(restApi, this.tokenCache);
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
+
 }

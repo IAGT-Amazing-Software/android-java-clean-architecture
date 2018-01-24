@@ -17,46 +17,73 @@ import javax.inject.Inject;
  */
 @PerActivity
 public class MessageModelDataMapper {
+    //region Constants
+    private static final String TAG = MessageModelDataMapper.class.getSimpleName();
+    //endregion
 
-  @Inject
-  public MessageModelDataMapper() {}
+    //region Fields
 
-  /**
-   * Transform a {@link Message} into an {@link MessageModel}.
-   *
-   * @param message Object to be transformed.
-   * @return {@link MessageModel}.
-   */
-  public MessageModel transform(Message message) {
-    if (message == null) {
-      throw new IllegalArgumentException("Cannot transform a null value");
-    }
-    MessageModel mesageModel = new MessageModel(message.getMessageId());
-    mesageModel.setImageUrl(message.getImageUrl());
-    mesageModel.setName(message.getName());
-    mesageModel.setDescription(message.getDescription());
+    //endregion
 
-    return mesageModel;
-  }
-
-  /**
-   * Transform a Collection of {@link User} into a Collection of {@link MessageModel}.
-   *
-   * @param messagesCollection Objects to be transformed.
-   * @return List of {@link MessageModel}.
-   */
-  public Collection<MessageModel> transform(Collection<Message> messagesCollection) {
-    Collection<MessageModel> messageModelsCollection;
-
-    if (messagesCollection != null && !messagesCollection.isEmpty()) {
-      messageModelsCollection = new ArrayList<>();
-      for (Message message : messagesCollection) {
-        messageModelsCollection.add(transform(message));
-      }
-    } else {
-      messageModelsCollection = Collections.emptyList();
+    //region Constructors & Initialization
+    @Inject
+    public MessageModelDataMapper() {
     }
 
-    return messageModelsCollection;
-  }
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    /**
+     * Transform a {@link Message} into an {@link MessageModel}.
+     *
+     * @param message Object to be transformed.
+     * @return {@link MessageModel}.
+     */
+    public MessageModel transform(Message message) {
+        if (message == null) {
+            throw new IllegalArgumentException("Cannot transform a null value");
+        }
+        MessageModel mesageModel = new MessageModel(message.getMessageId());
+        mesageModel.setImageUrl(message.getImageUrl());
+        mesageModel.setName(message.getName());
+        mesageModel.setDescription(message.getDescription());
+
+        return mesageModel;
+    }
+
+    /**
+     * Transform a Collection of {@link User} into a Collection of {@link MessageModel}.
+     *
+     * @param messagesCollection Objects to be transformed.
+     * @return List of {@link MessageModel}.
+     */
+    public Collection<MessageModel> transform(Collection<Message> messagesCollection) {
+        Collection<MessageModel> messageModelsCollection;
+
+        if (messagesCollection != null && !messagesCollection.isEmpty()) {
+            messageModelsCollection = new ArrayList<>();
+            for (Message message : messagesCollection) {
+                messageModelsCollection.add(transform(message));
+            }
+        } else {
+            messageModelsCollection = Collections.emptyList();
+        }
+
+        return messageModelsCollection;
+    }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

@@ -2,6 +2,7 @@ package com.innopro.android.sample.presentation.utils;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -50,7 +51,7 @@ public class DialogDefault extends DialogFragment {
     @Arg
     Float titleTextSize;
     @Arg
-    Float bodytextSize;
+    Float bodyTextSize;
     @Arg
     Float positiveButtonTextSize;
     @Arg
@@ -58,14 +59,7 @@ public class DialogDefault extends DialogFragment {
     //endregion
 
     //region Constructors & Initialization
-
-    //endregion
-
-    //region Methods for/from SuperClass/Interfaces
-
-
     @Override
-
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FragmentArgs.inject(this);
@@ -115,7 +109,7 @@ public class DialogDefault extends DialogFragment {
             TextView textMessage = alertDialog.findViewById(textColorId);
             if (textMessage != null) {
                 textMessage.setTextColor(bodyColor);
-                textMessage.setTextSize(bodytextSize);
+                textMessage.setTextSize(bodyTextSize);
             }
         });
 
@@ -126,7 +120,9 @@ public class DialogDefault extends DialogFragment {
         }
         return alertDialog;
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
 
     //endregion
 
@@ -160,8 +156,8 @@ public class DialogDefault extends DialogFragment {
             titleTextSize = 16.0f;
         }
 
-        if(bodytextSize ==null){
-            bodytextSize = 16.0f;
+        if(bodyTextSize ==null){
+            bodyTextSize = 16.0f;
         }
 
         if(positiveButtonTextSize ==null){
@@ -199,12 +195,10 @@ public class DialogDefault extends DialogFragment {
     //endregion
 
     //region Inner and Anonymous Classes
-    public interface DialogDefaultListener {
+    public interface DialogDefaultListener extends Parcelable {
         void onAccept();
 
         void onCancel();
-
-//        void setRegistroHelper(RegisterHelper registroHelper);
     }
 
 

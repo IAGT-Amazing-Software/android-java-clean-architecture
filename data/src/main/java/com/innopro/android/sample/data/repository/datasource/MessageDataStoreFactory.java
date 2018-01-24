@@ -18,40 +18,62 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class MessageDataStoreFactory {
+    //region Constants
+    private static final String TAG = MessageDataStoreFactory.class.getSimpleName();
+    //endregion
 
-  private final Context context;
-  private final MessageCache messageCache;
+    //region Fields
+    private final Context context;
+    private final MessageCache messageCache;
 
-  @Inject
-  public MessageDataStoreFactory(Context context, MessageCache messageCache) {
-    if (context == null || messageCache == null) {
-      throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
+    //endregion
+
+    //region Constructors & Initialization
+    @Inject
+    public MessageDataStoreFactory(Context context, MessageCache messageCache) {
+        if (context == null || messageCache == null) {
+            throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
+        }
+        this.context = context.getApplicationContext();
+        this.messageCache = messageCache;
     }
-    this.context = context.getApplicationContext();
-    this.messageCache = messageCache;
-  }
+    //endregion
 
-  /**
-   * Create {@link MessageDataStore} from a message id.
-   */
-  public MessageDataStore create(int messageId) {
-    MessageDataStore messageDataStore;
+    //region Methods for/from SuperClass/Interfaces
 
-    if (!this.messageCache.isExpired(messageId) && this.messageCache.isCached(messageId)) {
-      messageDataStore = new DiskMessageDataStore(this.messageCache);
-    } else {
-      messageDataStore = createCloudDataStore();
+    //endregion
+
+    //region Methods
+    /**
+     * Create {@link MessageDataStore} from a message id.
+     */
+    public MessageDataStore create(int messageId) {
+        MessageDataStore messageDataStore;
+
+        if (!this.messageCache.isExpired(messageId) && this.messageCache.isCached(messageId)) {
+            messageDataStore = new DiskMessageDataStore(this.messageCache);
+        } else {
+            messageDataStore = createCloudDataStore();
+        }
+
+        return messageDataStore;
     }
 
-    return messageDataStore;
-  }
+    /**
+     * Create {@link MessageDataStore} to retrieve data from the Cloud.
+     */
+    public MessageDataStore createCloudDataStore() {
+        RestApi restApi = new RestApiImpl(this.context);
 
-  /**
-   * Create {@link MessageDataStore} to retrieve data from the Cloud.
-   */
-  public MessageDataStore createCloudDataStore() {
-    RestApi restApi = new RestApiImpl(this.context);
+        return new CloudMessageDataStore(restApi, this.messageCache);
+    }
+    //endregion
 
-    return new CloudMessageDataStore(restApi, this.messageCache);
-  }
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

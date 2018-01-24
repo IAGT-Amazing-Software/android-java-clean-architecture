@@ -13,6 +13,24 @@ import com.innopro.android.sample.presentation.internal.di.HasComponent;
  * Base {@link android.app.Fragment} class for every fragment in this application.
  */
 public abstract class BaseFragment extends Fragment {
+
+    //region Constants
+    private static final String TAG = BaseFragment.class.getSimpleName();
+    //endregion
+
+    //region Fields
+
+    //endregion
+
+    //region Constructors & Initialization
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
     /**
      * Shows a {@link android.widget.Toast} message.
      *
@@ -92,5 +110,15 @@ public abstract class BaseFragment extends Fragment {
     public boolean onBackPressed(){
         return false;
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 
 }

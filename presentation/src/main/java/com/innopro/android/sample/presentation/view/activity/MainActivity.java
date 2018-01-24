@@ -39,23 +39,29 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent>,
         MessageCategoryFragment.MessageCategoryListener, UserListFragment.UserListListener,TokenView {
 
+    //region Constants
+    private static final String TAG = MainActivity.class.getSimpleName();
+    //endregion
 
-    public static Intent getCallingIntent(Context context) {
-        return new Intent(context, MainActivity.class);
-    }
-
-
-    private MainComponent mainComponent;
-
-    @Inject
-    TokenPresenter tokenPresenter;
-
+    //region Fields
     @BindView(R2.id.drawer_layout)
     DrawerLayout drawerLayout;
     @BindView(R2.id.navigation_view_menu)
     NavigationView navigationView;
     @BindView(R2.id.toolbar_main)
     Toolbar toolbar;
+
+    private MainComponent mainComponent;
+
+    @Inject
+    TokenPresenter tokenPresenter;
+
+    //endregion
+
+    //region Constructors & Initialization
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,20 +93,20 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 
         //Listener can be replace with a lambda
         navigationView.setNavigationItemSelectedListener((MenuItem menuItem) ->{
-                        switch (menuItem.getItemId()) {
-                            case R.id.action_messages:
-                                navigator.navigateToMessageCategoryList(MainActivity.this);
-                                break;
-                            case R.id.action_users:
-                                navigator.navigateToUserList(MainActivity.this);
-                                break;
-                            case R.id.token:
-                                tokenPresenter.initialize();
-                                break;
-                        }
-                        drawerLayout.closeDrawers();
-                        return true;
-                });
+            switch (menuItem.getItemId()) {
+                case R.id.action_messages:
+                    navigator.navigateToMessageCategoryList(MainActivity.this);
+                    break;
+                case R.id.action_users:
+                    navigator.navigateToUserList(MainActivity.this);
+                    break;
+                case R.id.token:
+                    tokenPresenter.initialize();
+                    break;
+            }
+            drawerLayout.closeDrawers();
+            return true;
+        });
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
@@ -140,7 +146,9 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
             });
         }
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
@@ -206,4 +214,18 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     public Context context() {
         return null;
     }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

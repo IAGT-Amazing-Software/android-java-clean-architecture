@@ -21,22 +21,27 @@ import javax.inject.Named;
  * layer.
  */
 public class TokenPresenter implements Presenter {
+    //region Constants
+    private static final String TAG = TokenPresenter.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final UseCase useCase;
     private TokenView tokenView;
     private TokenModelDataMapper tokenModelDataMapper;
 
-    //FIXME try to inject TokenModelDataMapper
+    //endregion
+
+    //region Constructors & Initialization
     @Inject
     public TokenPresenter(@Named("TokenUseCase") UseCase useCase, TokenModelDataMapper tokenModelDataMapper) {
-        this.tokenModelDataMapper=tokenModelDataMapper;
+        this.tokenModelDataMapper = tokenModelDataMapper;
         this.useCase = useCase;
     }
 
-    public void setView(@NonNull TokenView view) {
-        this.tokenView = view;
-    }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
     @Override
     public void resume() {
     }
@@ -50,6 +55,10 @@ public class TokenPresenter implements Presenter {
         this.useCase.dispose();
         this.tokenView = null;
     }
+
+    //endregion
+
+    //region Methods
 
     /**
      * Initializes the presenter by start retrieving the message list.
@@ -90,14 +99,16 @@ public class TokenPresenter implements Presenter {
     }
 
     private void showTokenInView(Token token) {
-        TokenModel tokenModel=tokenModelDataMapper.transform(token);
+        TokenModel tokenModel = tokenModelDataMapper.transform(token);
         this.tokenView.renderToken(tokenModel);
     }
 
     private void getToken() {
         this.useCase.execute(new TokenSubscriber(), null);
     }
+    //endregion
 
+    //region Inner and Anonymous Classes
     private final class TokenSubscriber extends DefaultSubscriber<Token> {
 
         @Override
@@ -118,4 +129,13 @@ public class TokenPresenter implements Presenter {
             TokenPresenter.this.showTokenInView(token);
         }
     }
+    //endregion
+
+    //region Getter & Setter
+    public void setView(@NonNull TokenView view) {
+        this.tokenView = view;
+    }
+    //endregion
+
+
 }

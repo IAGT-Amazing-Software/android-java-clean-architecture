@@ -12,23 +12,48 @@ import io.reactivex.Observable;
  * {@link UserDataStore} implementation based on connections to the api (Cloud).
  */
 public class CloudUserLoggedDataStore implements UserLoggedDataStore {
+    //region Constants
+    private static final String TAG = CloudUserLoggedDataStore.class.getSimpleName();
+    //endregion
 
-  private final RestApi restApi;
-  private final UserLoggedCache userLoggedCache;
+    //region Fields
+    private final RestApi restApi;
+    private final UserLoggedCache userLoggedCache;
 
-  /**
-   * Construct a {@link UserLoggedDataStore} based on connections to the api (Cloud).
-   *
-   * @param restApi The {@link RestApi} implementation to use.
-   * @param userLoggedCache A {@link UserLoggedCache} to cache data retrieved from the api.
-   */
-  public CloudUserLoggedDataStore(RestApi restApi, UserLoggedCache userLoggedCache) {
-    this.restApi = restApi;
-    this.userLoggedCache = userLoggedCache;
-  }
+    //endregion
 
+    //region Constructors & Initialization
 
-  @Override public Observable<UserLoggedEntity> userLoggedEntity() {
-    return this.restApi.userLoggedEntity().doOnNext(userLoggedCache::put);
-  }
+    /**
+     * Construct a {@link UserLoggedDataStore} based on connections to the api (Cloud).
+     *
+     * @param restApi         The {@link RestApi} implementation to use.
+     * @param userLoggedCache A {@link UserLoggedCache} to cache data retrieved from the api.
+     */
+    public CloudUserLoggedDataStore(RestApi restApi, UserLoggedCache userLoggedCache) {
+        this.restApi = restApi;
+        this.userLoggedCache = userLoggedCache;
+    }
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public Observable<UserLoggedEntity> userLoggedEntity() {
+        return this.restApi.userLoggedEntity().doOnNext(userLoggedCache::put);
+    }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

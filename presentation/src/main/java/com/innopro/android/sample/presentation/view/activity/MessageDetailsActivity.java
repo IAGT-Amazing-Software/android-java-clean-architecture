@@ -20,20 +20,28 @@ import butterknife.ButterKnife;
  * Activity that shows details of a certain message.
  */
 public class MessageDetailsActivity extends BaseActivity implements HasComponent<MessageComponent> {
+    //region Constants
+    private static final String TAG = MessageDetailsActivity.class.getSimpleName();
 
-    private static final String INTENT_EXTRA_PARAM_MESSAGE_ID = "com.innopro.INTENT_PARAM_MESSAGE_ID";
-    private static final String INSTANCE_STATE_PARAM_MESSAGE_ID = "com.innopro.STATE_PARAM_MESSAGE_ID";
+    private static final String INTENT_EXTRA_PARAM_MESSAGE_ID = TAG+"INTENT_PARAM_MESSAGE_ID";
+    private static final String INSTANCE_STATE_PARAM_MESSAGE_ID = TAG+"STATE_PARAM_MESSAGE_ID";
+    //endregion
 
+    //region Fields
+    @BindView(R2.id.toolbar_main)
+    Toolbar toolbar;
+
+    private int messageId;
+    private MessageComponent messageComponent;
+    //endregion
+
+    //region Constructors & Initialization
     public static Intent getCallingIntent(Context context, int messageId) {
         Intent callingIntent = new Intent(context, MessageDetailsActivity.class);
         callingIntent.putExtra(INTENT_EXTRA_PARAM_MESSAGE_ID, messageId);
         return callingIntent;
     }
 
-    private int messageId;
-    private MessageComponent messageComponent;
-    @BindView(R2.id.toolbar_main)
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +86,24 @@ public class MessageDetailsActivity extends BaseActivity implements HasComponent
                 .activityModule(getActivityModule())
                 .build();
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
     @Override
     public MessageComponent getComponent() {
         return messageComponent;
     }
+    //endregion
 }

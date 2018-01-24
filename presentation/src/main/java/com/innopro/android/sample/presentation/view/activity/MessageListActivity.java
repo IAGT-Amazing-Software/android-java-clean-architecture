@@ -23,22 +23,28 @@ import butterknife.ButterKnife;
  */
 public class MessageListActivity extends BaseActivity implements HasComponent<MessageComponent>,
         MessageListFragment.MessageListListener {
+    //region Constants
+    private static final String TAG = MessageListActivity.class.getSimpleName();
 
-    private static final String INTENT_EXTRA_PARAM_CATEGORY_ID = "com.innopro.INTENT_PARAM_CATEGORY_ID";
-    private static final String INSTANCE_STATE_PARAM_CATEGORY_ID = "com.innopro.STATE_PARAM_CATEGORY_ID";
+    private static final String INTENT_EXTRA_PARAM_CATEGORY_ID = TAG+"INTENT_PARAM_CATEGORY_ID";
+    private static final String INSTANCE_STATE_PARAM_CATEGORY_ID = TAG+"STATE_PARAM_CATEGORY_ID";
+    //endregion
 
+    //region Fields
 
+    @BindView(R2.id.toolbar_main)
+    Toolbar toolbar;
+
+    private int categoryId;
+    private MessageComponent messageComponent;
+    //endregion
+
+    //region Constructors & Initialization
     public static Intent getCallingIntent(Context context, int categoryId) {
         Intent callingIntent = new Intent(context, MessageListActivity.class);
         callingIntent.putExtra(INSTANCE_STATE_PARAM_CATEGORY_ID, categoryId);
         return callingIntent;
     }
-
-
-    private int categoryId;
-    private MessageComponent messageComponent;
-    @BindView(R2.id.toolbar_main)
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,9 @@ public class MessageListActivity extends BaseActivity implements HasComponent<Me
             this.categoryId = savedInstanceState.getInt(INSTANCE_STATE_PARAM_CATEGORY_ID);
         }
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -100,4 +108,17 @@ public class MessageListActivity extends BaseActivity implements HasComponent<Me
     public void onMessageClicked(MessageModel messageModel) {
         this.navigator.navigateToMessageDetails(this, messageModel.getMessageId());
     }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

@@ -4,75 +4,96 @@ package com.innopro.android.sample.presentation.model;
  * Class that represents a user in the presentation layer.
  */
 public class UserModel {
+    //region Constants
+    private static final String TAG = UserModel.class.getSimpleName();
+    //endregion
 
-  private final int userId;
+    //region Fields
+    private final int userId;
+    private String coverUrl;
+    private String fullName;
+    private String email;
+    private String description;
+    private int followers;
 
-  public UserModel(int userId) {
-    this.userId = userId;
-  }
+    //endregion
 
-  private String coverUrl;
-  private String fullName;
-  private String email;
-  private String description;
-  private int followers;
+    //region Constructors & Initialization
+    public UserModel(int userId) {
+        this.userId = userId;
+    }
 
-  public int getUserId() {
-    return userId;
-  }
+    //endregion
 
-  public String getCoverUrl() {
-    return coverUrl;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public void setCoverUrl(String coverUrl) {
-    this.coverUrl = coverUrl;
-  }
+        stringBuilder.append("***** User Model Details *****\n");
+        stringBuilder.append("id=" + this.getUserId() + "\n");
+        stringBuilder.append("cover url=" + this.getCoverUrl() + "\n");
+        stringBuilder.append("fullname=" + this.getFullName() + "\n");
+        stringBuilder.append("email=" + this.getEmail() + "\n");
+        stringBuilder.append("description=" + this.getDescription() + "\n");
+        stringBuilder.append("followers=" + this.getFollowers() + "\n");
+        stringBuilder.append("*******************************");
 
-  public String getFullName() {
-    return fullName;
-  }
+        return stringBuilder.toString();
+    }
+    //endregion
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    //region Methods
 
-  public String getEmail() {
-    return email;
-  }
+    //endregion
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    //region Inner and Anonymous Classes
 
-  public String getDescription() {
-    return description;
-  }
+    //endregion
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    //region Getter & Setter
+    public int getUserId() {
+        return userId;
+    }
 
-  public int getFollowers() {
-    return followers;
-  }
+    public String getCoverUrl() {
+        return coverUrl;
+    }
 
-  public void setFollowers(int followers) {
-    this.followers = followers;
-  }
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    public String getFullName() {
+        return fullName;
+    }
 
-    stringBuilder.append("***** User Model Details *****\n");
-    stringBuilder.append("id=" + this.getUserId() + "\n");
-    stringBuilder.append("cover url=" + this.getCoverUrl() + "\n");
-    stringBuilder.append("fullname=" + this.getFullName() + "\n");
-    stringBuilder.append("email=" + this.getEmail() + "\n");
-    stringBuilder.append("description=" + this.getDescription() + "\n");
-    stringBuilder.append("followers=" + this.getFollowers() + "\n");
-    stringBuilder.append("*******************************");
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-    return stringBuilder.toString();
-  }
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+    //endregion
 }

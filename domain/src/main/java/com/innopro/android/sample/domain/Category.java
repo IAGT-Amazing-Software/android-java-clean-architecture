@@ -4,45 +4,66 @@ package com.innopro.android.sample.domain;
  * Class that represents a User in the domain layer.
  */
 public class Category {
+    //region Constants
+    private static final String TAG = Category.class.getSimpleName();
+    //endregion
 
-  private final int categoryId;
+    //region Fields
+    private final int categoryId;
+    private String imageUrl;
+    private String name;
 
-  public Category(int messageId) {
-    this.categoryId = messageId;
-  }
+    //endregion
 
-  private String imageUrl;
-  private String name;
+    //region Constructors & Initialization
+    public Category(int messageId) {
+        this.categoryId = messageId;
+    }
+    //endregion
 
-  public int getCategoryId() {
-    return categoryId;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public String getImageUrl() {
-    return imageUrl;
-  }
+        stringBuilder.append("***** Message Category *****\n");
+        stringBuilder.append("id=" + this.getCategoryId() + "\n");
+        stringBuilder.append("image url=" + this.getImageUrl() + "\n");
+        stringBuilder.append("name=" + this.getName() + "\n");
+        stringBuilder.append("*******************************");
 
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
+        return stringBuilder.toString();
+    }
+    //endregion
 
-  public String getName() {
-    return name;
-  }
+    //region Methods
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    //endregion
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //region Inner and Anonymous Classes
 
-    stringBuilder.append("***** Message Category *****\n");
-    stringBuilder.append("id=" + this.getCategoryId() + "\n");
-    stringBuilder.append("image url=" + this.getImageUrl() + "\n");
-    stringBuilder.append("name=" + this.getName() + "\n");
-    stringBuilder.append("*******************************");
+    //endregion
 
-    return stringBuilder.toString();
-  }
+    //region Getter & Setter
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    //endregion
 }

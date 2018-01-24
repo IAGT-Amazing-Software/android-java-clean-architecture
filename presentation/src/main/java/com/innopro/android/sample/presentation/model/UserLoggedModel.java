@@ -4,45 +4,67 @@ package com.innopro.android.sample.presentation.model;
  * Class that represents a user logged in the presentation layer.
  */
 public class UserLoggedModel {
+    //region Constants
+    private static final String TAG = UserLoggedModel.class.getSimpleName();
+    //endregion
 
-  private final int userLoggedId;
+    //region Fields
+    private final int userLoggedId;
+    private String avatarUrl;
+    private String fullName;
+    //endregion
 
-  public UserLoggedModel(int userLoggedId) {
-    this.userLoggedId = userLoggedId;
-  }
+    //region Constructors & Initialization
+    public UserLoggedModel(int userLoggedId) {
+        this.userLoggedId = userLoggedId;
+    }
 
-  private String avatarUrl;
-  private String fullName;
+    //endregion
 
-  public int getUserLoggedId() {
-    return userLoggedId;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public String getAvatarUrl() {
-    return avatarUrl;
-  }
+        stringBuilder.append("***** User Model Details *****\n");
+        stringBuilder.append("id=" + this.getUserLoggedId() + "\n");
+        stringBuilder.append("avatar url=" + this.getAvatarUrl() + "\n");
+        stringBuilder.append("fullname=" + this.getFullName() + "\n");
+        stringBuilder.append("*******************************");
 
-  public void setAvatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-  }
+        return stringBuilder.toString();
+    }
 
-  public String getFullName() {
-    return fullName;
-  }
+    //endregion
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+    //region Methods
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //endregion
 
-    stringBuilder.append("***** User Model Details *****\n");
-    stringBuilder.append("id=" + this.getUserLoggedId() + "\n");
-    stringBuilder.append("avatar url=" + this.getAvatarUrl() + "\n");
-    stringBuilder.append("fullname=" + this.getFullName() + "\n");
-    stringBuilder.append("*******************************");
+    //region Inner and Anonymous Classes
 
-    return stringBuilder.toString();
-  }
+    //endregion
+
+    //region Getter & Setter
+    public int getUserLoggedId() {
+        return userLoggedId;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    //endregion
 }

@@ -17,40 +17,65 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class UserLoggedDataStoreFactory {
+    //region Constants
+    private static final String TAG = UserLoggedDataStoreFactory.class.getSimpleName();
+    //endregion
 
-  private final Context context;
-  private final UserLoggedCache userLoggedCache;
+    //region Fields
+    private final Context context;
+    private final UserLoggedCache userLoggedCache;
 
-  @Inject
-  public UserLoggedDataStoreFactory(Context context, UserLoggedCache userLoggedCache) {
-    if (context == null || userLoggedCache == null) {
-      throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
-    }
-    this.context = context.getApplicationContext();
-    this.userLoggedCache = userLoggedCache;
-  }
+    //endregion
 
-  /**
-   * Create {@link UserLoggedDataStore} from a user id.
-   */
-  public UserLoggedDataStore create() {
-    UserLoggedDataStore userLoggedDataStore;
-
-    if (!this.userLoggedCache.isExpired() && this.userLoggedCache.isCached()) {
-      userLoggedDataStore = new DiskUserLoggedDataStore(this.userLoggedCache);
-    } else {
-      userLoggedDataStore = createCloudDataStore();
+    //region Constructors & Initialization
+    @Inject
+    public UserLoggedDataStoreFactory(Context context, UserLoggedCache userLoggedCache) {
+        if (context == null || userLoggedCache == null) {
+            throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
+        }
+        this.context = context.getApplicationContext();
+        this.userLoggedCache = userLoggedCache;
     }
 
-    return userLoggedDataStore;
-  }
+    //endregion
 
-  /**
-   * Create {@link UserLoggedDataStore} to retrieve data from the Cloud.
-   */
-  public UserLoggedDataStore createCloudDataStore() {
-    RestApi restApi = new RestApiImpl(this.context);
+    //region Methods for/from SuperClass/Interfaces
 
-    return new CloudUserLoggedDataStore(restApi, this.userLoggedCache);
-  }
+    //endregion
+
+    //region Methods
+    /**
+     * Create {@link UserLoggedDataStore} from a user id.
+     */
+    public UserLoggedDataStore create() {
+        UserLoggedDataStore userLoggedDataStore;
+
+        if (!this.userLoggedCache.isExpired() && this.userLoggedCache.isCached()) {
+            userLoggedDataStore = new DiskUserLoggedDataStore(this.userLoggedCache);
+        } else {
+            userLoggedDataStore = createCloudDataStore();
+        }
+
+        return userLoggedDataStore;
+    }
+
+    /**
+     * Create {@link UserLoggedDataStore} to retrieve data from the Cloud.
+     */
+    public UserLoggedDataStore createCloudDataStore() {
+        RestApi restApi = new RestApiImpl(this.context);
+
+        return new CloudUserLoggedDataStore(restApi, this.userLoggedCache);
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
 }

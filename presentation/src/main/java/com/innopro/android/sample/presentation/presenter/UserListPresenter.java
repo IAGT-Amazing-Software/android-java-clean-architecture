@@ -23,98 +23,124 @@ import javax.inject.Named;
  * layer.
  */
 public class UserListPresenter implements Presenter {
+    //region Constants
+    private static final String TAG = UserListPresenter.class.getSimpleName();
+    //endregion
 
-  private UserListView viewListView;
+    //region Fields
+    private UserListView viewListView;
 
-  private final UseCase getUserListUseCase;
-  private final UserModelDataMapper userModelDataMapper;
+    private final UseCase getUserListUseCase;
+    private final UserModelDataMapper userModelDataMapper;
 
-  @Inject
-  public UserListPresenter(@Named("userList") UseCase getUserListUserCase,
-      UserModelDataMapper userModelDataMapper) {
-    this.getUserListUseCase = getUserListUserCase;
-    this.userModelDataMapper = userModelDataMapper;
-  }
+    //endregion
 
-  public void setView(@NonNull UserListView view) {
-    this.viewListView = view;
-  }
-
-  @Override public void resume() {}
-
-  @Override public void pause() {}
-
-  @Override public void destroy() {
-    this.getUserListUseCase.dispose();
-    this.viewListView = null;
-  }
-
-  /**
-   * Initializes the presenter by start retrieving the user list.
-   */
-  public void initialize() {
-    this.loadUserList();
-  }
-
-  /**
-   * Loads all users.
-   */
-  private void loadUserList() {
-    this.hideViewRetry();
-    this.showViewLoading();
-    this.getUserList();
-  }
-
-  public void onUserClicked(UserModel userModel) {
-    this.viewListView.viewUser(userModel);
-  }
-
-  private void showViewLoading() {
-    this.viewListView.showLoading();
-  }
-
-  private void hideViewLoading() {
-    this.viewListView.hideLoading();
-  }
-
-  private void showViewRetry() {
-    this.viewListView.showRetry();
-  }
-
-  private void hideViewRetry() {
-    this.viewListView.hideRetry();
-  }
-
-  private void showErrorMessage(ErrorBundle errorBundle) {
-    String errorMessage = ErrorMessageFactory.create(this.viewListView.context(),
-            errorBundle.getException());
-    this.viewListView.showError(errorMessage);
-  }
-
-  private void showUsersCollectionInView(Collection<User> usersCollection) {
-    final Collection<UserModel> userModelsCollection =
-        this.userModelDataMapper.transform(usersCollection);
-    this.viewListView.renderUserList(userModelsCollection);
-  }
-
-  private void getUserList() {
-    this.getUserListUseCase.execute(new UserListSubscriber(),null);
-  }
-
-  private final class UserListSubscriber extends DefaultSubscriber<List<User>> {
-
-    @Override public void onComplete() {
-      UserListPresenter.this.hideViewLoading();
+    //region Constructors & Initialization
+    @Inject
+    public UserListPresenter(@Named("userList") UseCase getUserListUserCase,
+                             UserModelDataMapper userModelDataMapper) {
+        this.getUserListUseCase = getUserListUserCase;
+        this.userModelDataMapper = userModelDataMapper;
     }
 
-    @Override public void onError(Throwable e) {
-      UserListPresenter.this.hideViewLoading();
-      UserListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      UserListPresenter.this.showViewRetry();
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public void resume() {
     }
 
-    @Override public void onNext(List<User> users) {
-      UserListPresenter.this.showUsersCollectionInView(users);
+    @Override
+    public void pause() {
     }
-  }
+
+    @Override
+    public void destroy() {
+        this.getUserListUseCase.dispose();
+        this.viewListView = null;
+    }
+    //endregion
+
+    //region Methods
+    /**
+     * Initializes the presenter by start retrieving the user list.
+     */
+    public void initialize() {
+        this.loadUserList();
+    }
+
+    /**
+     * Loads all users.
+     */
+    private void loadUserList() {
+        this.hideViewRetry();
+        this.showViewLoading();
+        this.getUserList();
+    }
+
+    public void onUserClicked(UserModel userModel) {
+        this.viewListView.viewUser(userModel);
+    }
+
+    private void showViewLoading() {
+        this.viewListView.showLoading();
+    }
+
+    private void hideViewLoading() {
+        this.viewListView.hideLoading();
+    }
+
+    private void showViewRetry() {
+        this.viewListView.showRetry();
+    }
+
+    private void hideViewRetry() {
+        this.viewListView.hideRetry();
+    }
+
+    private void showErrorMessage(ErrorBundle errorBundle) {
+        String errorMessage = ErrorMessageFactory.create(this.viewListView.context(),
+                errorBundle.getException());
+        this.viewListView.showError(errorMessage);
+    }
+
+    private void showUsersCollectionInView(Collection<User> usersCollection) {
+        final Collection<UserModel> userModelsCollection =
+                this.userModelDataMapper.transform(usersCollection);
+        this.viewListView.renderUserList(userModelsCollection);
+    }
+
+    private void getUserList() {
+        this.getUserListUseCase.execute(new UserListSubscriber(), null);
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+    private final class UserListSubscriber extends DefaultSubscriber<List<User>> {
+
+        @Override
+        public void onComplete() {
+            UserListPresenter.this.hideViewLoading();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            UserListPresenter.this.hideViewLoading();
+            UserListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+            UserListPresenter.this.showViewRetry();
+        }
+
+        @Override
+        public void onNext(List<User> users) {
+            UserListPresenter.this.showUsersCollectionInView(users);
+        }
+    }
+    //endregion
+
+    //region Getter & Setter
+    public void setView(@NonNull UserListView view) {
+        this.viewListView = view;
+    }
+
+    //endregion
 }

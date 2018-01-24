@@ -23,10 +23,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * {@link RestApi} implementation for retrieving data from the network.
  */
 public class RestApiImpl implements RestApi {
+    //region Constants
+    private static final String TAG = RestApiImpl.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final Context context;
     private RestEndPoint retrofitAPI;
 
+    //endregion
+
+    //region Constructors & Initialization
     /**
      * Constructor of the class
      *
@@ -48,7 +55,9 @@ public class RestApiImpl implements RestApi {
         retrofitAPI = retrofit.create(RestEndPoint.class);
     }
 
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
     @Override
     public Observable<TokenEntity> tokenEntity() {
         return retrofitAPI.tokenEntity();
@@ -93,6 +102,9 @@ public class RestApiImpl implements RestApi {
     public Observable<CategoryEntity> categoryEntityById(final int categoryId) {
         return retrofitAPI.categoryEntityById(categoryId);
     }
+    //endregion
+
+    //region Methods
 
     /**
      * Checks if the device has any active internet connection.
@@ -109,4 +121,18 @@ public class RestApiImpl implements RestApi {
 
         return isConnected;
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
+
+
+
 }
