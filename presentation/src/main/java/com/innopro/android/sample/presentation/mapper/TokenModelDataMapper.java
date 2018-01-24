@@ -13,11 +13,26 @@ import javax.inject.Inject;
  */
 @PerActivity
 public class TokenModelDataMapper {
+    //region Constants
+    private static final String TAG = TokenModelDataMapper.class.getSimpleName();
+    //endregion
 
+    //region Fields
+
+    //endregion
+
+    //region Constructors & Initialization
     @Inject
     public TokenModelDataMapper() {
     }
 
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
     /**
      * Transform a {@link Token} into an {@link TokenModel}.
      *
@@ -31,5 +46,15 @@ public class TokenModelDataMapper {
         TokenModel tokenModel = new TokenModel(token.getValue(), token.getExpiresIn(), token.getType(), token.getScope());
         return tokenModel;
     }
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 
 }

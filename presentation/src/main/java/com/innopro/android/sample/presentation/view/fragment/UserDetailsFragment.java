@@ -32,119 +32,159 @@ import butterknife.OnClick;
  */
 @FragmentWithArgs
 public class UserDetailsFragment extends BaseFragment implements UserDetailsView {
+    //region Constants
+    private static final String TAG = UserDetailsFragment.class.getSimpleName();
+    //endregion
 
-  @Arg
-  private int userId;
+    //region Fields
+    @BindView(R2.id.iv_cover)
+    ImageView iv_cover;
+    @BindView(R2.id.tv_fullname)
+    TextView tv_fullname;
+    @BindView(R2.id.tv_email)
+    TextView tv_email;
+    @BindView(R2.id.tv_followers)
+    TextView tv_followers;
+    @BindView(R2.id.tv_description)
+    TextView tv_description;
+    @BindView(R2.id.rl_progress)
+    RelativeLayout rl_progress;
+    @BindView(R2.id.rl_retry)
+    RelativeLayout rl_retry;
+    @BindView(R2.id.bt_retry)
+    Button bt_retry;
 
-  @Inject
-  UserDetailsPresenter userDetailsPresenter;
+    @Arg
+    private int userId;
 
-  @BindView(R2.id.iv_cover)
-  ImageView iv_cover;
-  @BindView(R2.id.tv_fullname) TextView tv_fullname;
-  @BindView(R2.id.tv_email) TextView tv_email;
-  @BindView(R2.id.tv_followers) TextView tv_followers;
-  @BindView(R2.id.tv_description) TextView tv_description;
-  @BindView(R2.id.rl_progress) RelativeLayout rl_progress;
-  @BindView(R2.id.rl_retry) RelativeLayout rl_retry;
-  @BindView(R2.id.bt_retry) Button bt_retry;
+    @Inject
+    UserDetailsPresenter userDetailsPresenter;
+    //endregion
 
-  public UserDetailsFragment() {
-    setRetainInstance(true);
-  }
-
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    FragmentArgs.inject(this);
-    this.getComponent(UserComponent.class).inject(this);
-  }
-
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    final View fragmentView = inflater.inflate(R.layout.fragment_user_details, container, false);
-    ButterKnife.bind(this, fragmentView);
-    return fragmentView;
-  }
-
-  @Override public void onViewCreated(View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    this.userDetailsPresenter.setView(this);
-    if (savedInstanceState == null) {
-      this.loadUserDetails();
+    //region Constructors & Initialization
+    public UserDetailsFragment() {
+        setRetainInstance(true);
     }
-  }
 
-  @Override public void onResume() {
-    super.onResume();
-    this.userDetailsPresenter.resume();
-  }
-
-  @Override public void onPause() {
-    super.onPause();
-    this.userDetailsPresenter.pause();
-  }
-
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
-    this.userDetailsPresenter.destroy();
-  }
-
-  @Override public void renderUser(UserModel user) {
-    if (user != null) {
-      Picasso.with(getContext()).load(user.getCoverUrl()).fit().into(this.iv_cover);
-      this.tv_fullname.setText(user.getFullName());
-      this.tv_email.setText(user.getEmail());
-      this.tv_followers.setText(String.valueOf(user.getFollowers()));
-      this.tv_description.setText(user.getDescription());
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FragmentArgs.inject(this);
+        this.getComponent(UserComponent.class).inject(this);
     }
-  }
 
-  @Override public void showLoading() {
-    this.rl_progress.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideLoading() {
-    this.rl_progress.setVisibility(View.GONE);
-  }
-
-  @Override public void showRetry() {
-    this.rl_retry.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideRetry() {
-    this.rl_retry.setVisibility(View.GONE);
-  }
-
-  @Override public void showError(String message) {
-    this.showToastMessage(message);
-  }
-
-  @Override public Context context() {
-    return getActivity().getApplicationContext();
-  }
-
-  /**
-   * Loads all users.
-   */
-  private void loadUserDetails() {
-    if (this.userDetailsPresenter != null) {
-      this.userDetailsPresenter.initialize(userId);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View fragmentView = inflater.inflate(R.layout.fragment_user_details, container, false);
+        ButterKnife.bind(this, fragmentView);
+        return fragmentView;
     }
-  }
 
-  @OnClick(R2.id.bt_retry)
-  void onButtonRetryClick() {
-    UserDetailsFragment.this.loadUserDetails();
-  }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.userDetailsPresenter.setView(this);
+        if (savedInstanceState == null) {
+            this.loadUserDetails();
+        }
+    }
+    //endregion
 
-  /**
-   * Variable Setters
-   */
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.userDetailsPresenter.resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.userDetailsPresenter.pause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.userDetailsPresenter.destroy();
+    }
+
+    @Override
+    public void renderUser(UserModel user) {
+        if (user != null) {
+            Picasso.with(getContext()).load(user.getCoverUrl()).fit().into(this.iv_cover);
+            this.tv_fullname.setText(user.getFullName());
+            this.tv_email.setText(user.getEmail());
+            this.tv_followers.setText(String.valueOf(user.getFollowers()));
+            this.tv_description.setText(user.getDescription());
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        this.rl_progress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        this.rl_progress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showRetry() {
+        this.rl_retry.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideRetry() {
+        this.rl_retry.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String message) {
+        this.showToastMessage(message);
+    }
+
+    @Override
+    public Context context() {
+        return getActivity().getApplicationContext();
+    }
+    //endregion
+
+    //region Methods
+    /**
+     * Loads all users.
+     */
+    private void loadUserDetails() {
+        if (this.userDetailsPresenter != null) {
+            this.userDetailsPresenter.initialize(userId);
+        }
+    }
+
+    @OnClick(R2.id.bt_retry)
+    void onButtonRetryClick() {
+        UserDetailsFragment.this.loadUserDetails();
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    /**
+     * Variable Setters
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    //endregion
+
 }

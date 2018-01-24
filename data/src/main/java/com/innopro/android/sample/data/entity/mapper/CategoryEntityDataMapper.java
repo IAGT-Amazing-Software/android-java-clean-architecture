@@ -20,43 +20,70 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class CategoryEntityDataMapper {
+    //region Constants
+    private static final String TAG = CategoryEntityDataMapper.class.getSimpleName();
+    //endregion
 
-  @Inject
-  public CategoryEntityDataMapper() {}
+    //region Fields
 
-  /**
-   * Transform a {@link MessageEntity} into an {@link User}.
-   *
-   * @param categoryEntity Object to be transformed.
-   * @return {@link Message} if valid {@link MessageEntity} otherwise null.
-   */
-  public Category transform(CategoryEntity categoryEntity) {
-    Category category = null;
-    if (categoryEntity != null) {
-      category = new Category(categoryEntity.getCategoryId());
-      category.setImageUrl(categoryEntity.getImageUrl());
-      category.setName(categoryEntity.getName());
+    //endregion
+
+    //region Constructors & Initialization
+    @Inject
+    public CategoryEntityDataMapper() {
     }
 
-    return category;
-  }
+    //endregion
 
-  /**
-   * Transform a List of {@link MessageEntity} into a Collection of {@link Message}.
-   *
-   * @param categoryEntityCollection Object Collection to be transformed.
-   * @return {@link Message} if valid {@link UserEntity} otherwise null.
-   */
-  public List<Category> transform(Collection<CategoryEntity> categoryEntityCollection) {
-    List<Category> categories = new ArrayList<>(20);
-    Category category;
-    for (CategoryEntity categoryEntity : categoryEntityCollection) {
-      category = transform(categoryEntity);
-      if (category != null) {
-        categories.add(category);
-      }
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
+    /**
+     * Transform a {@link MessageEntity} into an {@link User}.
+     *
+     * @param categoryEntity Object to be transformed.
+     * @return {@link Message} if valid {@link MessageEntity} otherwise null.
+     */
+    public Category transform(CategoryEntity categoryEntity) {
+        Category category = null;
+        if (categoryEntity != null) {
+            category = new Category(categoryEntity.getCategoryId());
+            category.setImageUrl(categoryEntity.getImageUrl());
+            category.setName(categoryEntity.getName());
+        }
+
+        return category;
     }
 
-    return categories;
-  }
+    /**
+     * Transform a List of {@link MessageEntity} into a Collection of {@link Message}.
+     *
+     * @param categoryEntityCollection Object Collection to be transformed.
+     * @return {@link Message} if valid {@link UserEntity} otherwise null.
+     */
+    public List<Category> transform(Collection<CategoryEntity> categoryEntityCollection) {
+        List<Category> categories = new ArrayList<>(20);
+        Category category;
+        for (CategoryEntity categoryEntity : categoryEntityCollection) {
+            category = transform(categoryEntity);
+            if (category != null) {
+                categories.add(category);
+            }
+        }
+
+        return categories;
+    }
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

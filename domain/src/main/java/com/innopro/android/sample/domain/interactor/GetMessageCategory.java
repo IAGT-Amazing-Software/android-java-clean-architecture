@@ -15,17 +15,43 @@ import io.reactivex.Observable;
  * This class is an implementation of {@link UseCase} that represents a use case for
  * retrieving a collection of all {@link Category}.
  */
-public class GetMessageCategory extends UseCase<List<Category>,Void> {
+public class GetMessageCategory extends UseCase<List<Category>, Void> {
+    //region Constants
+    private static final String TAG = GetMessageCategory.class.getSimpleName();
+    //endregion
 
-  private final CategoryRepository categoryRepository;
+    //region Fields
+    private final CategoryRepository categoryRepository;
 
-  @Inject
-  public GetMessageCategory(CategoryRepository categoryRepository, PostExecutionThread postExecutionThread) {
-    super(postExecutionThread);
-    this.categoryRepository = categoryRepository;
-  }
+    //endregion
 
-  @Override public Observable buildUseCaseObservable(Void nothing) {
-    return this.categoryRepository.categories();
-  }
+    //region Constructors & Initialization
+    @Inject
+    public GetMessageCategory(CategoryRepository categoryRepository, PostExecutionThread postExecutionThread) {
+        super(postExecutionThread);
+        this.categoryRepository = categoryRepository;
+    }
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public Observable buildUseCaseObservable(Void nothing) {
+        return this.categoryRepository.categories();
+    }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
 }

@@ -14,18 +14,43 @@ import io.reactivex.Observable;
  * This class is an implementation of {@link UseCase} that represents a use case for
  * retrieving a collection of all {@link Message}.
  */
-public class GetMessageList extends UseCase<List<Message>,Void> {
+public class GetMessageList extends UseCase<List<Message>, Void> {
+    //region Constants
+    private static final String TAG = GetMessageList.class.getSimpleName();
+    //endregion
 
-  private final MessageRepository messageRepository;
+    //region Fields
+    private final MessageRepository messageRepository;
 
-  @Inject
-  public GetMessageList(MessageRepository messageRepository,
-                        PostExecutionThread postExecutionThread) {
-    super( postExecutionThread);
-    this.messageRepository = messageRepository;
-  }
+    //endregion
 
-  @Override public Observable buildUseCaseObservable(Void nothing) {
-    return this.messageRepository.messages();
-  }
+    //region Constructors & Initialization
+    @Inject
+    public GetMessageList(MessageRepository messageRepository,
+                          PostExecutionThread postExecutionThread) {
+        super(postExecutionThread);
+        this.messageRepository = messageRepository;
+    }
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public Observable buildUseCaseObservable(Void nothing) {
+        return this.messageRepository.messages();
+    }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

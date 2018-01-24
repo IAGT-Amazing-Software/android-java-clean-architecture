@@ -11,9 +11,16 @@ import io.reactivex.Observable;
  * {@link TokenDataStore} implementation based on file system data store.
  */
 public class DiskTokenDataStore implements TokenDataStore {
+    //region Constants
+    private static final String TAG = DiskTokenDataStore.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final TokenCache TokenCache;
 
+    //endregion
+
+    //region Constructors & Initialization
     /**
      * Construct a {@link UserDataStore} based file system data store.
      *
@@ -23,9 +30,28 @@ public class DiskTokenDataStore implements TokenDataStore {
         this.TokenCache = TokenCache;
     }
 
+    //endregion
 
-
+    //region Methods for/from SuperClass/Interfaces
     @Override public Observable<TokenEntity> tokenEntity() {
         return this.TokenCache.get();
     }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
+
+
 }

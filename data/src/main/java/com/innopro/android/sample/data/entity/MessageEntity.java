@@ -9,65 +9,90 @@ import io.realm.annotations.PrimaryKey;
  * User Entity used in the data layer.
  */
 public class MessageEntity extends RealmObject {
-  @PrimaryKey
-  @SerializedName("id")
-  private int messageId;
+    //region Constants
+    private static final String TAG = MessageEntity.class.getSimpleName();
+    //endregion
 
-  @SerializedName("image_url")
-  private String imageUrl;
+    //region Fields
+    @PrimaryKey
+    @SerializedName("id")
+    private int messageId;
 
-  @SerializedName("name")
-  private String name;
+    @SerializedName("image_url")
+    private String imageUrl;
 
-  @SerializedName("description")
-  private String description;
+    @SerializedName("name")
+    private String name;
 
-  public MessageEntity() {
-    //empty
-  }
+    @SerializedName("description")
+    private String description;
 
-  public int getMessageId() {
-    return messageId;
-  }
+    //endregion
 
-  public void setMessageId(int messageId) {
-    this.messageId = messageId;
-  }
+    //region Constructors & Initialization
+    public MessageEntity() {
+        //empty
+    }
 
-  public String getImageUrl() {
-    return imageUrl;
-  }
+    //endregion
 
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
+    //region Methods for/from SuperClass/Interfaces
 
-  public String getName() {
-    return name;
-  }
+    //endregion
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    //region Methods
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public String getDescription() {
-    return description;
-  }
+        stringBuilder.append("***** User Entity Details *****\n");
+        stringBuilder.append("id=" + this.getMessageId() + "\n");
+        stringBuilder.append("image url=" + this.getImageUrl() + "\n");
+        stringBuilder.append("name=" + this.getName() + "\n");
+        stringBuilder.append("description=" + this.getDescription() + "\n");
+        stringBuilder.append("*******************************");
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+        return stringBuilder.toString();
+    }
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //endregion
 
-    stringBuilder.append("***** User Entity Details *****\n");
-    stringBuilder.append("id=" + this.getMessageId() + "\n");
-    stringBuilder.append("image url=" + this.getImageUrl() + "\n");
-    stringBuilder.append("name=" + this.getName() + "\n");
-    stringBuilder.append("description=" + this.getDescription() + "\n");
-    stringBuilder.append("*******************************");
+    //region Inner and Anonymous Classes
 
-    return stringBuilder.toString();
-  }
+    //endregion
+
+    //region Getter & Setter
+
+    public int getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    //endregion
 }

@@ -25,68 +25,91 @@ import butterknife.ButterKnife;
  * Adapter that manages a collection of {@link CategoryModel}.
  */
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
+    //region Constants
+    private static final String TAG = CategoriesAdapter.class.getSimpleName();
+    //endregion
 
-  public interface OnItemClickListener {
-    void onCategoryItemClicked(CategoryModel categoryModel);
-  }
+    //region Fields
+    private List<CategoryModel> categoriesCollection;
+    private final LayoutInflater layoutInflater;
 
-  private List<CategoryModel> categoriesCollection;
-  private final LayoutInflater layoutInflater;
+    private OnItemClickListener onItemClickListener;
 
-  private OnItemClickListener onItemClickListener;
+    //endregion
 
-  @Inject
-  public CategoriesAdapter(BaseActivity context) {
-    this.layoutInflater =
-        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    this.categoriesCollection = Collections.emptyList();
-  }
-
-  @Override public int getItemCount() {
-    return (this.categoriesCollection != null) ? this.categoriesCollection.size() : 0;
-  }
-
-  @Override public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    final View view = this.layoutInflater.inflate(R.layout.row_category, parent, false);
-    return new CategoryViewHolder(view);
-  }
-
-  @Override public void onBindViewHolder(CategoryViewHolder holder, final int position) {
-    final CategoryModel categoryModel = this.categoriesCollection.get(position);
-    holder.textViewName.setText(categoryModel.getName());
-    holder.itemView.setOnClickListener(v -> {
-      if (CategoriesAdapter.this.onItemClickListener != null) {
-        CategoriesAdapter.this.onItemClickListener.onCategoryItemClicked(categoryModel);
-      }
-    });
-  }
-
-  @Override public long getItemId(int position) {
-    return this.categoriesCollection.get(position).getCategoryId();
-  }
-
-  public void setCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
-    this.validateCategoriesCollection(categoriesCollection);
-    this.categoriesCollection = (List<CategoryModel>) categoriesCollection;
-    this.notifyDataSetChanged();
-  }
-
-  public void setOnItemClickListener (OnItemClickListener onItemClickListener) {
-    this.onItemClickListener = onItemClickListener;
-  }
-
-  private void validateCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
-    if (categoriesCollection == null) {
-      throw new IllegalArgumentException("The list cannot be null");
+    //region Constructors & Initialization
+    @Inject
+    public CategoriesAdapter(BaseActivity context) {
+        this.layoutInflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.categoriesCollection = Collections.emptyList();
     }
-  }
 
-  static class CategoryViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R2.id.tv_name) TextView textViewName;
+    //endregion
 
-    public CategoryViewHolder(View itemView) {
-      super(itemView);
-      ButterKnife.bind(this, itemView);
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public int getItemCount() {
+        return (this.categoriesCollection != null) ? this.categoriesCollection.size() : 0;
     }
-  }
+
+    @Override
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = this.layoutInflater.inflate(R.layout.row_category, parent, false);
+        return new CategoryViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
+        final CategoryModel categoryModel = this.categoriesCollection.get(position);
+        holder.textViewName.setText(categoryModel.getName());
+        holder.itemView.setOnClickListener(v -> {
+            if (CategoriesAdapter.this.onItemClickListener != null) {
+                CategoriesAdapter.this.onItemClickListener.onCategoryItemClicked(categoryModel);
+            }
+        });
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return this.categoriesCollection.get(position).getCategoryId();
+    }
+    //endregion
+
+    //region Methods
+    private void validateCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
+        if (categoriesCollection == null) {
+            throw new IllegalArgumentException("The list cannot be null");
+        }
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+    public interface OnItemClickListener {
+        void onCategoryItemClicked(CategoryModel categoryModel);
+    }
+    static class CategoryViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R2.id.tv_name)
+        TextView textViewName;
+
+        public CategoryViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+    //endregion
+
+    //region Getter & Setter
+    public void setCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
+        this.validateCategoriesCollection(categoriesCollection);
+        this.categoriesCollection = (List<CategoryModel>) categoriesCollection;
+        this.notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+    //endregion
+
+
 }

@@ -25,68 +25,86 @@ import butterknife.ButterKnife;
  * Adapter that manages a collection of {@link MessageModel}.
  */
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MessageViewHolder> {
+    //region Constants
+    private static final String TAG = MessagesAdapter.class.getSimpleName();
+    //endregion
 
-  public interface OnItemClickListener {
-    void onMessageItemClicked(MessageModel messageModel);
-  }
+    //region Fields
+    private List<MessageModel> messagesCollection;
+    private final LayoutInflater layoutInflater;
 
-  private List<MessageModel> messagesCollection;
-  private final LayoutInflater layoutInflater;
+    private OnItemClickListener onItemClickListener;
+    //endregion
 
-  private OnItemClickListener onItemClickListener;
-
-  @Inject
-  public MessagesAdapter(BaseActivity context) {
-    this.layoutInflater =
-        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    this.messagesCollection = Collections.emptyList();
-  }
-
-  @Override public int getItemCount() {
-    return (this.messagesCollection != null) ? this.messagesCollection.size() : 0;
-  }
-
-  @Override public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    final View view = this.layoutInflater.inflate(R.layout.row_message, parent, false);
-    return new MessageViewHolder(view);
-  }
-
-  @Override public void onBindViewHolder(MessageViewHolder holder, final int position) {
-    final MessageModel messageModel = this.messagesCollection.get(position);
-    holder.textViewName.setText(messageModel.getName());
-    holder.itemView.setOnClickListener(v -> {
-      if (MessagesAdapter.this.onItemClickListener != null) {
-        MessagesAdapter.this.onItemClickListener.onMessageItemClicked(messageModel);
-      }
-    });
-  }
-
-  @Override public long getItemId(int position) {
-    return this.messagesCollection.get(position).getMessageId();
-  }
-
-  public void setMessagesCollection(Collection<MessageModel> messagesCollection) {
-    this.validateMessagesCollection(messagesCollection);
-    this.messagesCollection = (List<MessageModel>) messagesCollection;
-    this.notifyDataSetChanged();
-  }
-
-  public void setOnItemClickListener (OnItemClickListener onItemClickListener) {
-    this.onItemClickListener = onItemClickListener;
-  }
-
-  private void validateMessagesCollection(Collection<MessageModel> messagesCollection) {
-    if (messagesCollection == null) {
-      throw new IllegalArgumentException("The list cannot be null");
+    //region Constructors & Initialization
+    @Inject
+    public MessagesAdapter(BaseActivity context) {
+        this.layoutInflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.messagesCollection = Collections.emptyList();
     }
-  }
+    //endregion
 
-  static class MessageViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R2.id.name) TextView textViewName;
-
-    public MessageViewHolder(View itemView) {
-      super(itemView);
-      ButterKnife.bind(this, itemView);
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public int getItemCount() {
+        return (this.messagesCollection != null) ? this.messagesCollection.size() : 0;
     }
-  }
+
+    @Override
+    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = this.layoutInflater.inflate(R.layout.row_message, parent, false);
+        return new MessageViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(MessageViewHolder holder, final int position) {
+        final MessageModel messageModel = this.messagesCollection.get(position);
+        holder.textViewName.setText(messageModel.getName());
+        holder.itemView.setOnClickListener(v -> {
+            if (MessagesAdapter.this.onItemClickListener != null) {
+                MessagesAdapter.this.onItemClickListener.onMessageItemClicked(messageModel);
+            }
+        });
+    }
+    @Override
+    public long getItemId(int position) {
+        return this.messagesCollection.get(position).getMessageId();
+    }
+    //endregion
+
+    //region Methods
+    private void validateMessagesCollection(Collection<MessageModel> messagesCollection) {
+        if (messagesCollection == null) {
+            throw new IllegalArgumentException("The list cannot be null");
+        }
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+    public interface OnItemClickListener {
+        void onMessageItemClicked(MessageModel messageModel);
+    }
+    static class MessageViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R2.id.name)
+        TextView textViewName;
+
+        public MessageViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+    //endregion
+
+    //region Getter & Setter
+    public void setMessagesCollection(Collection<MessageModel> messagesCollection) {
+        this.validateMessagesCollection(messagesCollection);
+        this.messagesCollection = (List<MessageModel>) messagesCollection;
+        this.notifyDataSetChanged();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+    //endregion
 }

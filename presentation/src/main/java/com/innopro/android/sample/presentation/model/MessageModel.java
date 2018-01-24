@@ -4,58 +4,79 @@ package com.innopro.android.sample.presentation.model;
  * Class that represents a user in the presentation layer.
  */
 public class MessageModel {
+    //region Constants
+    private static final String TAG = MessageModel.class.getSimpleName();
+    //endregion
 
-  private final int messageId;
+    //region Fields
+    private final int messageId;
+    private String imageUrl;
+    private String name;
+    private String description;
 
-  public MessageModel(int messageId) {
-    this.messageId = messageId;
-  }
+    //endregion
 
-  private String imageUrl;
-  private String name;
-  private String description;
+    //region Constructors & Initialization
+    public MessageModel(int messageId) {
+        this.messageId = messageId;
+    }
 
-  public int getMessageId() {
-    return messageId;
-  }
+    //endregion
 
-  public String getImageUrl() {
-    return imageUrl;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
+        stringBuilder.append("***** User Model Details *****\n");
+        stringBuilder.append("id=" + this.getMessageId() + "\n");
+        stringBuilder.append("image url=" + this.getImageUrl() + "\n");
+        stringBuilder.append("name=" + this.getName() + "\n");
+        stringBuilder.append("description=" + this.getDescription() + "\n");
+        stringBuilder.append("*******************************");
 
-  public String getName() {
-    return name;
-  }
+        return stringBuilder.toString();
+    }
+    //endregion
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    //region Methods
 
-  public String getDescription() {
-    return description;
-  }
+    //endregion
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    //region Inner and Anonymous Classes
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //endregion
 
-    stringBuilder.append("***** User Model Details *****\n");
-    stringBuilder.append("id=" + this.getMessageId() + "\n");
-    stringBuilder.append("image url=" + this.getImageUrl() + "\n");
-    stringBuilder.append("name=" + this.getName() + "\n");
-    stringBuilder.append("description=" + this.getDescription() + "\n");
-    stringBuilder.append("*******************************");
+    //region Getter & Setter
 
-    return stringBuilder.toString();
-  }
+    public int getMessageId() {
+        return messageId;
+    }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    //endregion
 
 
 }

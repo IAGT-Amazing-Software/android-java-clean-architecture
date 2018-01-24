@@ -13,24 +13,52 @@ import io.reactivex.Observable;
  * {@link CategoryDataStore} implementation based on file system data store.
  */
 public class DiskCategoryDataStore implements CategoryDataStore {
+    //region Constants
+    private static final String TAG = DiskCategoryDataStore.class.getSimpleName();
+    //endregion
 
-  private final CategoryCache categoryCache;
+    //region Fields
+    private final CategoryCache categoryCache;
 
-  /**
-   * Construct a {@link UserDataStore} based file system data store.
-   *
-   * @param categoryCache A {@link CategoryCache} to cache data retrieved from the api.
-   */
-  public DiskCategoryDataStore(CategoryCache categoryCache) {
-    this.categoryCache = categoryCache;
-  }
+    //endregion
 
-  @Override public Observable<List<CategoryEntity>> categoryEntityList() {
-    //TODO: implement simple cache for storing/retrieving collections of messages.
-    throw new UnsupportedOperationException("Operation is not available!!!");
-  }
+    //region Constructors & Initialization
 
-  @Override public Observable<CategoryEntity> categoryEntityDetails(final int categoryId) {
-     return this.categoryCache.get(categoryId);
-  }
+    /**
+     * Construct a {@link UserDataStore} based file system data store.
+     *
+     * @param categoryCache A {@link CategoryCache} to cache data retrieved from the api.
+     */
+    public DiskCategoryDataStore(CategoryCache categoryCache) {
+        this.categoryCache = categoryCache;
+    }
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public Observable<List<CategoryEntity>> categoryEntityList() {
+        //TODO: implement simple cache for storing/retrieving collections of messages.
+        throw new UnsupportedOperationException("Operation is not available!!!");
+    }
+
+    @Override
+    public Observable<CategoryEntity> categoryEntityDetails(final int categoryId) {
+        return this.categoryCache.get(categoryId);
+    }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

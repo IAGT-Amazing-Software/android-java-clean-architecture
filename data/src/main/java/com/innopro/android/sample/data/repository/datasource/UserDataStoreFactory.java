@@ -2,9 +2,9 @@ package com.innopro.android.sample.data.repository.datasource;
 
 import android.content.Context;
 
+import com.innopro.android.sample.data.cache.UserCache;
 import com.innopro.android.sample.data.net.RestApi;
 import com.innopro.android.sample.data.net.RestApiImpl;
-import com.innopro.android.sample.data.cache.UserCache;
 import com.innopro.android.sample.data.repository.datasource.source.UserDataStore;
 import com.innopro.android.sample.data.repository.datasource.source.cloud.CloudUserDataStore;
 import com.innopro.android.sample.data.repository.datasource.source.disk.DiskUserDataStore;
@@ -17,40 +17,63 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class UserDataStoreFactory {
+    //region Constants
+    private static final String TAG = UserDataStoreFactory.class.getSimpleName();
+    //endregion
 
-  private final Context context;
-  private final UserCache userCache;
+    //region Fields
+    private final Context context;
+    private final UserCache userCache;
 
-  @Inject
-  public UserDataStoreFactory(Context context, UserCache userCache) {
-    if (context == null || userCache == null) {
-      throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
+    //endregion
+
+    //region Constructors & Initialization
+    @Inject
+    public UserDataStoreFactory(Context context, UserCache userCache) {
+        if (context == null || userCache == null) {
+            throw new IllegalArgumentException("Constructor parameters cannot be null!!!");
+        }
+        this.context = context.getApplicationContext();
+        this.userCache = userCache;
     }
-    this.context = context.getApplicationContext();
-    this.userCache = userCache;
-  }
+    //endregion
 
-  /**
-   * Create {@link UserDataStore} from a user id.
-   */
-  public UserDataStore create(int userId) {
-    UserDataStore userDataStore;
+    //region Methods for/from SuperClass/Interfaces
 
-    if (!this.userCache.isExpired(userId) && this.userCache.isCached(userId)) {
-      userDataStore = new DiskUserDataStore(this.userCache);
-    } else {
-      userDataStore = createCloudDataStore();
+    //endregion
+
+    //region Methods
+    /**
+     * Create {@link UserDataStore} from a user id.
+     */
+    public UserDataStore create(int userId) {
+        UserDataStore userDataStore;
+
+        if (!this.userCache.isExpired(userId) && this.userCache.isCached(userId)) {
+            userDataStore = new DiskUserDataStore(this.userCache);
+        } else {
+            userDataStore = createCloudDataStore();
+        }
+
+        return userDataStore;
     }
 
-    return userDataStore;
-  }
+    /**
+     * Create {@link UserDataStore} to retrieve data from the Cloud.
+     */
+    public UserDataStore createCloudDataStore() {
+        RestApi restApi = new RestApiImpl(this.context);
 
-  /**
-   * Create {@link UserDataStore} to retrieve data from the Cloud.
-   */
-  public UserDataStore createCloudDataStore() {
-    RestApi restApi = new RestApiImpl(this.context);
+        return new CloudUserDataStore(restApi, this.userCache);
+    }
+    //endregion
 
-    return new CloudUserDataStore(restApi, this.userCache);
-  }
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

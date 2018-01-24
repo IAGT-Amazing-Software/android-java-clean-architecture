@@ -28,14 +28,21 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
  */
 public class UserLoggedFragment extends BaseFragment implements UserLoggedView {
 
-    @Inject
-    UserLoggedPresenter userLoggedPresenter;
+    //region Constants
+    private static final String TAG = UserLoggedFragment.class.getSimpleName();
+    //endregion
 
+    //region Fields
     @BindView(R2.id.imageView_Avatar)
     ImageView imageView_Avatar;
     @BindView(R2.id.textView_Name)
     TextView textView_Name;
 
+    @Inject
+    UserLoggedPresenter userLoggedPresenter;
+    //endregion
+
+    //region Constructors & Initialization
     public UserLoggedFragment() {
         setRetainInstance(true);
     }
@@ -62,7 +69,9 @@ public class UserLoggedFragment extends BaseFragment implements UserLoggedView {
             this.loadUserLogged();
         }
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
     @Override
     public void onResume() {
         super.onResume();
@@ -127,6 +136,9 @@ public class UserLoggedFragment extends BaseFragment implements UserLoggedView {
     public Context context() {
         return getActivity().getApplicationContext();
     }
+    //endregion
+
+    //region Methods
 
     /**
      * Loads all users.
@@ -136,6 +148,15 @@ public class UserLoggedFragment extends BaseFragment implements UserLoggedView {
             this.userLoggedPresenter.initialize();
         }
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 
     //@OnClick(R.id.bt_retry)
     //void onButtonRetryClick() {

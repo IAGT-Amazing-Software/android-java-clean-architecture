@@ -16,9 +16,17 @@ import io.reactivex.Observable;
  */
 @Singleton
 public class TokenDataRepository implements TokenRepository {
+    //region Constants
+    private static final String TAG = TokenDataRepository.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final TokenDataStoreFactory tokenDataStoreFactory;
     private final TokenEntityDataMapper tokenEntityDataMapper;
+
+    //endregion
+
+    //region Constructors & Initialization
 
     /**
      * Constructs a {@link TokenRepository}.
@@ -33,6 +41,9 @@ public class TokenDataRepository implements TokenRepository {
         this.tokenEntityDataMapper = tokenEntityDataMapper;
     }
 
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
     @SuppressWarnings("Convert2MethodRef")
     @Override
     public Observable<Token> token() {
@@ -40,4 +51,17 @@ public class TokenDataRepository implements TokenRepository {
         return tokenDataStore.tokenEntity()
                 .map(tokenEntity -> this.tokenEntityDataMapper.transform(tokenEntity));
     }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

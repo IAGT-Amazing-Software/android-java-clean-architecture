@@ -9,53 +9,78 @@ import io.realm.annotations.PrimaryKey;
  * User Entity used in the data layer.
  */
 public class UserLoggedEntity extends RealmObject {
-  @PrimaryKey
-  @SerializedName("id")
-  private int userLoggedId;
+    //region Constants
+    private static final String TAG = UserLoggedEntity.class.getSimpleName();
+    //endregion
 
-  @SerializedName("avatar_url")
-  private String avatarUrl;
+    //region Fields
+    @PrimaryKey
+    @SerializedName("id")
+    private int userLoggedId;
 
-  @SerializedName("full_name")
-  private String fullname;
+    @SerializedName("avatar_url")
+    private String avatarUrl;
 
-  public UserLoggedEntity() {
-    //empty
-  }
+    @SerializedName("full_name")
+    private String fullname;
 
-  public int getUserLoggedId() {
-    return userLoggedId;
-  }
+    //endregion
 
-  public void setUserLoggedId(int userLoggedId) {
-    this.userLoggedId = userLoggedId;
-  }
+    //region Constructors & Initialization
+    public UserLoggedEntity() {
+        //empty
+    }
 
-  public String getAvatarUrl() {
-    return avatarUrl;
-  }
+    //endregion
 
-  public void setAvatarUrl(String avatarUrl) {
-    this.avatarUrl = avatarUrl;
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public String getFullname() {
-    return fullname;
-  }
+        stringBuilder.append("***** User Entity Details *****\n");
+        stringBuilder.append("id=" + this.getUserLoggedId() + "\n");
+        stringBuilder.append("avatar url=" + this.getAvatarUrl() + "\n");
+        stringBuilder.append("fullname=" + this.getFullname() + "\n");
+        stringBuilder.append("*******************************");
 
-  public void setFullname(String fullname) {
-    this.fullname = fullname;
-  }
+        return stringBuilder.toString();
+    }
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //endregion
 
-    stringBuilder.append("***** User Entity Details *****\n");
-    stringBuilder.append("id=" + this.getUserLoggedId() + "\n");
-    stringBuilder.append("avatar url=" + this.getAvatarUrl() + "\n");
-    stringBuilder.append("fullname=" + this.getFullname() + "\n");
-    stringBuilder.append("*******************************");
+    //region Methods
 
-    return stringBuilder.toString();
-  }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+    public int getUserLoggedId() {
+        return userLoggedId;
+    }
+
+    public void setUserLoggedId(int userLoggedId) {
+        this.userLoggedId = userLoggedId;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    //endregion
 }

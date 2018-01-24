@@ -13,11 +13,26 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class TokenEntityDataMapper {
+    //region Constants
+    private static final String TAG = TokenEntityDataMapper.class.getSimpleName();
+    //endregion
 
+    //region Fields
+
+    //endregion
+
+    //region Constructors & Initialization@Inject
     @Inject
     public TokenEntityDataMapper() {
     }
 
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
     /**
      * Transform a {@link TokenEntity} into an {@link Token}.
      *
@@ -32,5 +47,17 @@ public class TokenEntityDataMapper {
 
         return token;
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
+
 }
 

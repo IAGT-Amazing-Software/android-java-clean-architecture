@@ -32,143 +32,185 @@ import butterknife.OnClick;
  */
 public class MessageCategoryFragment extends BaseFragment implements MessageCategoryView {
 
-  /**
-   * Interface for listening message list events.
-   */
-  public interface MessageCategoryListener {
-    void onCategoryClicked(final CategoryModel categoryModel);
-  }
+    //region Constants
+    private static final String TAG = MessageCategoryFragment.class.getSimpleName();
+    //endregion
 
-  @Inject
-  MessageCategoryPresenter messageCategoryPresenter;
-  @Inject
-  CategoriesAdapter categoriesAdapter;
+    //region Fields
+    @BindView(R2.id.rv_categories)
+    RecyclerView rv_categories;
+    @BindView(R2.id.rl_progress)
+    RelativeLayout rl_progress;
+    @BindView(R2.id.rl_retry)
+    RelativeLayout rl_retry;
+    @BindView(R2.id.bt_retry)
+    Button bt_retry;
 
-  @BindView(R2.id.rv_categories) RecyclerView rv_categories;
-  @BindView(R2.id.rl_progress) RelativeLayout rl_progress;
-  @BindView(R2.id.rl_retry) RelativeLayout rl_retry;
-  @BindView(R2.id.bt_retry) Button bt_retry;
+    private MessageCategoryListener messageCategoryListener;
 
-  private MessageCategoryListener messageCategoryListener;
+    private CategoriesAdapter.OnItemClickListener onItemClickListener =
+            categoryModel -> {
+                if (MessageCategoryFragment.this.messageCategoryPresenter != null && categoryModel != null) {
+                    MessageCategoryFragment.this.messageCategoryPresenter.onCategoryClicked(categoryModel);
+                }
+            };
 
-  public MessageCategoryFragment() {
-    setRetainInstance(true);
-  }
+    @Inject
+    MessageCategoryPresenter messageCategoryPresenter;
+    @Inject
+    CategoriesAdapter categoriesAdapter;
+    //endregion
 
-  public void attachListener(){
-    try {
-      this.messageCategoryListener = (MessageCategoryListener) getActivity();
-    } catch (ClassCastException e) {
-      Log.e(MessageCategoryFragment.class.getName(), e.getLocalizedMessage());
+    //region Constructors & Initialization
+    public MessageCategoryFragment() {
+        setRetainInstance(true);
     }
-  }
 
-
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    attachListener();
-    this.getComponent(MainComponent.class).inject(this);
-  }
-
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    final View fragmentView = inflater.inflate(R.layout.fragment_category_list, container, false);
-    ButterKnife.bind(this, fragmentView);
-    setupRecyclerView();
-    return fragmentView;
-  }
-
-  @Override public void onViewCreated(View view, Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    this.messageCategoryPresenter.setView(this);
-    if (savedInstanceState == null) {
-      this.loadCategoryList();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        attachListener();
+        this.getComponent(MainComponent.class).inject(this);
     }
-  }
 
-  @Override public void onResume() {
-    super.onResume();
-    this.messageCategoryPresenter.resume();
-    getActivity().setTitle(getResources().getString(R.string.activity_title_message_category));
-  }
-
-  @Override public void onPause() {
-    super.onPause();
-    this.messageCategoryPresenter.pause();
-  }
-
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-    rv_categories.setAdapter(null);
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
-    this.messageCategoryPresenter.destroy();
-  }
-
-  @Override public void onDetach() {
-    super.onDetach();
-    this.messageCategoryListener = null;
-  }
-
-  @Override public void showLoading() {
-    this.rl_progress.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideLoading() {
-    this.rl_progress.setVisibility(View.GONE);
-  }
-
-  @Override public void showRetry() {
-    this.rl_retry.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideRetry() {
-    this.rl_retry.setVisibility(View.GONE);
-  }
-
-  @Override public void renderCategoryList(Collection<CategoryModel> categoryModelCollection) {
-    if (categoryModelCollection != null) {
-      this.categoriesAdapter.setCategoriesCollection(categoryModelCollection);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View fragmentView = inflater.inflate(R.layout.fragment_category_list, container, false);
+        ButterKnife.bind(this, fragmentView);
+        setupRecyclerView();
+        return fragmentView;
     }
-  }
 
-  @Override public void viewMessageList(CategoryModel categoryModel) {
-    if (this.messageCategoryListener != null) {
-      this.messageCategoryListener.onCategoryClicked(categoryModel);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.messageCategoryPresenter.setView(this);
+        if (savedInstanceState == null) {
+            this.loadCategoryList();
+        }
     }
-  }
+    //endregion
 
-  @Override public void showError(String message) {
-    this.showToastMessage(message);
-  }
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.messageCategoryPresenter.resume();
+        getActivity().setTitle(getResources().getString(R.string.activity_title_message_category));
+    }
 
-  @Override public Context context() {
-    return this.getActivity().getApplicationContext();
-  }
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.messageCategoryPresenter.pause();
+    }
 
-  private void setupRecyclerView() {
-    this.categoriesAdapter.setOnItemClickListener(onItemClickListener);
-    this.rv_categories.setLayoutManager(new CategoriesLayoutManager(context()));
-    this.rv_categories.setAdapter(categoriesAdapter);
-  }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        rv_categories.setAdapter(null);
+    }
 
-  /**
-   * Loads all messages.
-   */
-  private void loadCategoryList() {
-    this.messageCategoryPresenter.initialize();
-  }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        this.messageCategoryPresenter.destroy();
+    }
 
-  @OnClick(R2.id.bt_retry) void onButtonRetryClick() {
-    MessageCategoryFragment.this.loadCategoryList();
-  }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.messageCategoryListener = null;
+    }
 
-  private CategoriesAdapter.OnItemClickListener onItemClickListener =
-          categoryModel -> {
-            if (MessageCategoryFragment.this.messageCategoryPresenter != null && categoryModel != null) {
-              MessageCategoryFragment.this.messageCategoryPresenter.onCategoryClicked(categoryModel);
-            }
-          };
+    @Override
+    public void showLoading() {
+        this.rl_progress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        this.rl_progress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showRetry() {
+        this.rl_retry.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideRetry() {
+        this.rl_retry.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void renderCategoryList(Collection<CategoryModel> categoryModelCollection) {
+        if (categoryModelCollection != null) {
+            this.categoriesAdapter.setCategoriesCollection(categoryModelCollection);
+        }
+    }
+
+    @Override
+    public void viewMessageList(CategoryModel categoryModel) {
+        if (this.messageCategoryListener != null) {
+            this.messageCategoryListener.onCategoryClicked(categoryModel);
+        }
+    }
+
+    @Override
+    public void showError(String message) {
+        this.showToastMessage(message);
+    }
+
+    @Override
+    public Context context() {
+        return this.getActivity().getApplicationContext();
+    }
+
+    //endregion
+
+    //region Methods
+
+
+    public void attachListener() {
+        try {
+            this.messageCategoryListener = (MessageCategoryListener) getActivity();
+        } catch (ClassCastException e) {
+            Log.e(MessageCategoryFragment.class.getName(), e.getLocalizedMessage());
+        }
+    }
+
+    private void setupRecyclerView() {
+        this.categoriesAdapter.setOnItemClickListener(onItemClickListener);
+        this.rv_categories.setLayoutManager(new CategoriesLayoutManager(context()));
+        this.rv_categories.setAdapter(categoriesAdapter);
+    }
+
+    /**
+     * Loads all messages.
+     */
+    private void loadCategoryList() {
+        this.messageCategoryPresenter.initialize();
+    }
+
+    @OnClick(R2.id.bt_retry)
+    void onButtonRetryClick() {
+        MessageCategoryFragment.this.loadCategoryList();
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+    /**
+     * Interface for listening message list events.
+     */
+    public interface MessageCategoryListener {
+        void onCategoryClicked(final CategoryModel categoryModel);
+    }
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
 }

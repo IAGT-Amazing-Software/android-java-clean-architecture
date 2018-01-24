@@ -8,90 +8,117 @@ import io.realm.annotations.PrimaryKey;
 /**
  * User Entity used in the data layer.
  */
-public class UserEntity extends RealmObject{
-  @PrimaryKey
-  @SerializedName("id")
-  private int userId;
+public class UserEntity extends RealmObject {
 
-  @SerializedName("cover_url")
-  private String coverUrl;
+    //region Constants
+    private static final String TAG = UserEntity.class.getSimpleName();
+    //endregion
 
-  @SerializedName("full_name")
-  private String fullname;
+    //region Fields
+    @PrimaryKey
+    @SerializedName("id")
+    private int userId;
 
-  @SerializedName("description")
-  private String description;
+    @SerializedName("cover_url")
+    private String coverUrl;
 
-  @SerializedName("followers")
-  private int followers;
+    @SerializedName("full_name")
+    private String fullname;
 
-  @SerializedName("email")
-  private String email;
+    @SerializedName("description")
+    private String description;
 
-  public UserEntity() {
-    //empty
-  }
+    @SerializedName("followers")
+    private int followers;
 
-  public int getUserId() {
-    return userId;
-  }
+    @SerializedName("email")
+    private String email;
+    //endregion
 
-  public void setUserId(int userId) {
-    this.userId = userId;
-  }
+    //region Constructors & Initialization
+    public UserEntity() {
+        //empty
+    }
+    //endregion
 
-  public String getCoverUrl() {
-    return coverUrl;
-  }
+    //region Methods for/from SuperClass/Interfaces
 
-  public void setCoverUrl(String coverUrl) {
-    this.coverUrl = coverUrl;
-  }
 
-  public String getFullname() {
-    return fullname;
-  }
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
-  public void setFullname(String fullname) {
-    this.fullname = fullname;
-  }
+        stringBuilder.append("***** User Entity Details *****\n");
+        stringBuilder.append("id=" + this.getUserId() + "\n");
+        stringBuilder.append("cover url=" + this.getCoverUrl() + "\n");
+        stringBuilder.append("fullname=" + this.getFullname() + "\n");
+        stringBuilder.append("email=" + this.getEmail() + "\n");
+        stringBuilder.append("description=" + this.getDescription() + "\n");
+        stringBuilder.append("followers=" + this.getFollowers() + "\n");
+        stringBuilder.append("*******************************");
 
-  public String getDescription() {
-    return description;
-  }
+        return stringBuilder.toString();
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    //endregion
 
-  public int getFollowers() {
-    return followers;
-  }
+    //region Methods
 
-  public void setFollowers(int followers) {
-    this.followers = followers;
-  }
+    //endregion
 
-  public String getEmail() {
-    return email;
-  }
+    //region Inner and Anonymous Classes
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    //endregion
 
-  @Override public String toString() {
-    StringBuilder stringBuilder = new StringBuilder();
+    //region Getter & Setter
 
-    stringBuilder.append("***** User Entity Details *****\n");
-    stringBuilder.append("id=" + this.getUserId() + "\n");
-    stringBuilder.append("cover url=" + this.getCoverUrl() + "\n");
-    stringBuilder.append("fullname=" + this.getFullname() + "\n");
-    stringBuilder.append("email=" + this.getEmail() + "\n");
-    stringBuilder.append("description=" + this.getDescription() + "\n");
-    stringBuilder.append("followers=" + this.getFollowers() + "\n");
-    stringBuilder.append("*******************************");
+    public int getUserId() {
+        return userId;
+    }
 
-    return stringBuilder.toString();
-  }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(int followers) {
+        this.followers = followers;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    //endregion
 }

@@ -20,21 +20,28 @@ import butterknife.ButterKnife;
  * Activity that shows details of a certain user.
  */
 public class UserDetailsActivity extends BaseActivity implements HasComponent<UserComponent> {
+    //region Constants
+    private static final String TAG = UserDetailsActivity.class.getSimpleName();
 
-    private static final String INTENT_EXTRA_PARAM_USER_ID = "com.innopro.INTENT_PARAM_USER_ID";
-    private static final String INSTANCE_STATE_PARAM_USER_ID = "com.innopro.STATE_PARAM_USER_ID";
+    private static final String INTENT_EXTRA_PARAM_USER_ID = TAG+"INTENT_PARAM_USER_ID";
+    private static final String INSTANCE_STATE_PARAM_USER_ID = TAG+"STATE_PARAM_USER_ID";
+    //endregion
 
+    //region Fields
+    @BindView(R2.id.toolbar_main)
+    Toolbar toolbar;
+
+    private int userId;
+    private UserComponent userComponent;
+    //endregion
+
+    //region Constructors & Initialization
     public static Intent getCallingIntent(Context context, int userId) {
         Intent callingIntent = new Intent(context, UserDetailsActivity.class);
         callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_ID, userId);
         return callingIntent;
     }
 
-    private int userId;
-    private UserComponent userComponent;
-
-    @BindView(R2.id.toolbar_main)
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +85,24 @@ public class UserDetailsActivity extends BaseActivity implements HasComponent<Us
                 .activityModule(getActivityModule())
                 .build();
     }
+    //endregion
 
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
     @Override
     public UserComponent getComponent() {
         return userComponent;
     }
+    //endregion
 }

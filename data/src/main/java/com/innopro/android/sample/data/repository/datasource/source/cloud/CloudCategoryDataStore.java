@@ -9,33 +9,61 @@ import com.innopro.android.sample.data.repository.datasource.source.MessageDataS
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
  * {@link MessageDataStore} implementation based on connections to the api (Cloud).
  */
 public class CloudCategoryDataStore implements CategoryDataStore {
+    //region Constants
+    private static final String TAG = CloudCategoryDataStore.class.getSimpleName();
+    //endregion
 
-  private final RestApi restApi;
-  private final CategoryCache categoryCache;
+    //region Fields
+    private final RestApi restApi;
+    private final CategoryCache categoryCache;
 
-  /**
-   * Construct a {@link MessageDataStore} based on connections to the api (Cloud).
-   *
-   * @param restApi The {@link RestApi} implementation to use.
-   * @param categoryCache A {@link UserCache} to cache data retrieved from the api.
-   */
-  public CloudCategoryDataStore(RestApi restApi, CategoryCache categoryCache) {
-    this.restApi = restApi;
-    this.categoryCache = categoryCache;
-  }
+    //endregion
 
-  @Override public Observable<List<CategoryEntity>> categoryEntityList() {
-    return this.restApi.categoryEntityList();
-  }
+    //region Constructors & Initialization
+    /**
+     * Construct a {@link MessageDataStore} based on connections to the api (Cloud).
+     *
+     * @param restApi       The {@link RestApi} implementation to use.
+     * @param categoryCache A {@link UserCache} to cache data retrieved from the api.
+     */
+    public CloudCategoryDataStore(RestApi restApi, CategoryCache categoryCache) {
+        this.restApi = restApi;
+        this.categoryCache = categoryCache;
+    }
+
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    @Override
+    public Observable<List<CategoryEntity>> categoryEntityList() {
+        return this.restApi.categoryEntityList();
+    }
 
 
-  @Override public Observable<CategoryEntity> categoryEntityDetails(final int categoryId) {
-    return this.restApi.categoryEntityById(categoryId).doOnNext(categoryCache::put);
-  }
+    @Override
+    public Observable<CategoryEntity> categoryEntityDetails(final int categoryId) {
+        return this.restApi.categoryEntityById(categoryId).doOnNext(categoryCache::put);
+    }
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 }

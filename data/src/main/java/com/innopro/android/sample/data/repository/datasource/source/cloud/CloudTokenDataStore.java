@@ -13,10 +13,17 @@ import io.reactivex.Observable;
  */
 
 public class CloudTokenDataStore implements TokenDataStore {
+    //region Constants
+    private static final String TAG = CloudTokenDataStore.class.getSimpleName();
+    //endregion
 
+    //region Fields
     private final RestApi restApi;
     private final TokenCache tokenCache;
 
+    //endregion
+
+    //region Constructors & Initialization
     /**
      * Construct a {@link MessageDataStore} based on connections to the api (Cloud).
      *
@@ -28,10 +35,28 @@ public class CloudTokenDataStore implements TokenDataStore {
         this.tokenCache = tokenCache;
     }
 
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
     @Override
     public Observable<TokenEntity> tokenEntity() {
         return this.restApi.tokenEntity().doOnNext(tokenCache::put);
     }
+
+    //endregion
+
+    //region Methods
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 
 
 }

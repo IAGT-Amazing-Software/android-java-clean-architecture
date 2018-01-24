@@ -20,93 +20,120 @@ import javax.inject.Named;
  * layer.
  */
 public class UserLoggedPresenter implements Presenter {
+    //region Constants
+    private static final String TAG = UserLoggedPresenter.class.getSimpleName();
+    //endregion
 
-  private UserLoggedView viewDetailsView;
+    //region Fields
+    private UserLoggedView viewDetailsView;
 
-  private final UseCase getUserLoggedUseCase;
-  private final UserLoggedModelDataMapper userLoggedModelDataMapper;
+    private final UseCase getUserLoggedUseCase;
+    private final UserLoggedModelDataMapper userLoggedModelDataMapper;
 
-  @Inject
-  public UserLoggedPresenter(@Named("userLogged") UseCase getUserLoggedUseCase,
-                             UserLoggedModelDataMapper userLoggedModelDataMapper) {
-    this.getUserLoggedUseCase = getUserLoggedUseCase;
-    this.userLoggedModelDataMapper = userLoggedModelDataMapper;
-  }
+    //endregion
 
-  public void setView(@NonNull UserLoggedView view) {
-    this.viewDetailsView = view;
-  }
+    //region Constructors & Initialization
+    @Inject
+    public UserLoggedPresenter(@Named("userLogged") UseCase getUserLoggedUseCase,
+                               UserLoggedModelDataMapper userLoggedModelDataMapper) {
+        this.getUserLoggedUseCase = getUserLoggedUseCase;
+        this.userLoggedModelDataMapper = userLoggedModelDataMapper;
+    }
+    //endregion
 
-  @Override public void resume() {}
-
-  @Override public void pause() {}
-
-  @Override public void destroy() {
-    this.getUserLoggedUseCase.dispose();
-    this.viewDetailsView = null;
-  }
-
-  /**
-   * Initializes the presenter by start retrieving message details.
-   */
-  public void initialize() {
-    this.loadMessageDetails();
-  }
-
-  /**
-   * Loads user details.
-   */
-  private void loadMessageDetails() {
-    this.hideViewRetry();
-    this.showViewLoading();
-    this.getUserLogged();
-  }
-
-  private void showViewLoading() {
-    this.viewDetailsView.showLoading();
-  }
-
-  private void hideViewLoading() {
-    this.viewDetailsView.hideLoading();
-  }
-
-  private void showViewRetry() {
-    this.viewDetailsView.showRetry();
-  }
-
-  private void hideViewRetry() {
-    this.viewDetailsView.hideRetry();
-  }
-
-  private void showErrorMessage(ErrorBundle errorBundle) {
-    String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(),
-        errorBundle.getException());
-    this.viewDetailsView.showError(errorMessage);
-  }
-
-  private void showUserLoggedInView(UserLogged userLogged) {
-    final UserLoggedModel userLoggedModel = this.userLoggedModelDataMapper.transform(userLogged);
-    this.viewDetailsView.renderUserLogged(userLoggedModel);
-  }
-
-  private void getUserLogged() {
-    this.getUserLoggedUseCase.execute(new UserLoggedSubscriber(),null);
-  }
-
-  private final class UserLoggedSubscriber extends DefaultSubscriber<UserLogged> {
-
-    @Override public void onComplete() {
-      UserLoggedPresenter.this.hideViewLoading();
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public void resume() {
     }
 
-    @Override public void onError(Throwable e) {
-      UserLoggedPresenter.this.hideViewLoading();
-      UserLoggedPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      UserLoggedPresenter.this.showViewRetry();
+    @Override
+    public void pause() {
     }
 
-    @Override public void onNext(UserLogged userLogged) {
-      UserLoggedPresenter.this.showUserLoggedInView(userLogged);
+    @Override
+    public void destroy() {
+        this.getUserLoggedUseCase.dispose();
+        this.viewDetailsView = null;
     }
-  }
+    //endregion
+
+    //region Methods
+    /**
+     * Initializes the presenter by start retrieving message details.
+     */
+    public void initialize() {
+        this.loadMessageDetails();
+    }
+
+    /**
+     * Loads user details.
+     */
+    private void loadMessageDetails() {
+        this.hideViewRetry();
+        this.showViewLoading();
+        this.getUserLogged();
+    }
+
+    private void showViewLoading() {
+        this.viewDetailsView.showLoading();
+    }
+
+    private void hideViewLoading() {
+        this.viewDetailsView.hideLoading();
+    }
+
+    private void showViewRetry() {
+        this.viewDetailsView.showRetry();
+    }
+
+    private void hideViewRetry() {
+        this.viewDetailsView.hideRetry();
+    }
+
+    private void showErrorMessage(ErrorBundle errorBundle) {
+        String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(),
+                errorBundle.getException());
+        this.viewDetailsView.showError(errorMessage);
+    }
+
+    private void showUserLoggedInView(UserLogged userLogged) {
+        final UserLoggedModel userLoggedModel = this.userLoggedModelDataMapper.transform(userLogged);
+        this.viewDetailsView.renderUserLogged(userLoggedModel);
+    }
+
+    private void getUserLogged() {
+        this.getUserLoggedUseCase.execute(new UserLoggedSubscriber(), null);
+    }
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+    private final class UserLoggedSubscriber extends DefaultSubscriber<UserLogged> {
+
+        @Override
+        public void onComplete() {
+            UserLoggedPresenter.this.hideViewLoading();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            UserLoggedPresenter.this.hideViewLoading();
+            UserLoggedPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+            UserLoggedPresenter.this.showViewRetry();
+        }
+
+        @Override
+        public void onNext(UserLogged userLogged) {
+            UserLoggedPresenter.this.showUserLoggedInView(userLogged);
+        }
+    }
+    //endregion
+
+    //region Getter & Setter
+    public void setView(@NonNull UserLoggedView view) {
+        this.viewDetailsView = view;
+    }
+
+    //endregion
+
 }

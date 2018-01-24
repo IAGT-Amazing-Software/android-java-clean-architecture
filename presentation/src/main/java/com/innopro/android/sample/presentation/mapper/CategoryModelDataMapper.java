@@ -17,45 +17,72 @@ import javax.inject.Inject;
  */
 @PerActivity
 public class CategoryModelDataMapper {
+    //region Constants
+    private static final String TAG = CategoryModelDataMapper.class.getSimpleName();
+    //endregion
 
-  @Inject
-  public CategoryModelDataMapper() {}
+    //region Fields
 
-  /**
-   * Transform a {@link Message} into an {@link CategoryModel}.
-   *
-   * @param category Object to be transformed.
-   * @return {@link CategoryModel}.
-   */
-  public CategoryModel transform(Category category) {
-    if (category == null) {
-      throw new IllegalArgumentException("Cannot transform a null value");
-    }
-    CategoryModel categoryModel = new CategoryModel(category.getCategoryId());
-    categoryModel.setImageUrl(category.getImageUrl());
-    categoryModel.setName(category.getName());
+    //endregion
 
-    return categoryModel;
-  }
-
-  /**
-   * Transform a Collection of {@link Category} into a Collection of {@link CategoryModel}.
-   *
-   * @param categoriesCollection Objects to be transformed.
-   * @return List of {@link CategoryModel}.
-   */
-  public Collection<CategoryModel> transform(Collection<Category> categoriesCollection) {
-    Collection<CategoryModel> categoriesModelsCollection;
-
-    if (categoriesCollection != null && !categoriesCollection.isEmpty()) {
-      categoriesModelsCollection = new ArrayList<>();
-      for (Category category : categoriesCollection) {
-        categoriesModelsCollection.add(transform(category));
-      }
-    } else {
-      categoriesModelsCollection = Collections.emptyList();
+    //region Constructors & Initialization
+    @Inject
+    public CategoryModelDataMapper() {
     }
 
-    return categoriesModelsCollection;
-  }
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
+    /** Transform a {@link Message} into an {@link CategoryModel}.
+            *
+            * @param category Object to be transformed.
+     * @return {@link CategoryModel}.
+            */
+    public CategoryModel transform(Category category) {
+        if (category == null) {
+            throw new IllegalArgumentException("Cannot transform a null value");
+        }
+        CategoryModel categoryModel = new CategoryModel(category.getCategoryId());
+        categoryModel.setImageUrl(category.getImageUrl());
+        categoryModel.setName(category.getName());
+
+        return categoryModel;
+    }
+
+    /**
+     * Transform a Collection of {@link Category} into a Collection of {@link CategoryModel}.
+     *
+     * @param categoriesCollection Objects to be transformed.
+     * @return List of {@link CategoryModel}.
+     */
+    public Collection<CategoryModel> transform(Collection<Category> categoriesCollection) {
+        Collection<CategoryModel> categoriesModelsCollection;
+
+        if (categoriesCollection != null && !categoriesCollection.isEmpty()) {
+            categoriesModelsCollection = new ArrayList<>();
+            for (Category category : categoriesCollection) {
+                categoriesModelsCollection.add(transform(category));
+            }
+        } else {
+            categoriesModelsCollection = Collections.emptyList();
+        }
+
+        return categoriesModelsCollection;
+    }
+
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
+
+
 }

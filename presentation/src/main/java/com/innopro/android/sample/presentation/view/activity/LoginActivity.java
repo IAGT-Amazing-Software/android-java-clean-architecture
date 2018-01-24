@@ -15,7 +15,15 @@ import butterknife.OnClick;
  * Main application screen. This is the app entry point.
  */
 public class LoginActivity extends BaseActivity {
+    //region Constants
+    private static final String TAG = LoginActivity.class.getSimpleName();
+    //endregion
 
+    //region Fields
+
+    //endregion
+
+    //region Constructors & Initialization
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
@@ -27,6 +35,13 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         HideKey.initialize(this);
     }
+    //endregion
+
+    //region Methods for/from SuperClass/Interfaces
+
+    //endregion
+
+    //region Methods
 
     /**
      * Goes to the message list screen.
@@ -35,5 +50,14 @@ public class LoginActivity extends BaseActivity {
     void navigateToMessageList() {
         this.navigator.navigateToMain(this);
     }
+    //endregion
+
+    //region Inner and Anonymous Classes
+
+    //endregion
+
+    //region Getter & Setter
+
+    //endregion
 
 }

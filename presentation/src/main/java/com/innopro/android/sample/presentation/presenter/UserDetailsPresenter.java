@@ -21,93 +21,118 @@ import javax.inject.Named;
  * layer.
  */
 public class UserDetailsPresenter implements Presenter {
+    //region Constants
+    private static final String TAG = UserDetailsPresenter.class.getSimpleName();
+    //endregion
 
-  private UserDetailsView viewDetailsView;
+    //region Fields
+    private UserDetailsView viewDetailsView;
 
-  private final UseCase getUserDetailsUseCase;
-  private final UserModelDataMapper userModelDataMapper;
+    private final UseCase getUserDetailsUseCase;
+    private final UserModelDataMapper userModelDataMapper;
 
-  @Inject
-  public UserDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase,
-      UserModelDataMapper userModelDataMapper) {
-    this.getUserDetailsUseCase = getUserDetailsUseCase;
-    this.userModelDataMapper = userModelDataMapper;
-  }
+    //endregion
 
-  public void setView(@NonNull UserDetailsView view) {
-    this.viewDetailsView = view;
-  }
+    //region Constructors & Initialization
+    @Inject
+    public UserDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase,
+                                UserModelDataMapper userModelDataMapper) {
+        this.getUserDetailsUseCase = getUserDetailsUseCase;
+        this.userModelDataMapper = userModelDataMapper;
+    }
+    //endregion
 
-  @Override public void resume() {}
-
-  @Override public void pause() {}
-
-  @Override public void destroy() {
-    this.getUserDetailsUseCase.dispose();
-    this.viewDetailsView = null;
-  }
-
-  /**
-   * Initializes the presenter by start retrieving user details.
-   */
-  public void initialize(int userId) {
-    this.loadUserDetails(userId);
-  }
-
-  /**
-   * Loads user details.
-   */
-  private void loadUserDetails(int userId) {
-    this.hideViewRetry();
-    this.showViewLoading();
-    this.getUserDetails(userId);
-  }
-
-  private void showViewLoading() {
-    this.viewDetailsView.showLoading();
-  }
-
-  private void hideViewLoading() {
-    this.viewDetailsView.hideLoading();
-  }
-
-  private void showViewRetry() {
-    this.viewDetailsView.showRetry();
-  }
-
-  private void hideViewRetry() {
-    this.viewDetailsView.hideRetry();
-  }
-
-  private void showErrorMessage(ErrorBundle errorBundle) {
-    String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(),
-        errorBundle.getException());
-    this.viewDetailsView.showError(errorMessage);
-  }
-
-  private void showUserDetailsInView(User user) {
-    final UserModel userModel = this.userModelDataMapper.transform(user);
-    this.viewDetailsView.renderUser(userModel);
-  }
-
-  private void getUserDetails(int userId) {
-    this.getUserDetailsUseCase.execute(new UserDetailsSubscriber(), GetUserDetails.Params.forGetUserFiles(userId));
-  }
-
-  private final class UserDetailsSubscriber extends DefaultSubscriber<User> {
-
-    @Override public void onComplete() {
-      UserDetailsPresenter.this.hideViewLoading();
+    //region Methods for/from SuperClass/Interfaces
+    @Override
+    public void resume() {
     }
 
-    @Override public void onError(Throwable e) {
-      UserDetailsPresenter.this.hideViewLoading();
-      UserDetailsPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
-      UserDetailsPresenter.this.showViewRetry();
+    @Override
+    public void pause() {
     }
 
-    @Override public void onNext(User user) {
-      UserDetailsPresenter.this.showUserDetailsInView(user);
+    @Override
+    public void destroy() {
+        this.getUserDetailsUseCase.dispose();
+        this.viewDetailsView = null;
     }
-  }
+    //endregion
+
+    //region Methods
+    /**
+     * Initializes the presenter by start retrieving user details.
+     */
+    public void initialize(int userId) {
+        this.loadUserDetails(userId);
+    }
+
+    /**
+     * Loads user details.
+     */
+    private void loadUserDetails(int userId) {
+        this.hideViewRetry();
+        this.showViewLoading();
+        this.getUserDetails(userId);
+    }
+
+    private void showViewLoading() {
+        this.viewDetailsView.showLoading();
+    }
+
+    private void hideViewLoading() {
+        this.viewDetailsView.hideLoading();
+    }
+
+    private void showViewRetry() {
+        this.viewDetailsView.showRetry();
+    }
+
+    private void hideViewRetry() {
+        this.viewDetailsView.hideRetry();
+    }
+
+    private void showErrorMessage(ErrorBundle errorBundle) {
+        String errorMessage = ErrorMessageFactory.create(this.viewDetailsView.context(),
+                errorBundle.getException());
+        this.viewDetailsView.showError(errorMessage);
+    }
+
+    private void showUserDetailsInView(User user) {
+        final UserModel userModel = this.userModelDataMapper.transform(user);
+        this.viewDetailsView.renderUser(userModel);
+    }
+
+    private void getUserDetails(int userId) {
+        this.getUserDetailsUseCase.execute(new UserDetailsSubscriber(), GetUserDetails.Params.forGetUserFiles(userId));
+    }
+    //endregion
+
+    //region Inner and Anonymous Classes
+    private final class UserDetailsSubscriber extends DefaultSubscriber<User> {
+
+        @Override
+        public void onComplete() {
+            UserDetailsPresenter.this.hideViewLoading();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            UserDetailsPresenter.this.hideViewLoading();
+            UserDetailsPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) e));
+            UserDetailsPresenter.this.showViewRetry();
+        }
+
+        @Override
+        public void onNext(User user) {
+            UserDetailsPresenter.this.showUserDetailsInView(user);
+        }
+    }
+    //endregion
+
+    //region Getter & Setter
+    public void setView(@NonNull UserDetailsView view) {
+        this.viewDetailsView = view;
+    }
+
+    //endregion
 }
