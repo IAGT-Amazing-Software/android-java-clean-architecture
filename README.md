@@ -25,9 +25,7 @@ Libraries
 
 Proximos cambios: 
 *********************************
-* Añadir plantillas a todas las clases
-* Añadir inyección de dagger a actividades
-* Añadir interceptor a Retrofit para mostrar urls
+* Aï¿½adir interceptor a Retrofit para mostrar urls
 * Flavors android studio 3.0
-* Migraciones Realm
-* Plantillas tamaños
+* Plantillas tamaï¿½os
+* AÃ±adir slide principal con variables de control (mostrar o no, mostrar solo la primera vez, etc)
