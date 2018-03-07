@@ -18,6 +18,7 @@ import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
 import com.innopro.android.sample.presentation.presenter.MessageListPresenter;
+import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
 import com.innopro.android.sample.presentation.view.MessageListView;
 import com.innopro.android.sample.presentation.view.adapter.MessagesAdapter;
 import com.innopro.android.sample.presentation.view.adapter.layoutmanager.MessagesLayoutManager;

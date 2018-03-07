@@ -28,6 +28,7 @@ import com.innopro.android.sample.domain.repository.UserRepository;
 import com.innopro.android.sample.presentation.AndroidApplication;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.UIThread;
+import com.innopro.android.sample.presentation.navigation.Navigator;
 import com.innopro.android.sample.presentation.utils.PreferencesUtils;
 import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
 
@@ -67,6 +68,12 @@ public class ApplicationModule {
         SharedPreferences sharedPreferences = application.getSharedPreferences(application.getString(R.string.app_name), 0);
         PreferencesUtils preferencesUtils = new PreferencesUtils(sharedPreferences);
         return new SharedPreferencesManager(preferencesUtils);
+    }
+
+    @Provides
+    @Singleton
+    Navigator provideNavigator(){
+        return new Navigator();
     }
 
     @Provides
@@ -132,4 +139,6 @@ public class ApplicationModule {
     TokenRepository provideTokenRepository(TokenDataRepository tokenRepository) {
         return tokenRepository;
     }
+
+
 }

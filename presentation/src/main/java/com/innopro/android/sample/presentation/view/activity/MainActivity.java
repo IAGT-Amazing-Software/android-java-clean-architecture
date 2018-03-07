@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
         this.getApplicationComponent().inject(this);
         //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_layout_main);
+        navigator.setMainActivity(this);
 
         ButterKnife.bind(this);
         this.initializeInjector();
@@ -93,10 +94,10 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
         navigationView.setNavigationItemSelectedListener((MenuItem menuItem) ->{
             switch (menuItem.getItemId()) {
                 case R.id.action_messages:
-                    navigator.navigateToMessageCategoryList(MainActivity.this);
+                    navigator.navigateToMessageCategoryList();
                     break;
                 case R.id.action_users:
-                    navigator.navigateToUserList(MainActivity.this);
+                    navigator.navigateToUserList();
                     break;
                 case R.id.token:
                     tokenPresenter.initialize();
