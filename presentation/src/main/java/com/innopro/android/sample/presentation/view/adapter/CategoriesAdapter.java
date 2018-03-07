@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.innopro.android.sample.domain.Category;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
-import com.innopro.android.sample.presentation.model.CategoryModel;
 import com.innopro.android.sample.presentation.view.activity.BaseActivity;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adapter that manages a collection of {@link CategoryModel}.
+ * Adapter that manages a collection of {@link Category}.
  */
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
     //region Constants
@@ -30,7 +30,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     //endregion
 
     //region Fields
-    private List<CategoryModel> categoriesCollection;
+    private List<Category> categoriesCollection;
     private final LayoutInflater layoutInflater;
 
     private OnItemClickListener onItemClickListener;
@@ -61,7 +61,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, final int position) {
-        final CategoryModel categoryModel = this.categoriesCollection.get(position);
+        final Category categoryModel = this.categoriesCollection.get(position);
         holder.textViewName.setText(categoryModel.getName());
         holder.itemView.setOnClickListener(v -> {
             if (CategoriesAdapter.this.onItemClickListener != null) {
@@ -77,7 +77,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     //endregion
 
     //region Methods
-    private void validateCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
+    private void validateCategoriesCollection(Collection<Category> categoriesCollection) {
         if (categoriesCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }
@@ -86,7 +86,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     //region Inner and Anonymous Classes
     public interface OnItemClickListener {
-        void onCategoryItemClicked(CategoryModel categoryModel);
+        void onCategoryItemClicked(Category category);
     }
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         @BindView(R2.id.tv_name)
@@ -100,9 +100,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     //endregion
 
     //region Getter & Setter
-    public void setCategoriesCollection(Collection<CategoryModel> categoriesCollection) {
+    public void setCategoriesCollection(Collection<Category> categoriesCollection) {
         this.validateCategoriesCollection(categoriesCollection);
-        this.categoriesCollection = (List<CategoryModel>) categoriesCollection;
+        this.categoriesCollection = (List<Category>) categoriesCollection;
         this.notifyDataSetChanged();
     }
 

@@ -13,10 +13,10 @@ import android.widget.RelativeLayout;
 import com.hannesdorfmann.fragmentargs.FragmentArgs;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.innopro.android.sample.domain.Message;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.presenter.MessageListPresenter;
 import com.innopro.android.sample.presentation.view.MessageListView;
 import com.innopro.android.sample.presentation.view.adapter.MessagesAdapter;
@@ -54,9 +54,9 @@ public class MessageListFragment extends BaseFragment implements MessageListView
     private MessageListListener messageListListener;
 
     private MessagesAdapter.OnItemClickListener onItemClickListener =
-            messageModel -> {
-                if (MessageListFragment.this.messageListPresenter != null && messageModel != null) {
-                    MessageListFragment.this.messageListPresenter.onMessageClicked(messageModel);
+            message -> {
+                if (MessageListFragment.this.messageListPresenter != null && message != null) {
+                    MessageListFragment.this.messageListPresenter.onMessageClicked(message);
                 }
             };
 
@@ -153,14 +153,14 @@ public class MessageListFragment extends BaseFragment implements MessageListView
     }
 
     @Override
-    public void renderMessageList(Collection<MessageModel> messageModelCollection) {
+    public void renderMessageList(Collection<Message> messageModelCollection) {
         if (messageModelCollection != null) {
             this.messagesAdapter.setMessagesCollection(messageModelCollection);
         }
     }
 
     @Override
-    public void viewMessage(MessageModel messageModel) {
+    public void viewMessage(Message messageModel) {
         if (this.messageListListener != null) {
             this.messageListListener.onMessageClicked(messageModel);
         }
@@ -211,7 +211,7 @@ public class MessageListFragment extends BaseFragment implements MessageListView
      * Interface for listening message list events.
      */
     public interface MessageListListener {
-        void onMessageClicked(final MessageModel messageModel);
+        void onMessageClicked(final Message messageModel);
     }
     //endregion
 

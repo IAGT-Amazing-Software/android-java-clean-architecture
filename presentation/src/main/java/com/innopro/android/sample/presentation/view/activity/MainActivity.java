@@ -12,16 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.innopro.android.sample.domain.Category;
+import com.innopro.android.sample.domain.Token;
+import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
-import com.innopro.android.sample.presentation.internal.di.components.ApplicationComponent;
 import com.innopro.android.sample.presentation.internal.di.components.DaggerMainComponent;
 import com.innopro.android.sample.presentation.internal.di.components.MainComponent;
-import com.innopro.android.sample.presentation.internal.di.modules.ApplicationModule;
-import com.innopro.android.sample.presentation.model.CategoryModel;
-import com.innopro.android.sample.presentation.model.TokenModel;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.presenter.TokenPresenter;
 import com.innopro.android.sample.presentation.view.TokenView;
 import com.innopro.android.sample.presentation.view.fragment.MessageCategoryFragment;
@@ -171,17 +169,17 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
     }
 
     @Override
-    public void onCategoryClicked(CategoryModel categoryModel) {
-        this.navigator.navigateToMessageList(this, categoryModel.getCategoryId());
+    public void onCategoryClicked(Category category) {
+        this.navigator.navigateToMessageList(this, category.getCategoryId());
     }
 
     @Override
-    public void onUserClicked(UserModel userModel) {
-        this.navigator.navigateToUserDetails(this, userModel.getUserId());
+    public void onUserClicked(User user) {
+        this.navigator.navigateToUserDetails(this, user.getUserId());
     }
 
     @Override
-    public void renderToken(TokenModel token) {
+    public void renderToken(Token token) {
         Toast.makeText(this,"Token: "+ token.getValue(), Toast.LENGTH_SHORT).show();
     }
 

@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.view.activity.BaseActivity;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adaptar that manages a collection of {@link UserModel}.
+ * Adaptar that manages a collection of {@link User}.
  */
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
     //region Constants
@@ -30,7 +30,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     //endregion
 
     //region Fields
-    private List<UserModel> usersCollection;
+    private List<User> usersCollection;
     private final LayoutInflater layoutInflater;
 
     private OnItemClickListener onItemClickListener;
@@ -59,7 +59,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     @Override
     public void onBindViewHolder(UserViewHolder holder, final int position) {
-        final UserModel userModel = this.usersCollection.get(position);
+        final User userModel = this.usersCollection.get(position);
         holder.textViewTitle.setText(userModel.getFullName());
         holder.itemView.setOnClickListener(v -> {
             if (UsersAdapter.this.onItemClickListener != null) {
@@ -75,7 +75,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     //endregion
 
     //region Methods
-    private void validateUsersCollection(Collection<UserModel> usersCollection) {
+    private void validateUsersCollection(Collection<User> usersCollection) {
         if (usersCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }
@@ -84,7 +84,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     //region Inner and Anonymous Classes
     public interface OnItemClickListener {
-        void onUserItemClicked(UserModel userModel);
+        void onUserItemClicked(User userModel);
     }
     static class UserViewHolder extends RecyclerView.ViewHolder {
         @BindView(R2.id.title)
@@ -98,9 +98,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     //endregion
 
     //region Getter & Setter
-    public void setUsersCollection(Collection<UserModel> usersCollection) {
+    public void setUsersCollection(Collection<User> usersCollection) {
         this.validateUsersCollection(usersCollection);
-        this.usersCollection = (List<UserModel>) usersCollection;
+        this.usersCollection = (List<User>) usersCollection;
         this.notifyDataSetChanged();
     }
 

@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.innopro.android.sample.domain.Message;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.activity.BaseActivity;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adapter that manages a collection of {@link MessageModel}.
+ * Adapter that manages a collection of {@link Message}.
  */
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MessageViewHolder> {
     //region Constants
@@ -30,7 +30,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     //endregion
 
     //region Fields
-    private List<MessageModel> messagesCollection;
+    private List<Message> messagesCollection;
     private final LayoutInflater layoutInflater;
 
     private OnItemClickListener onItemClickListener;
@@ -59,7 +59,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, final int position) {
-        final MessageModel messageModel = this.messagesCollection.get(position);
+        final Message messageModel = this.messagesCollection.get(position);
         holder.textViewName.setText(messageModel.getName());
         holder.itemView.setOnClickListener(v -> {
             if (MessagesAdapter.this.onItemClickListener != null) {
@@ -74,7 +74,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     //endregion
 
     //region Methods
-    private void validateMessagesCollection(Collection<MessageModel> messagesCollection) {
+    private void validateMessagesCollection(Collection<Message> messagesCollection) {
         if (messagesCollection == null) {
             throw new IllegalArgumentException("The list cannot be null");
         }
@@ -83,7 +83,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
 
     //region Inner and Anonymous Classes
     public interface OnItemClickListener {
-        void onMessageItemClicked(MessageModel messageModel);
+        void onMessageItemClicked(Message messageModel);
     }
     static class MessageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R2.id.name)
@@ -97,9 +97,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     //endregion
 
     //region Getter & Setter
-    public void setMessagesCollection(Collection<MessageModel> messagesCollection) {
+    public void setMessagesCollection(Collection<Message> messagesCollection) {
         this.validateMessagesCollection(messagesCollection);
-        this.messagesCollection = (List<MessageModel>) messagesCollection;
+        this.messagesCollection = (List<Message>) messagesCollection;
         this.notifyDataSetChanged();
     }
 

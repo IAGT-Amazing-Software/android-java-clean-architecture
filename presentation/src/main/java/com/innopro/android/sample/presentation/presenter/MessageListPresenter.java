@@ -8,8 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.MessageModelDataMapper;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.MessageListView;
 
 import java.util.Collection;
@@ -31,16 +29,13 @@ public class MessageListPresenter implements Presenter {
     private MessageListView viewListView;
 
     private final UseCase getMessageListUseCase;
-    private final MessageModelDataMapper messageModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public MessageListPresenter(@Named("messageList") UseCase getMessageListUseCase,
-                                MessageModelDataMapper messageModelDataMapper) {
+    public MessageListPresenter(@Named("messageList") UseCase getMessageListUseCase) {
         this.getMessageListUseCase = getMessageListUseCase;
-        this.messageModelDataMapper = messageModelDataMapper;
     }
     //endregion
 
@@ -78,8 +73,8 @@ public class MessageListPresenter implements Presenter {
         this.getMessageList();
     }
 
-    public void onMessageClicked(MessageModel messageModel) {
-        this.viewListView.viewMessage(messageModel);
+    public void onMessageClicked(Message message) {
+        this.viewListView.viewMessage(message);
     }
 
     private void showViewLoading() {
@@ -105,9 +100,7 @@ public class MessageListPresenter implements Presenter {
     }
 
     private void showMessageCollectionInView(Collection<Message> messagesCollection) {
-        final Collection<MessageModel> messageModelsCollection =
-                this.messageModelDataMapper.transform(messagesCollection);
-        this.viewListView.renderMessageList(messageModelsCollection);
+        this.viewListView.renderMessageList(messagesCollection);
     }
 
     private void getMessageList() {

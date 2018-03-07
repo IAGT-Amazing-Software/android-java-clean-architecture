@@ -1,6 +1,6 @@
 package com.innopro.android.sample.presentation.view;
 
-import com.innopro.android.sample.presentation.model.MessageModel;
+import com.innopro.android.sample.domain.Message;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
@@ -10,7 +10,7 @@ public interface MessageDetailsView extends LoadDataView {
   /**
    * Render a message in the UI.
    *
-   * @param message The {@link MessageModel} that will be shown.
+   * @param message The {@link Message} that will be shown.
    */
-  void renderMessage(MessageModel message);
+  void renderMessage(Message message);
 }

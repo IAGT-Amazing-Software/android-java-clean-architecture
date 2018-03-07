@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.hannesdorfmann.fragmentargs.FragmentArgs;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.innopro.android.sample.domain.Message;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.presenter.MessageDetailsPresenter;
 import com.innopro.android.sample.presentation.view.MessageDetailsView;
 import com.squareup.picasso.Picasso;
@@ -114,7 +114,7 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
     }
 
     @Override
-    public void renderMessage(MessageModel message) {
+    public void renderMessage(Message message) {
         if (message != null) {
             Picasso.with(getContext()).load(message.getImageUrl()).fit().into(this.iv_image);
             this.tv_name.setText(message.getName());

@@ -1,6 +1,6 @@
 package com.innopro.android.sample.presentation.view;
 
-import com.innopro.android.sample.presentation.model.UserModel;
+import com.innopro.android.sample.domain.User;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
@@ -10,7 +10,7 @@ public interface UserDetailsView extends LoadDataView {
   /**
    * Render a user in the UI.
    *
-   * @param user The {@link UserModel} that will be shown.
+   * @param user The {@link User} that will be shown.
    */
-  void renderUser(UserModel user);
+  void renderUser(User user);
 }
