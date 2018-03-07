@@ -1,90 +1,94 @@
 allprojects {
-  repositories {
-    jcenter()
-    google()
-  }
+    repositories {
+        jcenter()
+        google()
+    }
 }
 
 ext {
-  //Android
-  androidBuildToolsVersion = "26.0.2"
-  androidMinSdkVersion = 15
-  androidTargetSdkVersion = 26
-  androidCompileSdkVersion = 26
+    //Android
+    androidBuildToolsVersion = "26.0.2"
+    androidMinSdkVersion = 17
+    androidTargetSdkVersion = 26
+    androidCompileSdkVersion = 26
 
-  //Libraries
-  daggerVersion = '2.14.1'
-  butterKnifeVersion = '8.8.1'
-  androidSupport = '26.0.1'
-  rxJavaVersion = '2.1.8'
-  rxAndroidVersion = '2.0.1'
-  gsonVersion = '2.8.2'
-  picassoVersion = '2.5.2'
-  transformationsVersion = '2.1.2'
-  retrofit = '2.3.0'
-  fragmentArgs = '3.0.2'
-  hideKeyboard = '1.0.0'
-  joda = '2.9.9'
-  calligraphy = '2.3.0'
+    //Libraries
+    daggerVersion = '2.14.1'
+    butterKnifeVersion = '8.8.1'
+    androidSupport = '26.0.1'
+    rxJavaVersion = '2.1.10'
+    rxAndroidVersion = '2.0.1'
+    gsonVersion = '2.8.2'
+    picassoVersion = '2.5.2'
+    transformationsVersion = '2.1.2'
+    retrofit = '2.3.0'
+    fragmentArgs = '3.0.2'
+    hideKeyboard = '1.0.0'
+    joda = '2.9.9'
+    calligraphy = '2.3.0'
+    circleIndicator = '1.2.2@aar'
+    httpLoggingInterceptor = '3.9.0'
+
+    //Testing
+    robolectricVersion = '3.1.4'
+    jUnitVersion = '4.12'
+    assertJVersion = '3.6.1'
+    mockitoVersion = '2.2.28'
+    espressoVersion = '2.2.2'
 
 
-  //Testing
-  robolectricVersion = '3.1.4'
-  jUnitVersion = '4.12'
-  assertJVersion = '3.6.1'
-  mockitoVersion = '2.2.28'
-  espressoVersion = '2.2.2'
+    presentationDependencies = [
+            daggerCompiler     : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger             : "com.google.dagger:dagger:${daggerVersion}",
+            butterKnife        : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            recyclerView       : "com.android.support:recyclerview-v7:${androidSupport}",
+            rxJava             : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid          : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            picasso            : "com.squareup.picasso:picasso:${picassoVersion}",
+            appCompat          : "com.android.support:appcompat-v7:${androidSupport}",
+            supportDesign      : "com.android.support:design:${androidSupport}",
+            transformations    : "jp.wasabeef:picasso-transformations:${transformationsVersion}",
+            androidAnnotations : "com.android.support:support-annotations:${androidSupport}",
+            fragmentArgs       : "com.hannesdorfmann.fragmentargs:annotation:${fragmentArgs}",
+            fragmentArgsPro    : "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}",
+            hideKeyboard       : "com.irozon.keyhide:keyhide:${hideKeyboard}",
+            joda               : "net.danlew:android.joda:${joda}",
+            calligraphy        : "uk.co.chrisjenx:calligraphy:${calligraphy}",
+            circleIndicator    : "me.relex:circleindicator:${circleIndicator}"
+    ]
 
-  presentationDependencies = [
-      daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
-      dagger:             "com.google.dagger:dagger:${daggerVersion}",
-      butterKnife:        "com.jakewharton:butterknife:${butterKnifeVersion}",
-      butterKnifeCompiler:"com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
-      recyclerView:       "com.android.support:recyclerview-v7:${androidSupport}",
-      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-      rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-      picasso:            "com.squareup.picasso:picasso:${picassoVersion}",
-      appCompat:          "com.android.support:appcompat-v7:${androidSupport}",
-      supportDesign:      "com.android.support:design:${androidSupport}",
-      transformations:    "jp.wasabeef:picasso-transformations:${transformationsVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
-      fragmentArgs:       "com.hannesdorfmann.fragmentargs:annotation:${fragmentArgs}",
-      fragmentArgsPro:    "com.hannesdorfmann.fragmentargs:processor:${fragmentArgs}",
-      hideKeyboard:       "com.irozon.keyhide:keyhide:${hideKeyboard}",
-      joda:               "net.danlew:android.joda:${joda}",
-      calligraphy        : "uk.co.chrisjenx:calligraphy:${calligraphy}"
-  ]
+    presentationTestDependencies = [
+            mockito           : "org.mockito:mockito-core:${mockitoVersion}",
+            espresso          : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${androidSupport}"
+    ]
 
-  presentationTestDependencies = [
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-      espresso:           "com.android.support.test.espresso:espresso-core:${espressoVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidSupport}"
-  ]
+    domainDependencies = [
+            daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+            dagger        : "com.google.dagger:dagger:${daggerVersion}",
+            rxJava        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
+    ]
 
-  domainDependencies = [
-      daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
-      dagger:             "com.google.dagger:dagger:${daggerVersion}",
-      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}"
-  ]
+    domainTestDependencies = [
+            junit  : "junit:junit:${jUnitVersion}",
+            mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    ]
 
-  domainTestDependencies = [
-      junit:              "junit:junit:${jUnitVersion}",
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-  ]
+    dataDependencies = [
+            rxJava            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
+            retrofit          : "com.squareup.retrofit2:retrofit:${retrofit}",
+            rxRetrofit        : "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
+            retrofitGson      : "com.squareup.retrofit2:converter-gson:${retrofit}",
+            httpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${httpLoggingInterceptor}"
+    ]
 
-  dataDependencies = [
-      rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidSupport}",
-      retrofit:           "com.squareup.retrofit2:retrofit:${retrofit}",
-      rxRetrofit:         "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
-      retrofitGson:       "com.squareup.retrofit2:converter-gson:${retrofit}"
-  ]
-
-  dataTestDependencies = [
-      junit:              "junit:junit:${jUnitVersion}",
-      assertj:            "org.assertj:assertj-core:${assertJVersion}",
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-      robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
-      androidAnnotations: "com.android.support:support-annotations:${androidSupport}"
-  ]
+    dataTestDependencies = [
+            junit             : "junit:junit:${jUnitVersion}",
+            assertj           : "org.assertj:assertj-core:${assertJVersion}",
+            mockito           : "org.mockito:mockito-core:${mockitoVersion}",
+            robolectric       : "org.robolectric:robolectric:${robolectricVersion}",
+            androidAnnotations: "com.android.support:support-annotations:${androidSupport}"
+    ]
 }

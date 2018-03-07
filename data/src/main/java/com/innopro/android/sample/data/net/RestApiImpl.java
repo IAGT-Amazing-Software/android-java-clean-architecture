@@ -13,8 +13,11 @@ import com.innopro.android.sample.data.entity.UserEntity;
 import com.innopro.android.sample.data.entity.UserLoggedEntity;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +33,7 @@ public class RestApiImpl implements RestApi {
     //region Fields
     private final Context context;
     private RestEndPoint retrofitAPI;
+    private String language = "";
 
     //endregion
 
@@ -46,8 +50,12 @@ public class RestApiImpl implements RestApi {
         this.context = context.getApplicationContext();
 
         String baseUrl = BuildConfig.domain;
+        language = Locale.getDefault().getLanguage();
 
         Retrofit retrofit = new Retrofit.Builder()
+                .client(new OkHttpClient.Builder()
+                        .addInterceptor(new HttpLoggingInterceptor()
+                                .setLevel(HttpLoggingInterceptor.Level.BODY)).build())
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

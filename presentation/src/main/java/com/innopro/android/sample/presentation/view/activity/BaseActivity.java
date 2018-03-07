@@ -10,6 +10,7 @@ import com.innopro.android.sample.presentation.AndroidApplication;
 import com.innopro.android.sample.presentation.internal.di.components.ApplicationComponent;
 import com.innopro.android.sample.presentation.internal.di.modules.ActivityModule;
 import com.innopro.android.sample.presentation.navigation.Navigator;
+import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
 import com.innopro.android.sample.presentation.view.fragment.BaseFragment;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     //region Fields
     @Inject
     Navigator navigator;
+    @Inject
+    SharedPreferencesManager sharedPreferencesManager;
     //endregion
 
     //region Constructors & Initialization
@@ -112,6 +115,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     //region Getter & Setter
 
     //endregion
+
+
 
 
 }

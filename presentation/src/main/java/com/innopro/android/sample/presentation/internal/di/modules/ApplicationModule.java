@@ -1,6 +1,8 @@
 package com.innopro.android.sample.presentation.internal.di.modules;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.innopro.android.sample.data.cache.CategoryCache;
 import com.innopro.android.sample.data.cache.MessageCache;
@@ -24,7 +26,10 @@ import com.innopro.android.sample.domain.repository.TokenRepository;
 import com.innopro.android.sample.domain.repository.UserLoggedRepository;
 import com.innopro.android.sample.domain.repository.UserRepository;
 import com.innopro.android.sample.presentation.AndroidApplication;
+import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.UIThread;
+import com.innopro.android.sample.presentation.utils.PreferencesUtils;
+import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
 
 import javax.inject.Singleton;
 
@@ -53,6 +58,15 @@ public class ApplicationModule {
                 .build();
         Realm.setDefaultConfiguration(config);
         return this.application;
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferencesManager provideSharedPreferencesManager() {
+        Application application = AndroidApplication.getInstance();
+        SharedPreferences sharedPreferences = application.getSharedPreferences(application.getString(R.string.app_name), 0);
+        PreferencesUtils preferencesUtils = new PreferencesUtils(sharedPreferences);
+        return new SharedPreferencesManager(preferencesUtils);
     }
 
     @Provides

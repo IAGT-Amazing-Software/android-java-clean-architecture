@@ -64,6 +64,7 @@ dependencies {
     compile dataDependencies.retrofit
     compile dataDependencies.rxRetrofit
     compile dataDependencies.retrofitGson
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 /*
   testCompile testDependencies.junit
   testCompile testDependencies.assertj

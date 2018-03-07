@@ -9,6 +9,8 @@ import com.innopro.android.sample.presentation.view.activity.LoginActivity;
 import com.innopro.android.sample.presentation.view.activity.MainActivity;
 import com.innopro.android.sample.presentation.view.activity.MessageDetailsActivity;
 import com.innopro.android.sample.presentation.view.activity.MessageListActivity;
+import com.innopro.android.sample.presentation.view.activity.SliderActivity;
+import com.innopro.android.sample.presentation.view.activity.SplashActivity;
 import com.innopro.android.sample.presentation.view.activity.UserDetailsActivity;
 import com.innopro.android.sample.presentation.view.fragment.MessageCategoryFragment;
 import com.innopro.android.sample.presentation.view.fragment.UserListFragment;
@@ -109,4 +111,10 @@ public class Navigator {
       context.finish();
     }
   }
+
+    public void navigateToSplash(SliderActivity sliderActivity) {
+        Intent i = new Intent(sliderActivity, SplashActivity.class);
+        sliderActivity.startActivity(i);
+        sliderActivity.finish();
+    }
 }
