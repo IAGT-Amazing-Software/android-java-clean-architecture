@@ -100,9 +100,9 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset == - appBarLayout.getTotalScrollRange()){
-                    tv_toolBar_title.setAlpha(1f);
+                    tv_toolBar_title.animate().alpha(1).setDuration(300);
                 }else{
-                    tv_toolBar_title.setAlpha(0f);
+                    tv_toolBar_title.animate().alpha(0).setDuration(300);
                 }
             }
         });
