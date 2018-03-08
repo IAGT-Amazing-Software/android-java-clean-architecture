@@ -2,6 +2,8 @@ package com.innopro.android.sample.presentation.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +42,7 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
     //region Fields
     @BindView(R2.id.iv_image)
     ImageView iv_image;
-    @BindView(R2.id.tv_name)
+    @BindView(R2.id.tv_title)
     TextView tv_name;
     @BindView(R2.id.tv_description)
     TextView tv_description;
@@ -50,6 +52,10 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
     RelativeLayout rl_retry;
     @BindView(R2.id.bt_retry)
     Button bt_retry;
+    @BindView(R.id.tv_toolBar_title)
+    TextView tv_toolBar_title;
+    @BindView(R.id.appbarLayout)
+    AppBarLayout appBarLayout;
 
     @Arg
     private int messageId;
@@ -69,6 +75,7 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
         super.onCreate(savedInstanceState);
         FragmentArgs.inject(this);
         this.getComponent(MessageComponent.class).inject(this);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
     }
 
     @Override
@@ -86,6 +93,19 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
         if (savedInstanceState == null) {
             this.loadMessageDetails();
         }
+
+        tv_toolBar_title.setAlpha(0f);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if(verticalOffset == - appBarLayout.getTotalScrollRange()){
+                    tv_toolBar_title.setAlpha(1f);
+                }else{
+                    tv_toolBar_title.setAlpha(0f);
+                }
+            }
+        });
     }
     //endregion
 
@@ -118,6 +138,7 @@ public class MessageDetailsFragment extends BaseFragment implements MessageDetai
         if (message != null) {
             Picasso.with(getContext()).load(message.getImageUrl()).fit().into(this.iv_image);
             this.tv_name.setText(message.getName());
+            tv_toolBar_title.setText(message.getName());
             this.tv_description.setText(message.getDescription());
         }
     }
