@@ -19,10 +19,8 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Base64;
-
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +30,18 @@ import java.io.OutputStream;
 
 public class ImageUtils {
 
-    public static Bitmap blur(Context context, Bitmap image) {
+    public static Bitmap getBitmapFromLocalUri(Context context, Uri uri){
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    public static Bitmap getBlurFromBitmap(Context context, Bitmap image) {
         final float BITMAP_SCALE = 0.5f;
         final float BLUR_RADIUS = 25f;
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
@@ -131,7 +140,7 @@ public class ImageUtils {
         return bmpUri;
     }
 
-    public static final String insertImageToGallery(ContentResolver cr,
+    public static String insertImageToGallery(ContentResolver cr,
                                                     Bitmap source,
                                                     String title,
                                                     String description) {
@@ -182,13 +191,7 @@ public class ImageUtils {
         return stringUrl;
     }
 
-    /**
-     * A copy of the Android internals StoreThumbnail method, it used with the insertImageToGallery to
-     * populate the android.provider.MediaStore.Images.Media#insertImageToGallery with all the correct
-     * meta data. The StoreThumbnail method is private so it must be duplicated here.
-     * @see MediaStore.Images.Media (StoreThumbnail private method)
-     */
-    private static final Bitmap storeThumbnail(
+    private static Bitmap storeThumbnail(
             ContentResolver cr,
             Bitmap source,
             long id,
