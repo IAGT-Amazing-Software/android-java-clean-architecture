@@ -25,7 +25,5 @@ Libraries
 
 Proximos cambios: 
 *********************************
-* Aï¿½adir interceptor a Retrofit para mostrar urls
 * Flavors android studio 3.0
-* Plantillas tamaï¿½os
-* AÃ±adir slide principal con variables de control (mostrar o no, mostrar solo la primera vez, etc)
+• Cambiar cacheimpl para que se habra y cierra realm en el mismo metodo
