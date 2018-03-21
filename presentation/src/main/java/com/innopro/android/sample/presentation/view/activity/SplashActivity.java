@@ -22,7 +22,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Handler().postDelayed(() -> navigator.navigateToLogin(this), 2000);
+        new Handler().postDelayed(() -> navigator.navigateToSlide(this), 2000);
     }
     //endregion
 

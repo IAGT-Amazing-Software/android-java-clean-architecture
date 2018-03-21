@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.innopro.android.sample.presentation.R;
-import com.innopro.android.sample.presentation.view.activity.BaseActivity;
 import com.innopro.android.sample.presentation.view.activity.LoginActivity;
 import com.innopro.android.sample.presentation.view.activity.MainActivity;
 import com.innopro.android.sample.presentation.view.activity.MessageDetailsActivity;
@@ -15,9 +14,6 @@ import com.innopro.android.sample.presentation.view.activity.SplashActivity;
 import com.innopro.android.sample.presentation.view.activity.UserDetailsActivity;
 import com.innopro.android.sample.presentation.view.fragment.MessageCategoryFragment;
 import com.innopro.android.sample.presentation.view.fragment.UserListFragment;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Class used to navigate through the application.
@@ -48,7 +44,7 @@ public class Navigator {
 
 
     public void navigateToUserList() {
-            mainActivity.replaceFragment(R.id.content_frame, new UserListFragment());
+        mainActivity.replaceFragment(R.id.content_frame, new UserListFragment());
     }
 
     /**
@@ -64,7 +60,7 @@ public class Navigator {
     }
 
     public void navigateToMessageCategoryList() {
-            mainActivity.replaceFragment(R.id.content_frame, new MessageCategoryFragment());
+        mainActivity.replaceFragment(R.id.content_frame, new MessageCategoryFragment());
     }
 
     /**
@@ -108,5 +104,13 @@ public class Navigator {
         Intent i = new Intent(sliderActivity, SplashActivity.class);
         sliderActivity.startActivity(i);
         sliderActivity.finish();
+    }
+
+    public void navigateToSlide(Activity activity) {
+        if (activity != null) {
+            Intent intent = new Intent(activity, SliderActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
     }
 }

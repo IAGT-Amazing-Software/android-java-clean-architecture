@@ -34,7 +34,6 @@ public class UserLoggedCacheImpl implements UserLoggedCache {
     private final Context context;
     private final FileManager fileManager;
 
-    private Realm realm;
     private RealmConfiguration realmConfiguration;
     //endregion
 
@@ -65,7 +64,7 @@ public class UserLoggedCacheImpl implements UserLoggedCache {
     public Observable<UserLoggedEntity> get() {
         return Observable.create(subscriber -> {
 
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             RealmResults<UserLoggedEntity> result = realm.where(UserLoggedEntity.class).findAll();
             result.load();
 
@@ -85,7 +84,7 @@ public class UserLoggedCacheImpl implements UserLoggedCache {
     public void put(UserLoggedEntity userLoggedEntity) {
         if (userLoggedEntity != null) {
             if (!isCached()) {
-                realm = Realm.getInstance(realmConfiguration);
+                Realm realm = Realm.getInstance(realmConfiguration);
                 realm.executeTransaction(bgRealm -> bgRealm.copyToRealmOrUpdate(userLoggedEntity));
                 setLastCacheUpdateTimeMillis();
                 realm.close();
@@ -95,7 +94,7 @@ public class UserLoggedCacheImpl implements UserLoggedCache {
 
     @Override
     public boolean isCached() {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         boolean res = false;
         UserLoggedEntity userLoggedEntity = realm.where(UserLoggedEntity.class).findFirst();
         if (userLoggedEntity != null) {
@@ -121,7 +120,7 @@ public class UserLoggedCacheImpl implements UserLoggedCache {
 
     @Override
     public void evictAll() {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<UserLoggedEntity> result = realm.where(UserLoggedEntity.class).findAll();
         realm.executeTransaction(bgRealm -> result.deleteAllFromRealm());
         realm.close();

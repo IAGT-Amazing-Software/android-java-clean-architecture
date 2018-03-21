@@ -33,7 +33,6 @@ public class TokenCacheImpl implements TokenCache {
     private final Context context;
     private final FileManager fileManager;
 
-    private Realm realm;
     private RealmConfiguration realmConfiguration;
 
     //endregion
@@ -64,7 +63,7 @@ public class TokenCacheImpl implements TokenCache {
     @Override
     public Observable<TokenEntity> get() {
         return Observable.create(subscriber -> {
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             TokenEntity result = realm.where(TokenEntity.class).findFirst();
 
             Log.i("Token in realms", String.valueOf(realm.where(TokenEntity.class).findAll().size()));
@@ -83,7 +82,7 @@ public class TokenCacheImpl implements TokenCache {
     @Override
     public void put(TokenEntity tokenEntity) {
         if (tokenEntity != null) {
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             realm.executeTransaction(bgRealm -> bgRealm.copyToRealmOrUpdate(tokenEntity));
             Log.i("Users in realm", String.valueOf(realm.where(TokenEntity.class).findAll().size()));
             realm.close();
@@ -93,7 +92,7 @@ public class TokenCacheImpl implements TokenCache {
 
     @Override
     public boolean isCached() {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         TokenEntity result = realm.where(TokenEntity.class).findFirst();
         return result != null;
     }
@@ -110,7 +109,7 @@ public class TokenCacheImpl implements TokenCache {
         realm.close();
         return res;
          */
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         TokenEntity tokenEntity = realm.where(TokenEntity.class).findFirst();
         realm.close();
         return tokenEntity == null || tokenEntity.getExpiresIn() * 1000 + getLastCacheUpdateTimeMillis() <= System.currentTimeMillis();
@@ -118,7 +117,7 @@ public class TokenCacheImpl implements TokenCache {
 
     @Override
     public void evictAll() {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<TokenEntity> result = realm.where(TokenEntity.class).findAll();
         realm.executeTransaction(bgRealm -> result.deleteAllFromRealm());
         realm.close();
