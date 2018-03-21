@@ -34,7 +34,6 @@ public class UserCacheImpl implements UserCache {
     private final Context context;
     private final FileManager fileManager;
 
-    private Realm realm;
     private RealmConfiguration realmConfiguration;
 
     //endregion
@@ -67,7 +66,7 @@ public class UserCacheImpl implements UserCache {
     @Override
     public Observable<UserEntity> get(final int userId) {
         return Observable.create(subscriber -> {
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             RealmResults<UserEntity> result = realm.where(UserEntity.class).equalTo("userId", userId).findAll();
             result.load();
 
@@ -89,7 +88,7 @@ public class UserCacheImpl implements UserCache {
     public void put(UserEntity userEntity) {
         if (userEntity != null) {
             if (!isCached(userEntity.getUserId())) {
-                realm = Realm.getInstance(realmConfiguration);
+                Realm realm = Realm.getInstance(realmConfiguration);
                 realm.executeTransaction(bgRealm -> bgRealm.copyToRealmOrUpdate(userEntity));
                 Log.i("Users in realm", String.valueOf(realm.where(UserEntity.class).findAll().size()));
                 realm.close();
@@ -101,7 +100,7 @@ public class UserCacheImpl implements UserCache {
     @Override
     public boolean isCached(int userId) {
         boolean res = false;
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<UserEntity> result = realm.where(UserEntity.class).equalTo("userId", userId).findAll();
         if (result.size() > 0) {
             res = true;
@@ -125,7 +124,7 @@ public class UserCacheImpl implements UserCache {
 
     @Override
     public void evictAll(int userId) {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<UserEntity> result = realm.where(UserEntity.class).equalTo("userId", userId).findAll();
         realm.executeTransaction(bgRealm -> result.deleteAllFromRealm());
         realm.close();

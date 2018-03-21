@@ -30,7 +30,7 @@ public class SliderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(sharedPreferencesManager.getBoolean(AppConstants.FIRST_INSTALLATION)){
-            navigator.navigateToSplash(this);
+            navigator.navigateToLogin(this);
         }else{
             setContentView(R.layout.slider_activity);
             ButterKnife.bind(this);
@@ -61,7 +61,7 @@ public class SliderActivity extends BaseActivity {
         if(currentPosition < vp_slider.getAdapter().getCount() - 1){
             vp_slider.setCurrentItem(vp_slider.getCurrentItem() + 1);
         }else{
-            navigator.navigateToSplash(this);
+            navigator.navigateToLogin(this);
             setFirstInstallation(true);
         }
     }
@@ -74,7 +74,7 @@ public class SliderActivity extends BaseActivity {
 
     @OnClick(R.id.b_slider_jump)
     public void OnClickJump(){
-        navigator.navigateToSplash(this);
+        navigator.navigateToLogin(this);
         setFirstInstallation(true);
     }
 

@@ -32,7 +32,6 @@ public class CategoryCacheImpl implements CategoryCache {
     //region Fields
     private final Context context;
     private final FileManager fileManager;
-    private Realm realm;
     private RealmConfiguration realmConfiguration;
     //endregion
 
@@ -62,7 +61,7 @@ public class CategoryCacheImpl implements CategoryCache {
     @Override
     public Observable<CategoryEntity> get(final int categoryId) {
         return Observable.create(subscriber -> {
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             RealmResults<CategoryEntity> result = realm.where(CategoryEntity.class).equalTo("categoryId", categoryId).findAll();
             result.load();
 
@@ -83,7 +82,7 @@ public class CategoryCacheImpl implements CategoryCache {
     public void put(CategoryEntity categoryEntity) {
         if (categoryEntity != null) {
             if (!isCached(categoryEntity.getCategoryId())) {
-                realm = Realm.getInstance(realmConfiguration);
+                Realm realm = Realm.getInstance(realmConfiguration);
                 realm.executeTransaction(bgRealm -> bgRealm.copyToRealmOrUpdate(categoryEntity));
                 realm.close();
                 setLastCacheUpdateTimeMillis();
@@ -94,7 +93,7 @@ public class CategoryCacheImpl implements CategoryCache {
     @Override
     public boolean isCached(int categoryId) {
         boolean res = false;
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<CategoryEntity> result = realm.where(CategoryEntity.class).equalTo("categoryId", categoryId).findAll();
         if (result.size() > 0) {
             res = true;
@@ -119,7 +118,7 @@ public class CategoryCacheImpl implements CategoryCache {
 
     @Override
     public void evictAll(int categoryId) {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<CategoryEntity> result = realm.where(CategoryEntity.class).equalTo("categoryId", categoryId).findAll();
         realm.executeTransaction(bgRealm -> result.deleteAllFromRealm());
         realm.close();

@@ -32,7 +32,6 @@ public class MessageCacheImpl implements MessageCache {
     private final Context context;
     private final FileManager fileManager;
 
-    private Realm realm;
     private RealmConfiguration realmConfiguration;
     //endregion
 
@@ -65,7 +64,7 @@ public class MessageCacheImpl implements MessageCache {
     public Observable<MessageEntity> get(final int messageId) {
 
         return Observable.create(subscriber -> {
-            realm = Realm.getInstance(realmConfiguration);
+            Realm realm = Realm.getInstance(realmConfiguration);
             RealmResults<MessageEntity> result = realm.where(MessageEntity.class).equalTo("messageId", messageId).findAll();
             result.load();
 
@@ -85,7 +84,7 @@ public class MessageCacheImpl implements MessageCache {
     public void put(MessageEntity messageEntity) {
         if (messageEntity != null) {
             if (!isCached(messageEntity.getMessageId())) {
-                realm = Realm.getInstance(realmConfiguration);
+                Realm realm = Realm.getInstance(realmConfiguration);
                 realm.executeTransaction(bgRealm -> bgRealm.copyToRealmOrUpdate(messageEntity));
 
                 setLastCacheUpdateTimeMillis();
@@ -97,7 +96,7 @@ public class MessageCacheImpl implements MessageCache {
     @Override
     public boolean isCached(int messageId) {
         boolean res = false;
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<MessageEntity> result = realm.where(MessageEntity.class).equalTo("messageId", messageId).findAll();
         if (result.size() > 0) {
             res = true;
@@ -122,7 +121,7 @@ public class MessageCacheImpl implements MessageCache {
 
     @Override
     public void evictAll(int messageId) {
-        realm = Realm.getInstance(realmConfiguration);
+        Realm realm = Realm.getInstance(realmConfiguration);
         RealmResults<MessageEntity> result = realm.where(MessageEntity.class).equalTo("messageId", messageId).findAll();
         realm.executeTransaction(bgRealm -> result.deleteAllFromRealm());
         realm.close();
