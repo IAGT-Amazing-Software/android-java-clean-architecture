@@ -8,8 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.UserLoggedModelDataMapper;
-import com.innopro.android.sample.presentation.model.UserLoggedModel;
 import com.innopro.android.sample.presentation.view.UserLoggedView;
 
 import javax.inject.Inject;
@@ -28,16 +26,13 @@ public class UserLoggedPresenter implements Presenter {
     private UserLoggedView viewDetailsView;
 
     private final UseCase getUserLoggedUseCase;
-    private final UserLoggedModelDataMapper userLoggedModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public UserLoggedPresenter(@Named("userLogged") UseCase getUserLoggedUseCase,
-                               UserLoggedModelDataMapper userLoggedModelDataMapper) {
+    public UserLoggedPresenter(@Named("userLogged") UseCase getUserLoggedUseCase) {
         this.getUserLoggedUseCase = getUserLoggedUseCase;
-        this.userLoggedModelDataMapper = userLoggedModelDataMapper;
     }
     //endregion
 
@@ -97,8 +92,7 @@ public class UserLoggedPresenter implements Presenter {
     }
 
     private void showUserLoggedInView(UserLogged userLogged) {
-        final UserLoggedModel userLoggedModel = this.userLoggedModelDataMapper.transform(userLogged);
-        this.viewDetailsView.renderUserLogged(userLoggedModel);
+        this.viewDetailsView.renderUserLogged(userLogged);
     }
 
     private void getUserLogged() {

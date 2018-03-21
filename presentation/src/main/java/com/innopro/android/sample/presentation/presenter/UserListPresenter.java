@@ -8,8 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.UserModelDataMapper;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.view.UserListView;
 
 import java.util.Collection;
@@ -31,16 +29,13 @@ public class UserListPresenter implements Presenter {
     private UserListView viewListView;
 
     private final UseCase getUserListUseCase;
-    private final UserModelDataMapper userModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public UserListPresenter(@Named("userList") UseCase getUserListUserCase,
-                             UserModelDataMapper userModelDataMapper) {
+    public UserListPresenter(@Named("userList") UseCase getUserListUserCase) {
         this.getUserListUseCase = getUserListUserCase;
-        this.userModelDataMapper = userModelDataMapper;
     }
 
     //endregion
@@ -78,8 +73,8 @@ public class UserListPresenter implements Presenter {
         this.getUserList();
     }
 
-    public void onUserClicked(UserModel userModel) {
-        this.viewListView.viewUser(userModel);
+    public void onUserClicked(User user) {
+        this.viewListView.viewUser(user);
     }
 
     private void showViewLoading() {
@@ -105,9 +100,7 @@ public class UserListPresenter implements Presenter {
     }
 
     private void showUsersCollectionInView(Collection<User> usersCollection) {
-        final Collection<UserModel> userModelsCollection =
-                this.userModelDataMapper.transform(usersCollection);
-        this.viewListView.renderUserList(userModelsCollection);
+        this.viewListView.renderUserList(usersCollection);
     }
 
     private void getUserList() {

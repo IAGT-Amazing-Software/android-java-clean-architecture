@@ -1,18 +1,38 @@
 package com.innopro.android.sample.presentation.view.fragment;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.innopro.android.sample.presentation.AndroidApplication;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
+import com.innopro.android.sample.presentation.internal.di.components.ApplicationComponent;
+import com.innopro.android.sample.presentation.navigation.Navigator;
+import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
+
+import javax.inject.Inject;
 
 /**
  * Base {@link android.app.Fragment} class for every fragment in this application.
  */
 public abstract class BaseFragment extends Fragment {
+
+    @Inject
+    Navigator navigator;
+
+    @Inject
+    SharedPreferencesManager sharedPreferencesManager;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((AndroidApplication) getActivity().getApplication()).getApplicationComponent().inject(this);
+    }
 
     //region Constants
     private static final String TAG = BaseFragment.class.getSimpleName();

@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MainComponent;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.presenter.UserListPresenter;
 import com.innopro.android.sample.presentation.view.UserListView;
 import com.innopro.android.sample.presentation.view.adapter.UsersAdapter;
@@ -48,9 +48,9 @@ public class UserListFragment extends BaseFragment implements UserListView {
     private UserListListener userListListener;
 
     private UsersAdapter.OnItemClickListener onItemClickListener =
-            userModel -> {
-                if (UserListFragment.this.userListPresenter != null && userModel != null) {
-                    UserListFragment.this.userListPresenter.onUserClicked(userModel);
+            user -> {
+                if (UserListFragment.this.userListPresenter != null && user != null) {
+                    UserListFragment.this.userListPresenter.onUserClicked(user);
                 }
             };
 
@@ -147,14 +147,14 @@ public class UserListFragment extends BaseFragment implements UserListView {
     }
 
     @Override
-    public void renderUserList(Collection<UserModel> userModelCollection) {
+    public void renderUserList(Collection<User> userModelCollection) {
         if (userModelCollection != null) {
             this.usersAdapter.setUsersCollection(userModelCollection);
         }
     }
 
     @Override
-    public void viewUser(UserModel userModel) {
+    public void viewUser(User userModel) {
         if (this.userListListener != null) {
             this.userListListener.onUserClicked(userModel);
         }
@@ -205,7 +205,7 @@ public class UserListFragment extends BaseFragment implements UserListView {
      * Interface for listening user list events.
      */
     public interface UserListListener {
-        void onUserClicked(final UserModel userModel);
+        void onUserClicked(final User user);
     }
     //endregion
 

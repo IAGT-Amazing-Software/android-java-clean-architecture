@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.hannesdorfmann.fragmentargs.FragmentArgs;
 import com.hannesdorfmann.fragmentargs.annotation.Arg;
 import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs;
+import com.innopro.android.sample.domain.User;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.UserComponent;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.presenter.UserDetailsPresenter;
 import com.innopro.android.sample.presentation.view.UserDetailsView;
 import com.squareup.picasso.Picasso;
@@ -116,7 +116,7 @@ public class UserDetailsFragment extends BaseFragment implements UserDetailsView
     }
 
     @Override
-    public void renderUser(UserModel user) {
+    public void renderUser(User user) {
         if (user != null) {
             Picasso.with(getContext()).load(user.getCoverUrl()).fit().into(this.iv_cover);
             this.tv_fullname.setText(user.getFullName());

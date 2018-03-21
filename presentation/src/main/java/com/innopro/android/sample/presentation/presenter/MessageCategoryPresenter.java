@@ -8,8 +8,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.CategoryModelDataMapper;
-import com.innopro.android.sample.presentation.model.CategoryModel;
 import com.innopro.android.sample.presentation.view.MessageCategoryView;
 
 import java.util.Collection;
@@ -31,16 +29,13 @@ public class MessageCategoryPresenter implements Presenter {
     private MessageCategoryView viewListView;
 
     private final UseCase getMessageCategoryUseCase;
-    private final CategoryModelDataMapper categoryModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public MessageCategoryPresenter(@Named("categoryList") UseCase getMessageCategoryUseCase,
-                                    CategoryModelDataMapper categoryModelDataMapper) {
+    public MessageCategoryPresenter(@Named("categoryList") UseCase getMessageCategoryUseCase) {
         this.getMessageCategoryUseCase = getMessageCategoryUseCase;
-        this.categoryModelDataMapper = categoryModelDataMapper;
     }
     /**
      * Initializes the presenter by start retrieving the message list.
@@ -76,8 +71,8 @@ public class MessageCategoryPresenter implements Presenter {
         this.getMessageCategories();
     }
 
-    public void onCategoryClicked(CategoryModel categoryModel) {
-        this.viewListView.viewMessageList(categoryModel);
+    public void onCategoryClicked(Category category) {
+        this.viewListView.viewMessageList(category);
     }
 
     private void showViewLoading() {
@@ -103,9 +98,7 @@ public class MessageCategoryPresenter implements Presenter {
     }
 
     private void showCategoryCollectionInView(Collection<Category> categoriesCollection) {
-        final Collection<CategoryModel> categoryModelsCollection =
-                this.categoryModelDataMapper.transform(categoriesCollection);
-        this.viewListView.renderCategoryList(categoryModelsCollection);
+        this.viewListView.renderCategoryList(categoriesCollection);
     }
 
     private void getMessageCategories() {

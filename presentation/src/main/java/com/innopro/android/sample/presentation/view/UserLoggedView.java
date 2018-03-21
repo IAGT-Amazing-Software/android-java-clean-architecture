@@ -1,6 +1,6 @@
 package com.innopro.android.sample.presentation.view;
 
-import com.innopro.android.sample.presentation.model.UserLoggedModel;
+import com.innopro.android.sample.domain.UserLogged;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
@@ -10,7 +10,7 @@ public interface UserLoggedView extends LoadDataView {
   /**
    * Render a user in the UI.
    *
-   * @param userLogged The {@link UserLoggedModel} that will be shown.
+   * @param userLogged The {@link UserLogged} that will be shown.
    */
-  void renderUserLogged(UserLoggedModel userLogged);
+  void renderUserLogged(UserLogged userLogged);
 }

@@ -10,8 +10,11 @@ import com.innopro.android.sample.domain.repository.UserLoggedRepository;
 import com.innopro.android.sample.domain.repository.UserRepository;
 import com.innopro.android.sample.presentation.internal.di.modules.ApplicationModule;
 import com.innopro.android.sample.presentation.internal.di.modules.TokenModule;
+import com.innopro.android.sample.presentation.navigation.Navigator;
+import com.innopro.android.sample.presentation.utils.SharedPreferencesManager;
 import com.innopro.android.sample.presentation.view.activity.BaseActivity;
 import com.innopro.android.sample.presentation.view.activity.MainActivity;
+import com.innopro.android.sample.presentation.view.fragment.BaseFragment;
 
 import javax.inject.Singleton;
 
@@ -25,6 +28,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(BaseActivity baseActivity);
     void inject(MainActivity mainActivity);
+    void inject(BaseFragment baseFragment);
 
     //Exposed to sub-graphs.
     Context context();
@@ -40,4 +44,8 @@ public interface ApplicationComponent {
     UserLoggedRepository userLoggedRepository();
 
     TokenRepository provideTokenRepository();
+
+    SharedPreferencesManager provideSharedPreferencesManager();
+
+    Navigator provideNavigator();
 }

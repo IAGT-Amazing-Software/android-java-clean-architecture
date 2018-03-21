@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.innopro.android.sample.domain.Message;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.HasComponent;
 import com.innopro.android.sample.presentation.internal.di.components.DaggerMessageComponent;
 import com.innopro.android.sample.presentation.internal.di.components.MessageComponent;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.fragment.MessageListFragment;
 import com.innopro.android.sample.presentation.view.fragment.MessageListFragmentBuilder;
 
@@ -105,7 +105,7 @@ public class MessageListActivity extends BaseActivity implements HasComponent<Me
     }
 
     @Override
-    public void onMessageClicked(MessageModel messageModel) {
+    public void onMessageClicked(Message messageModel) {
         this.navigator.navigateToMessageDetails(this, messageModel.getMessageId());
     }
     //endregion

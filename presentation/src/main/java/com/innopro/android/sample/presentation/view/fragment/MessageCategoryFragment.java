@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.innopro.android.sample.domain.Category;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MainComponent;
-import com.innopro.android.sample.presentation.model.CategoryModel;
 import com.innopro.android.sample.presentation.presenter.MessageCategoryPresenter;
 import com.innopro.android.sample.presentation.view.MessageCategoryView;
 import com.innopro.android.sample.presentation.view.adapter.CategoriesAdapter;
@@ -49,9 +49,9 @@ public class MessageCategoryFragment extends BaseFragment implements MessageCate
     private MessageCategoryListener messageCategoryListener;
 
     private CategoriesAdapter.OnItemClickListener onItemClickListener =
-            categoryModel -> {
-                if (MessageCategoryFragment.this.messageCategoryPresenter != null && categoryModel != null) {
-                    MessageCategoryFragment.this.messageCategoryPresenter.onCategoryClicked(categoryModel);
+            category -> {
+                if (MessageCategoryFragment.this.messageCategoryPresenter != null && category != null) {
+                    MessageCategoryFragment.this.messageCategoryPresenter.onCategoryClicked(category);
                 }
             };
 
@@ -145,14 +145,14 @@ public class MessageCategoryFragment extends BaseFragment implements MessageCate
     }
 
     @Override
-    public void renderCategoryList(Collection<CategoryModel> categoryModelCollection) {
+    public void renderCategoryList(Collection<Category> categoryModelCollection) {
         if (categoryModelCollection != null) {
             this.categoriesAdapter.setCategoriesCollection(categoryModelCollection);
         }
     }
 
     @Override
-    public void viewMessageList(CategoryModel categoryModel) {
+    public void viewMessageList(Category categoryModel) {
         if (this.messageCategoryListener != null) {
             this.messageCategoryListener.onCategoryClicked(categoryModel);
         }
@@ -205,7 +205,7 @@ public class MessageCategoryFragment extends BaseFragment implements MessageCate
      * Interface for listening message list events.
      */
     public interface MessageCategoryListener {
-        void onCategoryClicked(final CategoryModel categoryModel);
+        void onCategoryClicked(final Category category);
     }
     //endregion
 

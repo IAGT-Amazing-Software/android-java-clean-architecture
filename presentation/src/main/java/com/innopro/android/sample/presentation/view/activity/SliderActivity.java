@@ -29,11 +29,11 @@ public class SliderActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slider_activity);
-        ButterKnife.bind(this);
         if(sharedPreferencesManager.getBoolean(AppConstants.FIRST_INSTALLATION)){
             navigator.navigateToSplash(this);
         }else{
+            setContentView(R.layout.slider_activity);
+            ButterKnife.bind(this);
             vp_slider.setAdapter(new SliderAdapter(getSupportFragmentManager()));
             ci_slider.setViewPager(vp_slider);
 

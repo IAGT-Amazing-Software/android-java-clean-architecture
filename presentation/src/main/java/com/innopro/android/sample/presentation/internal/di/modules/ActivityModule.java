@@ -11,6 +11,7 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
+
   private final BaseActivity activity;
 
   public ActivityModule(BaseActivity activity) {

@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.innopro.android.sample.domain.UserLogged;
 import com.innopro.android.sample.presentation.R;
 import com.innopro.android.sample.presentation.R2;
 import com.innopro.android.sample.presentation.internal.di.components.MainComponent;
-import com.innopro.android.sample.presentation.model.UserLoggedModel;
 import com.innopro.android.sample.presentation.presenter.UserLoggedPresenter;
 import com.innopro.android.sample.presentation.view.UserLoggedView;
 import com.squareup.picasso.Picasso;
@@ -96,7 +96,7 @@ public class UserLoggedFragment extends BaseFragment implements UserLoggedView {
     }
 
     @Override
-    public void renderUserLogged(UserLoggedModel userLogged) {
+    public void renderUserLogged(UserLogged userLogged) {
         if (userLogged != null) {
             Log.d(getTag(), userLogged.getFullName());
             Picasso.with(getContext())

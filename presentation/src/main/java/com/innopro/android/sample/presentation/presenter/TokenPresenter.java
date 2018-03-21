@@ -9,8 +9,6 @@ import com.innopro.android.sample.domain.exception.ErrorBundle;
 import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.TokenModelDataMapper;
-import com.innopro.android.sample.presentation.model.TokenModel;
 import com.innopro.android.sample.presentation.view.TokenView;
 
 import javax.inject.Inject;
@@ -28,14 +26,12 @@ public class TokenPresenter implements Presenter {
     //region Fields
     private final UseCase useCase;
     private TokenView tokenView;
-    private TokenModelDataMapper tokenModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public TokenPresenter(@Named("TokenUseCase") UseCase useCase, TokenModelDataMapper tokenModelDataMapper) {
-        this.tokenModelDataMapper = tokenModelDataMapper;
+    public TokenPresenter(@Named("TokenUseCase") UseCase useCase) {
         this.useCase = useCase;
     }
 
@@ -99,8 +95,7 @@ public class TokenPresenter implements Presenter {
     }
 
     private void showTokenInView(Token token) {
-        TokenModel tokenModel = tokenModelDataMapper.transform(token);
-        this.tokenView.renderToken(tokenModel);
+        this.tokenView.renderToken(token);
     }
 
     private void getToken() {

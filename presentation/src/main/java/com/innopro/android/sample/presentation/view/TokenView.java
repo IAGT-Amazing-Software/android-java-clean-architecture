@@ -1,7 +1,7 @@
 package com.innopro.android.sample.presentation.view;
 
 
-import com.innopro.android.sample.presentation.model.TokenModel;
+import com.innopro.android.sample.domain.Token;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
@@ -13,6 +13,6 @@ public interface TokenView extends LoadDataView {
      *
      * @param token The collection of {@link String} that will be shown.
      */
-    void renderToken(TokenModel token);
+    void renderToken(Token token);
 
 }

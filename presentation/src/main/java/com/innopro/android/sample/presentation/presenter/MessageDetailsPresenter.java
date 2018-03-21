@@ -9,8 +9,6 @@ import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.GetMessageDetails;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.MessageModelDataMapper;
-import com.innopro.android.sample.presentation.model.MessageModel;
 import com.innopro.android.sample.presentation.view.MessageDetailsView;
 
 import javax.inject.Inject;
@@ -29,16 +27,13 @@ public class MessageDetailsPresenter implements Presenter {
     private MessageDetailsView viewDetailsView;
 
     private final UseCase getMessageDetailsUseCase;
-    private final MessageModelDataMapper messageModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public MessageDetailsPresenter(@Named("messageDetails") UseCase getMessageDetailsUseCase,
-                                   MessageModelDataMapper messageModelDataMapper) {
+    public MessageDetailsPresenter(@Named("messageDetails") UseCase getMessageDetailsUseCase) {
         this.getMessageDetailsUseCase = getMessageDetailsUseCase;
-        this.messageModelDataMapper = messageModelDataMapper;
     }
     /**
      * Initializes the presenter by start retrieving message details.
@@ -98,8 +93,7 @@ public class MessageDetailsPresenter implements Presenter {
     }
 
     private void showMessageDetailsInView(Message message) {
-        final MessageModel messageModel = this.messageModelDataMapper.transform(message);
-        this.viewDetailsView.renderMessage(messageModel);
+        this.viewDetailsView.renderMessage(message);
     }
 
     private void getMessageDetails(int messageId) {

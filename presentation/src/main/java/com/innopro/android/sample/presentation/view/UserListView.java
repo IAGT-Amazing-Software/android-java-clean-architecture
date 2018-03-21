@@ -1,25 +1,25 @@
 package com.innopro.android.sample.presentation.view;
 
-import com.innopro.android.sample.presentation.model.UserModel;
+import com.innopro.android.sample.domain.User;
 
 import java.util.Collection;
 
 /**
  * Interface representing a View in a model view presenter (MVP) pattern.
- * In this case is used as a view representing a list of {@link UserModel}.
+ * In this case is used as a view representing a list of {@link User}.
  */
 public interface UserListView extends LoadDataView {
   /**
    * Render a user list in the UI.
    *
-   * @param userModelCollection The collection of {@link UserModel} that will be shown.
+   * @param userModelCollection The collection of {@link User} that will be shown.
    */
-  void renderUserList(Collection<UserModel> userModelCollection);
+  void renderUserList(Collection<User> userModelCollection);
 
   /**
-   * View a {@link UserModel} profile/details.
+   * View a {@link User} profile/details.
    *
-   * @param userModel The user that will be shown.
+   * @param user The user that will be shown.
    */
-  void viewUser(UserModel userModel);
+  void viewUser(User user);
 }

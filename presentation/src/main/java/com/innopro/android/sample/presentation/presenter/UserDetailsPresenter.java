@@ -9,8 +9,6 @@ import com.innopro.android.sample.domain.interactor.DefaultSubscriber;
 import com.innopro.android.sample.domain.interactor.GetUserDetails;
 import com.innopro.android.sample.domain.interactor.UseCase;
 import com.innopro.android.sample.presentation.exception.ErrorMessageFactory;
-import com.innopro.android.sample.presentation.mapper.UserModelDataMapper;
-import com.innopro.android.sample.presentation.model.UserModel;
 import com.innopro.android.sample.presentation.view.UserDetailsView;
 
 import javax.inject.Inject;
@@ -29,16 +27,13 @@ public class UserDetailsPresenter implements Presenter {
     private UserDetailsView viewDetailsView;
 
     private final UseCase getUserDetailsUseCase;
-    private final UserModelDataMapper userModelDataMapper;
 
     //endregion
 
     //region Constructors & Initialization
     @Inject
-    public UserDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase,
-                                UserModelDataMapper userModelDataMapper) {
+    public UserDetailsPresenter(@Named("userDetails") UseCase getUserDetailsUseCase) {
         this.getUserDetailsUseCase = getUserDetailsUseCase;
-        this.userModelDataMapper = userModelDataMapper;
     }
     //endregion
 
@@ -98,8 +93,7 @@ public class UserDetailsPresenter implements Presenter {
     }
 
     private void showUserDetailsInView(User user) {
-        final UserModel userModel = this.userModelDataMapper.transform(user);
-        this.viewDetailsView.renderUser(userModel);
+        this.viewDetailsView.renderUser(user);
     }
 
     private void getUserDetails(int userId) {
