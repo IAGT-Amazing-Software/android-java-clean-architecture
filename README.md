@@ -26,4 +26,5 @@ Libraries
 Proximos cambios: 
 *********************************
 * Flavors android studio 3.0
-• Cambiar cacheimpl para que se habra y cierra realm en el mismo metodo
+ï¿½ Cambiar cacheimpl para que se habra y cierra realm en el mismo metodo
+- AÃ±adir bloqueador de app con respecto a actualizaciones.
