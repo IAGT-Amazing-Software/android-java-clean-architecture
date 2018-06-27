@@ -26,5 +26,4 @@ Libraries
 Proximos cambios: 
 *********************************
 * Flavors android studio 3.0
-� Cambiar cacheimpl para que se habra y cierra realm en el mismo metodo
-- Añadir bloqueador de app con respecto a actualizaciones.
+* Plantillas tama�os
