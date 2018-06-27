@@ -25,7 +25,5 @@ Libraries
 
 Proximos cambios: 
 *********************************
-* A�adir interceptor a Retrofit para mostrar urls
 * Flavors android studio 3.0
 * Plantillas tama�os
-* Añadir slide principal con variables de control (mostrar o no, mostrar solo la primera vez, etc)
